@@ -5,5 +5,5 @@
    $dbhost = 'localhost';
    $dbuser = 'root';
    $dbpass = 'root';
-   $dbname = 'kxk060100_autopartstore';
+   $dbname = 'autopartstore';
 ?>
