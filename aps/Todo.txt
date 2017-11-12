@@ -1,0 +1,17 @@
+1. Finish Registration Page - Sri
+2. Update all pages with login check - Sri
+3. Update all pages with logout and username display - Sri
+
+4. Update all pages to show based on user role - Sri
+
+5. Update index page to have addtocart function working - Kartheek
+6. Update index page to have all possible types of searches (GetPartsFromCarInfo.php) - Kartheek
+7. Update index page to display all items by default - Karthek
+
+8. Get sample images from web - Kartheek
+9. Update table with image info - Kartheek
+10. Update index page to show part images - Kartheek
+
+11. Create Cart Page
+12. Create Check out functionality
+
