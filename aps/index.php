@@ -62,7 +62,7 @@
 				</div>
 				<div class="form-group">
 					<label for="carYear">Enter Year:</label>
-					<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carYear" placeholder="Car Model Year">
+					<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carYear" placeholder="Car Model Year" ng-model="carYear">
 				</div>
 				<div class="form-group">
 					<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getParts()">Submit</button>
@@ -107,11 +107,13 @@
 			app.controller('appCtrl', function($scope, $http) {
 				$scope.getCarMake = function() {
 					$http.get("php/GetCarMakeInfo.php").then(function (response) {$scope.make = response.data.records;});
+					//$scope.carYear = "";
 				};
 				
 				$scope.getCarModel = function() {
 					var make = $('#carMake').val();
 					$http.get("php/GetCarModelInfo.php",{params:{"make": make}}).then(function (response) {$scope.model = response.data.records;});
+					//$scope.carYear = "";
 				};
 				
 				$scope.getParts = function() {
@@ -119,13 +121,18 @@
 					var model = $('#carModel').val();
 					var year = $('#carYear').val();
 					
-					if(model != "" && year != "") {
-						//console.log(input);
-						$http.get("php/GetPartsFromCarInfo.php",  {params:{"make": make, "model": model, "year": year}}).then(function (response) {$scope.names = response.data.records;});
-					}
+					//console.log(make + "," + model + "," + year);
+
+					$http.get("php/GetPartsFromCarInfo.php",  {
+						params:{"make": make, "model": model, "year": year}
+					}).then(function (response) {
+						$scope.names = response.data.records;
+					});
 				};
 				
 				$scope.getCarMake();
+				
+				$scope.getParts();
 
 				$scope.addToCart = function(partNo){
 					console.log(partNo);
