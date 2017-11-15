@@ -8,9 +8,9 @@
 6. Update index page to have all possible types of searches (GetPartsFromCarInfo.php) - Kartheek - DONE
 7. Update index page to display all items by default - Kartheek - DONE
 
-8. Get sample images from web - Kartheek
-9. Update table with image info - Kartheek
-10. Update index page to show part images - Kartheek
+8. Get sample images from web - Kartheek - DONE
+9. Update table with image info - Kartheek - DONE
+10. Update index page to show part images - Kartheek - DONE
 
 11. Create Cart Page
 12. Create Check out functionality

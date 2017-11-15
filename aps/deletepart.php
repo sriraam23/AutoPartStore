@@ -66,6 +66,14 @@
 							<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" placeholder="Part Number" value={{part.PartNo}} disabled>
 						</div>
 					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="pname">Part Image:</label>
+						<div class="col-sm-10">
+							<img ng-src='img/{{ part.PImage}}' alt='{{ part.Pname }}'></img>
+							<!--<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" placeholder="Part Name" value={{part.Pname}} disabled>-->
+						</div>
+					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pname">Part Name:</label>
@@ -155,7 +163,7 @@
 						//console.log(queryResult);
 						$scope.resultclass = "alert alert-success";
 						
-						$scope.parts = JSON.parse("{\"records\":[{\"PartNo\":\"\",\"Pname\":\"\",\"PCompany\":\"\",\"Price\":\"\",\"SubCatID\":\"\",\"WarrantyID\":\"\"}]}");
+						$scope.parts = JSON.parse("{\"records\":[{\"PartNo\":\"\",\"PImage\":\"\",\"Pname\":\"\",\"PCompany\":\"\",\"Price\":\"\",\"SubCatID\":\"\",\"WarrantyID\":\"\"}]}");
 						$scope.getAllParts();
 					}
 					else 

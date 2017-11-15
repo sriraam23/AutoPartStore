@@ -75,6 +75,7 @@
 			<table class="table table-hover">
 				<tr>
 					<th>Part Number</th>
+					<th>Part Image</th>
 					<th>Part Name</th>
 					<th>Price</th>
 					<th>Sub Category</th>
@@ -83,6 +84,7 @@
 				</tr>
 				<tr ng-repeat="x in names | filter:searchText">
 					<td>{{ x.PartNo}}</td>
+					<td><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
 					<td>{{ x.PCompany }} {{ x.Pname }}</td>
 					<td>${{ x.Price }}</td>
 					<td>{{ x.SubCatID }}</td>
@@ -134,13 +136,29 @@
 				
 				$scope.getParts();
 
-				$scope.addToCart = function(partNo){
+				$scope.addToCart = function(partNo) {
 					console.log(partNo);
+					/*
+					var queryResult = "";
+					
+					$http.get("php/AddToCart.php",{params:{"partno": partno, "username": username}}).then(function (response) {
+					    queryResult = JSON.stringify(response.data.records);
+						
+						if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
+						{
+							//console.log(queryResult);
+							$scope.resultclass = "alert alert-success";
+						}
+						else 
+						{
+							//console.log("FAIL: " + queryResult);
+							$scope.resultclass = "alert alert-danger";
+						}
+						
+						$scope.result = response.data.records;
+					});
+					*/
 				}
-			});
-
-			$(function(){
-
 			});
 		</script>
 </body>
