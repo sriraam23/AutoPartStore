@@ -17,6 +17,7 @@
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="js/totop.js"></script>
     <script type="text/javascript" src="js/validator.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 
     <title>Autopart Store Registration</title>
     <style>
@@ -76,7 +77,7 @@
                 <div class="col-md-4 inputGroupContainer">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="E-Mail Address" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="E-Mail Address" required>
                   </div>
                 </div>
               </div>
@@ -86,7 +87,7 @@
                 <div class="col-md-4 inputGroupContainer">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="(845)555-1212">
+                    <input type="tel" class="form-control phone_us" id="phone" name="phone" maxlength="14" placeholder="(845) 555-1212">
                   </div>
                 </div>
               </div>
@@ -96,7 +97,7 @@
                 <div class="col-md-4 inputGroupContainer">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                    <input id="street" name="street" placeholder="Address" class="form-control" type="text">
+                    <input id="street" name="street" placeholder="Street" class="form-control" type="text">
                   </div>
                 </div>
               </div>
@@ -106,7 +107,7 @@
                 <div class="col-md-4 inputGroupContainer">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                    <input id="city" name="city" placeholder="city" class="form-control"  type="text">
+                    <input id="city" name="city" placeholder="City" class="form-control"  type="text">
                   </div>
                 </div>
               </div>
@@ -221,6 +222,8 @@
 
     <script type="text/javascript">
       $(function(){
+        $("#phone").mask("(999) 999-9999");
+
         $('#cancel').click(function(){
           window.location='login.html'
         });
