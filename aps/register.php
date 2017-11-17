@@ -35,83 +35,185 @@
   <body>
     <div class="container container-table">
       <div class="row vertical-center-row">
-        <div class="col-md-4 col-md-offset-4 text-center">
-      		<form class="form-horizontal" role="form" data-toggle="validator" ]>
-            <div class="form-group has-feedback"">
-              <label for="username" class="col-sm-4 control-label">Username</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" data-minlength="6" id="username" name="username" placeholder="Username" value="" data-error="Incorrect Length" required>
-                <span class="help-block with-errors" />
+        <div class="col-md-8 col-md-offset-2 text-center">
+      		<form class="form-horizontal" role="form" data-toggle="validator">
+            <fieldset>
+              <div class="form-group has-feedback"">
+                <label for="username" class="col-md-4 control-label">Username</label>
+                <div class="col-md-4 inputGroupContainer">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" data-minlength="6" data-error="Incorrect Length" required>
+                  </div>
+                </div>
+                <div class="col-md-4 text-left">
+                  <span class="help-block with-errors" />
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="firstname" class="col-sm-4 control-label">First Name</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" value="" required>
+
+              <div class="form-group">
+                <label for="fristname" class="col-md-4 control-label" >First Name</label> 
+                <div class="col-md-4 inputGroupContainer">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" class="form-control" id="fristname" name="fristname" placeholder="First Name" required>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="lastname" class="col-sm-4 control-label">Last Name</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" value="" required>
+
+              <div class="form-group">
+                <label for="lastname" class="col-md-4 control-label" >Last Name</label> 
+                <div class="col-md-4 inputGroupContainer">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="street" class="col-sm-4 control-label">Street</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="street" name="street" placeholder="Street" value="" required>
+
+              <div class="form-group">
+                <label for="email" class="col-md-4 control-label" >E-Mail</label> 
+                <div class="col-md-4 inputGroupContainer">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="E-Mail Address" required>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="city" class="col-sm-4 control-label">City</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="city" name="city" placeholder="City" value="" required>
+
+              <div class="form-group">
+                <label for="phone" class="col-md-4 control-label">Phone #</label>  
+                <div class="col-md-4 inputGroupContainer">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="(845)555-1212">
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="state" class="col-sm-4 control-label">State</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="state" name="state" placeholder="State" value="" required>
+
+              <div class="form-group">
+                <label for="street" class="col-md-4 control-label">Address</label>  
+                <div class="col-md-4 inputGroupContainer">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                    <input id="street" name="street" placeholder="Address" class="form-control" type="text">
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="zipcode" class="col-sm-4 control-label">Zipcode</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zipcode" value="" required>
+   
+              <div class="form-group">
+                <label foir="city" class="col-md-4 control-label">City</label>  
+                <div class="col-md-4 inputGroupContainer">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                    <input id="city" name="city" placeholder="city" class="form-control"  type="text">
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="phone" class="col-sm-4 control-label">Phone</label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" value="" required>
+     
+              <div class="form-group"> 
+                <label id="state" class="col-md-4 control-label">State</label>
+                <div class="col-md-4 selectContainer">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                    <select id="state" name="state" class="form-control selectpicker" >
+                      <option value="" >Please select your state</option>
+                      <option value="Alabama">Alabama</option>
+                      <option value="Alaska">Alaska</option>
+                      <option value="Arizona">Arizona</option>
+                      <option value="Arkansas">Arkansas</option>
+                      <option value="California">California</option>
+                      <option value="Colorado">Colorado</option>
+                      <option value="Connecticut">Connecticut</option>
+                      <option value="Delaware">Delaware</option>
+                      <option value="District of Columbia">District of Columbia</option>
+                      <option value="Florida">Florida</option>
+                      <option value="Georgia">Georgia</option>
+                      <option value="Hawaii">Hawaii</option>
+                      <option value="Idaho">Idaho</option>
+                      <option value="Illinois">Illinois</option>
+                      <option value="Indiana">Indiana</option>
+                      <option value="Iowa">Iowa</option>
+                      <option value="Kansas">Kansas</option>
+                      <option value="Kentucky">Kentucky</option>
+                      <option value="Louisiana">Louisiana</option>
+                      <option value="Maine">Maine</option>
+                      <option value="Maryland">Maryland</option>
+                      <option value="Massachusetts">Massachusetts</option>
+                      <option value="Michigan">Michigan</option>
+                      <option value="Minnesota">Minnesota</option>
+                      <option value="Mississippi">Mississippi</option>
+                      <option value="Missouri">Missouri</option>
+                      <option value="Montana">Montana</option>
+                      <option value="Nebraska">Nebraska</option>
+                      <option value="Nevada">Nevada</option>
+                      <option value="New Hampshire">New Hampshire</option>
+                      <option value="New Jersey">New Jersey</option>
+                      <option value="New Mexico">New Mexico</option>
+                      <option value="New York">New York</option>
+                      <option value="North Carolina">North Carolina</option>
+                      <option value="North Dakota">North Dakota</option>
+                      <option value="Ohio">Ohio</option>
+                      <option value="Oklahoma">Oklahoma</option>
+                      <option value="Oregon">Oregon</option>
+                      <option value="Pennsylvania">Pennsylvania</option>
+                      <option value="Rhode Island">Rhode Island</option>
+                      <option value="South Carolina">South Carolina</option>
+                      <option value="South Dakota">South Dakota</option>
+                      <option value="Tennessee">Tennessee</option>
+                      <option value="Texas">Texas</option>
+                      <option value="Uttah">Uttah</option>
+                      <option value="Vermont">Vermont</option>
+                      <option value="Virginia">Virginia</option>
+                      <option value="Washington">Washington</option>
+                      <option value="West Virginia">West Virginia</option>
+                      <option value="Wisconsin">Wisconsin</option>
+                      <option value="Wyoming">Wyoming</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="email" class="col-sm-4 control-label">Email</label>
-              <div class="col-sm-8">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="" required>
+
+              <div class="form-group">
+                <label for="zip" class="col-md-4 control-label">Zip Code</label>  
+                <div class="col-md-4 inputGroupContainer">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                    <input id="zip" name="zip" placeholder="Zip Code" class="form-control"  type="text">
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="password" class="col-sm-4 control-label">Password</label>
-              <div class="col-sm-8">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="" required>
+
+              <div class="form-group">
+                <label for="password" class="col-md-4 control-label">Password</label>
+                <div class="col-md-4 inputGroupContainer">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input id="password" name="password" placeholder="Password" class="form-control"  type="password" required>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label for="cpassword" class="col-sm-4 control-label">Confirm Password</label>
-              <div class="col-sm-8">
-                <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Password" value="" required>
+
+              <div class="form-group">
+                <label for="cpassword" class="col-md-4 control-label">Confirm Password</label>
+                <div class="col-md-4 inputGroupContainer">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input id="cpassword" name="cpassword" placeholder="Confirm Password" class="form-control"  type="password" required>
+                  </div>
+                </div>
               </div>
-            </div>
-        		<div class="form-group">
-        			<div class="col-sm-2 col-sm-offset-4">
-        				<input id="register" name="register" type="button" value="Register" class="btn btn-primary">
-        			</div>
-              <div class="col-sm-2 col-sm-offset-1">
-                <input id="cancel" name="cancel" type="button" value="Cancel" class="btn btn-secondary">
+
+              <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-2" style="text-align: left;">
+                  <button type="submit" id="register" name="register" class="btn btn-primary" >Register <span class="glyphicon glyphicon-send"></span></button>
+                </div>
+                <div class="col-md-2" style="text-align: left;">
+                  <button type="button" id="cancel" name="cancel" class="btn" >Cancel <span class="glyphicon glyphicon-remove"></span></button>
+                </div>
               </div>
-        		</div>
+            </fieldset>
       		</form>
       	</div>
       </div>
