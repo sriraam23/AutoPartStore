@@ -1,4 +1,4 @@
-1. Finish Registration Page - Sri
+1. Finish Registration Page - Sri - Pending username validation.
 2. Update all pages with login check - Sri
 3. Update all pages with logout and username display - Sri
 
