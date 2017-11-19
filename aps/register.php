@@ -39,12 +39,12 @@
           <div ng-controller="registerUserCtrl">
         		<form id="register" name="register" class="form-horizontal" role="form" data-toggle="validator" ng-submit="registerUser()">
               <fieldset>
-                <div class="form-group has-feedback"">
+                <div class="form-group has-feedback">
                   <label for="username" class="col-md-4 control-label">Username</label>
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                      <input type="text" class="form-control" id="username" name="username" placeholder="Username" data-minlength="6" data-error="Incorrect Length!" required>
+                      <input type="text" class="form-control" id="username" name="username" placeholder="Username" pattern=".{6,}" data-remote="/aps/php/CheckUser.php" data-pattern-error="Username must be minimum of 6 characters!" required>
                     </div>
                   </div>
                   <div class="col-md-4 text-left">
@@ -52,12 +52,12 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label for="firstname" class="col-md-4 control-label">First Name</label> 
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                      <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" data-error="Required!" required>
+                      <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required>
                     </div>
                   </div>
                   <div class="col-md-4 text-left">
@@ -65,12 +65,12 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label for="lastname" class="col-md-4 control-label">Last Name</label> 
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                      <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" data-error="Required!" required>
+                      <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required>
                     </div>
                   </div>
                   <div class="col-md-4 text-left">
@@ -78,7 +78,7 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label for="email" class="col-md-4 control-label">E-Mail</label> 
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -91,7 +91,7 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label for="phone" class="col-md-4 control-label">Phone #</label>  
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -104,12 +104,12 @@
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label for="street" class="col-md-4 control-label">Address</label>  
+                <div class="form-group has-feedback">
+                  <label for="street" class="col-md-4 control-label">Street</label>  
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                      <input id="street" name="street" placeholder="Street" class="form-control" type="text">
+                      <input id="street" name="street" placeholder="Street" class="form-control" type="text" required>
                     </div>
                   </div>
                   <div class="col-md-4 text-left">
@@ -117,12 +117,12 @@
                   </div>
                 </div>
      
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label for="city" class="col-md-4 control-label">City</label>  
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                      <input id="city" name="city" placeholder="City" class="form-control"  type="text">
+                      <input id="city" name="city" placeholder="City" class="form-control"  type="text" required>
                     </div>
                   </div>
                   <div class="col-md-4 text-left">
@@ -130,12 +130,12 @@
                   </div>
                 </div>
        
-                <div class="form-group"> 
+                <div class="form-group has-feedback"> 
                   <label for="state" class="col-md-4 control-label">State</label>
                   <div class="col-md-4 selectContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                      <select id="state" name="state" class="form-control selectpicker">
+                      <select id="state" name="state" class="form-control selectpicker" required>
                         <option value="">Please select your state</option>
                         <option value="Alabama">Alabama</option>
                         <option value="Alaska">Alaska</option>
@@ -196,12 +196,12 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label for="zip" class="col-md-4 control-label">Zip Code</label>  
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                      <input id="zip" name="zip" placeholder="Zip Code" class="form-control"  type="text">
+                      <input id="zip" name="zip" placeholder="Zip Code" class="form-control" type="text" required>
                     </div>
                   </div>
                   <div class="col-md-4 text-left">
@@ -209,12 +209,12 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label for="password" class="col-md-4 control-label">Password</label>
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                      <input id="password" name="password" placeholder="Password" class="form-control"  type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                      <input id="password" name="password" placeholder="Password" class="form-control" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" data-pattern-error="Password must be atleast 8 characters, have 1 uppercase & 1 symbol" required>
                     </div>
                   </div>
                   <div class="col-md-4 text-left">
@@ -222,7 +222,7 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label for="cpassword" class="col-md-4 control-label">Confirm Password</label>
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -235,7 +235,7 @@
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group has-feedback">
                   <label class="col-md-4 control-label"></label>
                   <div class="col-md-2" style="text-align: left;">
                     <button type="submit" id="submit" name="submit" class="btn btn-primary">Register <span class="glyphicon glyphicon-send"></span></button>
@@ -292,6 +292,7 @@
 
       $(function(){
         $("#phone").mask("(999) 999-9999");
+        $("#zip").mask("99999");
 
         $('#cancel').click(function(){
           window.location='login.html';
