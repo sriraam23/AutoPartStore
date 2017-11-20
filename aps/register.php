@@ -44,7 +44,7 @@
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                      <input type="text" class="form-control" id="username" name="username" placeholder="Username" pattern=".{6,}" data-remote="/aps/php/CheckUser.php" data-pattern-error="Username must be minimum of 6 characters!" required>
+                      <input type="text" class="form-control" id="username" name="username" placeholder="Username" pattern=".{6,}" data-remote="/aps/php/CheckUser.php" data-pattern-error="Username must be minimum of 6 characters!" data-remote-error="Username already taken." required>
                     </div>
                   </div>
                   <div class="col-md-4 text-left">
@@ -214,7 +214,7 @@
                   <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                      <input id="password" name="password" placeholder="Password" class="form-control" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" data-pattern-error="Password must be atleast 8 characters, have 1 uppercase & 1 symbol" required>
+                      <input id="password" name="password" placeholder="Password" class="form-control" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" data-pattern-error="Password must be atleast 8 characters, have 1 uppercase & 1 number" required>
                     </div>
                   </div>
                   <div class="col-md-4 text-left">

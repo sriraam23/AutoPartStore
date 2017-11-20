@@ -1,6 +1,6 @@
 <?php
 	include 'php/CheckSession.php';
-	include 'php/CheckAdmin.php';
+	include 'php/CheckAdmin.php';	
 ?>
 <html ng-app="aps" lang="en">
 <head>
@@ -20,7 +20,6 @@
 </head>
 
 <body>
-	
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -48,12 +47,12 @@
 							<li><a href="updatepart.php">Update Part</a></li> 
 							<li><a href="deletepart.php">Delete Part</a></li>
 							<li><a href="about.php">About</a></li>
-							<li><a href="usercart.php">Cart</a></li>
+							<li><a href="usercart.php" class="active">Cart</a></li>
 							</ul>');
 						}
 						else{
 							echo('
-							<li><a href="usercart.php">Cart</a></li>
+							<li><a href="usercart.php" class="active">Cart</a></li>
 							</ul>');
 						}
 					?>

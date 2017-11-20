@@ -1,3 +1,10 @@
+<?php
+	include 'php/CheckSession.php';
+	include 'php/CheckAdmin.php';
+		if ($_SESSION['admin'] != 1){
+		header('Location: index.php');
+	}
+?>
 <html ng-app="uppart" lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -21,6 +28,12 @@
 </head>
 
 <body>
+	<?php
+	session_start();
+	if(!(isset($_SESSION['sess_username']))){
+		header('Location: login.html');
+	}
+	?>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -44,6 +57,16 @@
 					<li class="active"><a href="updatepart.php">Update Part</a></li>
 					<li><a href="deletepart.php">Delete Part</a></li>
 					<li><a href="about.php">About</a></li>
+					<li><a href="usercart.php">Cart</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
+							<span style="padding-right: 10px">
+								<img alt="Brand" src="./img/logout.ico">
+								<strong>Logout</strong>
+							</span>
+						</a>
+					</li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>

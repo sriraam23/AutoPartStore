@@ -14,13 +14,14 @@
     $state = $_GET['state'];
     $zip = $_GET['zip'];
     $password = $_GET['password'];
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     $result = mysqli_query($mysqli, "INSERT INTO `Customer` (`Username`, `Fname`, `Lname`, `Street`, `City`, `State`, `Zipcode`, `Phone`, `Email`) VALUES ('$username','$firstname','$lastname', '$street', '$city', '$state', '$zip', '$phone', '$email')");
 
     //error_log("INSERT INTO `Customer` (`Username`, `Fname`, `Lname`, `Street`, `City`, `State`, `Zipcode`, `Phone`, `Email`) VALUES ('$username','$firstname','$lastname', '$street', '$city', '$state', '$zip', '$phone', '$email')");
 
     if($result) {
-      $userresult = mysqli_query($mysqli, "INSERT INTO `users` (`Username`, `Password`) VALUES ('$username', '$password')");
+      $userresult = mysqli_query($mysqli, "INSERT INTO `users` (`Username`, `Password`) VALUES ('$username', '$hashed_password')");
 
       if($userresult) {
         mysqli_close($mysqli);

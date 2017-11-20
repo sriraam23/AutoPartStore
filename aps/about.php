@@ -1,3 +1,10 @@
+<?php
+	include 'php/CheckSession.php';
+	include 'php/CheckAdmin.php';
+		if ($_SESSION['admin'] != 1){
+		header('Location: index.php');
+	}
+?>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -36,9 +43,19 @@
 				<ul class="nav navbar-nav">
 					<li><a href="index.php">Get Parts</a></li>
 					<li><a href="addpart.php">Add Part</a></li>
-					<li><a href="updatepart.php">Update Part</a></li>
+					<li><a href="updatepart.php">Update Part</a></li> 
 					<li><a href="deletepart.php">Delete Part</a></li>
 					<li class="active"><a href="about.php">About</a></li>
+					<li><a href="usercart.php">Cart</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
+							<span style="padding-right: 10px">
+								<img alt="Brand" src="./img/logout.ico">
+								<strong>Logout</strong>
+							</span>
+						</a>
+					</li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -61,6 +78,6 @@
 	
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/totop.js"></script>
+	<script type="text/javascript" src="js/totop.js"></script>');
 </body>
 </html>

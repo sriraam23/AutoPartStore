@@ -25,15 +25,15 @@
 	   mysqli_close($mysqli);
 	   exit();
    }
-   elseif(empty("$pquantity") === TRUE)
-   {
-	   echo "{\"records\":[{\"Status\":\"FAIL: No Part Quantity.\"}]}";
-	   mysqli_close($mysqli);
-	   exit();
-   }
    else
    {
-	   $result = mysqli_query($mysqli, "INSERT INTO usercart (PartNo, Username, Pquantity) VALUES ('$partno','$Username','".(int)$Pquantity."')");
+   	   if(empty("$pquantity") === TRUE)
+   	   {
+	       $pquantity = 1;
+ 	   }
+
+	   $result = mysqli_query($mysqli, "INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','".(int)$pquantity."') ON DUPLICATE KEY UPDATE PartQuantity = PartQuantity + ".(int)$pquantity);
+	   //error_log("INSERT INTO usercart (PartNo, Username, Pquantity) VALUES ('$partno','$username','".(int)$pquantity."')");
 	     
 	   if($result === TRUE) {
 		  mysqli_close($mysqli);
