@@ -251,11 +251,43 @@
       </div>
     </div>
 
+    <div class="modal fade success-popup" id="succreg" tabindex="-1" role="dialog" aria-labelledby="succregLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="succregLabel">Thank You !</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead">Registation successfull!</p>
+            <a href="login.php" class="rd_more btn btn-default">Go to Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade success-popup" id="failreg" tabindex="-1" role="dialog" aria-labelledby="failregLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="failregLabel">Sorry!</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead">Registation unsuccessfull!</p>
+            <a href="#" onclick="$('#failreg').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script type="text/javascript">
       var app = angular.module('register', []);
     
       app.controller('registerUserCtrl', function($scope, $http) {
         $scope.registerUser = function() {
+          //$('#succreg').modal('show');
+          
           if(!$("#submit").hasClass("disabled")) {
             var username = $('#username').val();
             var firstname = $('#firstname').val();
@@ -276,16 +308,15 @@
                   
                   if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
                   {
-                    alert("User registration successful!");
-                    window.location='login.html';
+                    $('#register')[0].reset();
+                    $('#succreg').modal('show');
                   }
                   else 
                   {
-                    alert("User registration unsuccessful!");
+                    $('#failreg').modal('show');
                   }
               }
             );
-            
           }
         }
       });
@@ -295,14 +326,18 @@
         $("#zip").mask("99999");
 
         $('#cancel').click(function(){
-          window.location='login.html';
+          window.location = 'login.php';
         });
+
+        $('#succreg').on('hidden.bs.modal', function () {
+          window.location = 'login.php'
+        })
 
         /*
         $('#submit').click(function(){
           // Insert into Customer Table
           // Insert into Users Table
-          // If all inserts are good then go to login.html
+          // If all inserts are good then go to login.php
         });
         */
         // Check Username php

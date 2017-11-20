@@ -20,7 +20,6 @@
 </head>
 
 <body>
-	
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -41,35 +40,34 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="index.php">Get Parts</a></li>
 					
-					<?php	
-					    if($_SESSION['admin'] == 1){
-					    	echo('
-					 		<li><a href="addpart.php">Add Part</a></li>
-							<li><a href="updatepart.php">Update Part</a></li> 
-							<li><a href="deletepart.php">Delete Part</a></li>
-							<li><a href="about.php">About</a></li>
-							<li><a href="usercart.php">Cart</a></li>
-							</ul>');
-						}
-						else{
-							echo('
-							<li><a href="usercart.php">Cart</a></li>
-							</ul>');
-						}
-					?>
+					<?php if($_SESSION['admin'] == 1) : ?>
+			 		
+			 		<li><a href="addpart.php">Add Part</a></li>
+					<li><a href="updatepart.php">Update Part</a></li> 
+					<li><a href="deletepart.php">Delete Part</a></li>
+					<li><a href="about.php">About</a></li>
+
+					<?php endif; ?>
+
+					<li><a href="usercart.php">Cart</a></li>
+				</ul>
+
 				<ul class="nav navbar-nav navbar-right">
-					<li class="navbar-brand" style="text-align: center">Hello, <?php echo $_SESSION['sess_username'] ?></li>
-					<li><a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
-							<span style="padding-right: 10px">
-								<img alt="Brand" src="./img/logout.ico">
-								<strong>Logout</strong>
-							</span>
+					<li>
+						<p class="navbar-text">
+							<font size="+1">Hello, <?php echo $_SESSION['sess_username'] ?></font>
+						</p> 
+					</li>
+					<li>
+						<a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
+							<span class="glyphicon glyphicon-log-out"></span> Log out
 						</a>
 					</li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>
+
 	<div class="container">
 		<div ng-controller="appCtrl">
 			<form class="form-inline">
@@ -125,68 +123,64 @@
 			</a>
 		</div>		
 	</div>
-		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/angular.min.js"></script>
-		<script type="text/javascript" src="js/totop.js"></script>
+	
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/totop.js"></script>
+	
+	<script>
+		var app = angular.module('aps', []);
 		
-		<script>
-			var app = angular.module('aps', []);
+		app.controller('appCtrl', function($scope, $http) {
+			$scope.getCarMake = function() {
+				$http.get("php/GetCarMakeInfo.php").then(function (response) {$scope.make = response.data.records;});
+				//$scope.carYear = "";
+			};
 			
-			app.controller('appCtrl', function($scope, $http) {
-				$scope.getCarMake = function() {
-					$http.get("php/GetCarMakeInfo.php").then(function (response) {$scope.make = response.data.records;});
-					//$scope.carYear = "";
-				};
+			$scope.getCarModel = function() {
+				var make = $('#carMake').val();
+				$http.get("php/GetCarModelInfo.php",{params:{"make": make}}).then(function (response) {$scope.model = response.data.records;});
+				//$scope.carYear = "";
+			};
+			
+			$scope.getParts = function() {
+				var make = $('#carMake').val();
+				var model = $('#carModel').val();
+				var year = $('#carYear').val();
 				
-				$scope.getCarModel = function() {
-					var make = $('#carMake').val();
-					$http.get("php/GetCarModelInfo.php",{params:{"make": make}}).then(function (response) {$scope.model = response.data.records;});
-					//$scope.carYear = "";
-				};
-				
-				$scope.getParts = function() {
-					var make = $('#carMake').val();
-					var model = $('#carModel').val();
-					var year = $('#carYear').val();
-					
-					//console.log(make + "," + model + "," + year);
+				//console.log(make + "," + model + "," + year);
 
-					$http.get("php/GetPartsFromCarInfo.php",  {
-						params:{"make": make, "model": model, "year": year}
-					}).then(function (response) {
-						$scope.names = response.data.records;
-					});
-				};
-				
-				$scope.getCarMake();
-				
-				$scope.getParts();
+				$http.get("php/GetPartsFromCarInfo.php",  {
+					params:{"make": make, "model": model, "year": year}
+				}).then(function (response) {
+					$scope.names = response.data.records;
+				});
+			};
+			
+			$scope.getCarMake();
+			
+			$scope.getParts();
 
-				$scope.addToCart = function(partNo) {
-					//console.log(partNo);
-					var queryResult = "";
+			$scope.addToCart = function(partNo) {
+				//console.log(partNo);
+				var queryResult = "";
+				
+				$http.get("php/AddToCart.php",{params:{"partno": partNo, "username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
+				    queryResult = JSON.stringify(response.data.records);
 					
-					$http.get("php/AddToCart.php",{params:{"partno": partNo, "username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
-					    queryResult = JSON.stringify(response.data.records);
-						
-						if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
-						{
-							//console.log(queryResult);
-							$scope.resultclass = "alert alert-success";
-							alert("Add to cart succesful");
-						}
-						else 
-						{
-							//console.log("FAIL: " + queryResult);
-							$scope.resultclass = "alert alert-danger";
-						}
-						
-						$scope.result = response.data.records;
-					});
-					
-				}
-			});
-		</script>
+					if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
+					{
+						alert("Add to cart succesful");
+					}
+					else 
+					{
+						alert("Add to cart unsuccesful");
+					}
+				});
+				
+			}
+		});
+	</script>
 </body>
 </html>

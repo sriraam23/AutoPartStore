@@ -42,18 +42,28 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li><a href="index.php">Get Parts</a></li>
+
+					<?php if($_SESSION['admin'] == 1) : ?>
+
 					<li><a href="addpart.php">Add Part</a></li>
 					<li><a href="updatepart.php">Update Part</a></li> 
 					<li><a href="deletepart.php">Delete Part</a></li>
 					<li class="active"><a href="about.php">About</a></li>
+
+					<?php endif; ?>
+
 					<li><a href="usercart.php">Cart</a></li>
 				</ul>
+				
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
-							<span style="padding-right: 10px">
-								<img alt="Brand" src="./img/logout.ico">
-								<strong>Logout</strong>
-							</span>
+					<li>
+						<p class="navbar-text">
+							<font size="+1">Hello, <?php echo $_SESSION['sess_username'] ?></font>
+						</p> 
+					</li>
+					<li>
+						<a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
+							<span class="glyphicon glyphicon-log-out"></span> Log out
 						</a>
 					</li>
 				</ul>
