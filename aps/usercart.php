@@ -2,7 +2,7 @@
 	include 'php/CheckSession.php';
 	include 'php/CheckAdmin.php';	
 ?>
-<html ng-app="aps" lang="en">
+<html ng-app="cart" lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -69,52 +69,21 @@
 		</div>
 	</nav>
 	<div class="container">
-		<div ng-controller="appCtrl">
-			<form class="form-inline">
-				<div class="form-group">
-					<label for="carMake">Select Make:</label>
-					<select class="form-control" id="carMake" ng-model="string" ng-change="getCarModel()"> 
-						<option value="">Select Make</option>
-						<option ng-repeat="a in make" value={{a.Make}}>{{a.Make}}</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="carModel">Select Model:</label>
-					<select class="form-control" id="carModel"> 
-						<option value="">Select Model</option>
-						<option ng-repeat="a in model" value={{a.Model}}>{{a.Model}}</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="carYear">Enter Year:</label>
-					<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carYear" placeholder="Car Model Year" ng-model="carYear">
-				</div>
-				<div class="form-group">
-					<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getParts()">Filter</button>
-				</div>
-			</form>
-			
-			<br/>
-			
-			<label>Search: <input ng-model="searchText"></label>
+		<div ng-controller="cartCtrl">
 			<table class="table table-hover">
 				<tr>
-					<th>Part Number</th>
 					<th>Part Image</th>
 					<th>Part Name</th>
 					<th>Price</th>
-					<th>Sub Category</th>
-					<th>Warranty</th>
-					<th>Add To Cart</th>
+					<th>Quantity</th>
+					<th>Update Cart</th>
 				</tr>
-				<tr ng-repeat="x in names | filter:searchText">
-					<td>{{ x.PartNo}}</td>
+				<tr ng-repeat="x in names" emit-last-repeater-element>
 					<td><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
 					<td>{{ x.PCompany }} {{ x.Pname }}</td>
 					<td>${{ x.Price }}</td>
-					<td>{{ x.SubCatID }}</td>
-					<td>{{ x.WarrantyID }}</td>
-					<td><input type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo)" value="Add to Cart"></td>
+					<td><input type='text' class="col-xs-2 qty" id='{{ x.PartNo }}_qty' name='{{ x.PartNo }}_qty' value='{{ x.PartQuantity }}'/></td>
+					<td><input type="button" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" value="Update Cart"/><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
 				</tr>
 			</table>
 				
@@ -127,62 +96,84 @@
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/angular.min.js"></script>
 		<script type="text/javascript" src="js/totop.js"></script>
+		<script type="text/javascript" src="js/jquery.mask.min.js"></script>
 		
 		<script>
-			var app = angular.module('aps', []);
+			var app = angular.module('cart', []);
 			
-			app.controller('appCtrl', function($scope, $http) {
-				$scope.getCarMake = function() {
-					$http.get("php/GetCarMakeInfo.php").then(function (response) {$scope.make = response.data.records;});
-					//$scope.carYear = "";
+			app.directive('emitLastRepeaterElement', function() {
+				return function(scope) {
+					if (scope.$last){
+						scope.$emit('LastRepeaterElement');
+					}
 				};
-				
-				$scope.getCarModel = function() {
-					var make = $('#carMake').val();
-					$http.get("php/GetCarModelInfo.php",{params:{"make": make}}).then(function (response) {$scope.model = response.data.records;});
-					//$scope.carYear = "";
-				};
-				
-				$scope.getParts = function() {
-					var make = $('#carMake').val();
-					var model = $('#carModel').val();
-					var year = $('#carYear').val();
-					
-					//console.log(make + "," + model + "," + year);
+			});
 
-					$http.get("php/GetPartsFromCarInfo.php",  {
-						params:{"make": make, "model": model, "year": year}
-					}).then(function (response) {
+			app.controller('cartCtrl', function($scope, $http) {
+				$scope.getCart = function() {
+					$http.get("php/GetUserCart.php", {params:{"username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
 						$scope.names = response.data.records;
 					});
 				};
-				
-				$scope.getCarMake();
-				
-				$scope.getParts();
 
-				$scope.addToCart = function(partNo) {
-					//console.log(partNo);
-					var queryResult = "";
-					
-					$http.get("php/AddToCart.php",{params:{"partno": partNo, "username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
-					    queryResult = JSON.stringify(response.data.records);
-						
-						if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
-						{
-							//console.log(queryResult);
-							$scope.resultclass = "alert alert-success";
-							alert("Add to cart succesful");
+				$scope.getCart();
+
+				$scope.$on('LastRepeaterElement', function(){
+					//$(".qty").mask("99999");
+					$(".qty").keypress(function (e) {
+						//if the letter is not digit then display error and don't type anything
+						if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+							//display error message
+							//console.log("Digits Only");
+							return false;
 						}
-						else 
-						{
-							//console.log("FAIL: " + queryResult);
-							$scope.resultclass = "alert alert-danger";
-						}
-						
-						$scope.result = response.data.records;
-					});
+				   });
+				});
+
+				$scope.updateCart = function(partNo) {
+					var qty = $('#' + partNo + '_qty').val();
 					
+					if(qty.length > 0) {
+						var queryResult = "";
+						
+						$http.get("php/AddToCart.php", {params:{"pquantity": qty, "partno": partNo, "username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
+						    queryResult = JSON.stringify(response.data.records);
+							
+							if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
+							{
+								//console.log(queryResult);
+								
+								if(qty == '0') {
+									$scope.getCart();
+								}
+								else {
+									$('#' + partNo + '_qresult').attr("src","img/success.png");
+
+									setTimeout(function(){
+										$scope.getCart();
+									}, 500);
+								}
+								
+							}
+							else 
+							{
+								//console.log("FAIL: " + queryResult);
+
+								$('#' + partNo + '_qresult').attr("src","img/fail.png");
+								
+								setTimeout(function(){
+									$('#' + partNo + '_qresult').attr("src","img/empty.png");
+								}, 500);
+							}
+						});
+					}
+					else {
+						$('#' + partNo + '_qresult').attr("src","img/fail.png");
+						
+						setTimeout(function(){
+							$('#' + partNo + '_qresult').attr("src","img/empty.png");
+						}, 500);
+					}
 				}
 			});
 		</script>

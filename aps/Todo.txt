@@ -1,18 +1,18 @@
-01. Finish Registration Page - Kartheek -DONE
-02. Finish Login Page - Sri
-03. Update all pages with login check - Sri
-04. Update all pages with logout and username display - Sri
+01. Finish Registration Page - DONE
+02. Finish Login Page - DONE
+03. Update all pages with login check - DONE
+04. Update all pages with logout and username display - DONE
 
-05. Update all pages to show based on user role - Sri
+05. Update all pages to show based on user role - DONE
 
-06. Update index page to have addtocart function working - Kartheek - Pending Login Functionality
-07. Update index page to have all possible types of searches (GetPartsFromCarInfo.php) - Kartheek - DONE
+06. Update index page to have addtocart function working - DONE
+07. Update index page to have all possible types of searches (GetPartsFromCarInfo.php) - DONE
 08. Update index page to display all items by default - Kartheek - DONE
 
-09. Get sample images from web - Kartheek - DONE
-10. Update table with image info - Kartheek - DONE
-11. Update index page to show part images - Kartheek - DONE
+09. Get sample images from web - DONE
+10. Update table with image info - DONE
+11. Update index page to show part images - DONE
 
-12. Create Cart Page
+12. Create Cart Page - DONE
 13. Create Check out functionality
 

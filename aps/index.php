@@ -114,7 +114,7 @@
 					<td>${{ x.Price }}</td>
 					<td>{{ x.SubCatID }}</td>
 					<td>{{ x.WarrantyID }}</td>
-					<td><input type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo)" value="Add to Cart"></td>
+					<td><input type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo)" value="Add to Cart"><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
 				</tr>
 			</table>
 				
@@ -171,11 +171,19 @@
 					
 					if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
 					{
-						alert("Add to cart succesful");
+						$('#' + partNo + '_qresult').attr("src","img/success.png");
+
+						setTimeout(function(){
+							$('#' + partNo + '_qresult').attr("src","img/empty.png");
+						}, 500);
 					}
 					else 
 					{
-						alert("Add to cart unsuccesful");
+						$('#' + partNo + '_qresult').attr("src","img/fail.png");
+
+						setTimeout(function(){
+							$('#' + partNo + '_qresult').attr("src","img/empty.png");
+						}, 500);
 					}
 				});
 				
