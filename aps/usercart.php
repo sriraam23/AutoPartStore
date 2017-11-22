@@ -83,7 +83,7 @@
 					<td>{{ x.PCompany }} {{ x.Pname }}</td>
 					<td>${{ x.Price }}</td>
 					<td><input type='text' class="col-xs-2 qty" id='{{ x.PartNo }}_qty' name='{{ x.PartNo }}_qty' value='{{ x.PartQuantity }}'/></td>
-					<td><input type="button" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" value="Update Cart"/><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
+					<td><input type="button" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" class="btn btn-default" value="Update Cart"/><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
 				</tr>
 			</table>
 				

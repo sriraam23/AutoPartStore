@@ -105,16 +105,19 @@
 					<th>Price</th>
 					<th>Sub Category</th>
 					<th>Warranty</th>
+					<th>Quantity</th>
 					<th>Add To Cart</th>
 				</tr>
-				<tr ng-repeat="x in names | filter:searchText">
+				<tr ng-repeat="x in names | filter:searchText" emit-last-repeater-element>
 					<td>{{ x.PartNo}}</td>
 					<td><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
 					<td>{{ x.PCompany }} {{ x.Pname }}</td>
 					<td>${{ x.Price }}</td>
 					<td>{{ x.SubCatID }}</td>
 					<td>{{ x.WarrantyID }}</td>
-					<td><input type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo)" value="Add to Cart"><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
+					<td>{{ x.Quantity }}</td>
+					<td ng-if="x.Quantity > 0"><input type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo)" class="btn btn-default" value="Add to Cart"><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
+					<td ng-if="x.Quantity < 1"><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/sold_out.png' width="100" height="100"/></td>
 				</tr>
 			</table>
 				
@@ -131,6 +134,14 @@
 	
 	<script>
 		var app = angular.module('aps', []);
+
+		app.directive('emitLastRepeaterElement', function() {
+			return function(scope) {
+				if (scope.$last){
+					scope.$emit('LastRepeaterElement');
+				}
+			};
+		});
 		
 		app.controller('appCtrl', function($scope, $http) {
 			$scope.getCarMake = function() {
@@ -161,6 +172,18 @@
 			$scope.getCarMake();
 			
 			$scope.getParts();
+
+			$scope.$on('LastRepeaterElement', function(){
+				//$(".qty").mask("99999");
+				$(".qty").keypress(function (e) {
+					//if the letter is not digit then display error and don't type anything
+					if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+						//display error message
+						//console.log("Digits Only");
+						return false;
+					}
+			   });
+			});
 
 			$scope.addToCart = function(partNo) {
 				//console.log(partNo);
