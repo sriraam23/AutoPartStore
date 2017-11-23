@@ -71,6 +71,7 @@
 	<div class="container">
 		<div ng-controller="cartCtrl">
 			<table class="table table-hover">
+				<thead>
 				<tr>
 					<th>Part Image</th>
 					<th>Part Name</th>
@@ -78,6 +79,8 @@
 					<th>Quantity</th>
 					<th>Update Cart</th>
 				</tr>
+				</thead>
+				<tbody>
 				<tr ng-repeat="x in names" emit-last-repeater-element>
 					<td><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
 					<td>{{ x.PCompany }} {{ x.Pname }}</td>
@@ -85,6 +88,16 @@
 					<td><input type='text' class="col-xs-2 qty" id='{{ x.PartNo }}_qty' name='{{ x.PartNo }}_qty' value='{{ x.PartQuantity }}'/></td>
 					<td><input type="button" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" class="btn btn-default" value="Update Cart"/><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
 				</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th><input type="button" id="checkout" ng-click="checkout()" class="btn btn-primary" value="Checkout"/></th>
+					</tr>
+				</tfoot>
 			</table>
 				
 			<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
@@ -92,90 +105,107 @@
 			</a>
 		</div>		
 	</div>
-		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/angular.min.js"></script>
-		<script type="text/javascript" src="js/totop.js"></script>
-		<script type="text/javascript" src="js/jquery.mask.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/totop.js"></script>
+	<script type="text/javascript" src="js/jquery.mask.min.js"></script>
+	
+	<script>
+		var app = angular.module('cart', []);
 		
-		<script>
-			var app = angular.module('cart', []);
-			
-			app.directive('emitLastRepeaterElement', function() {
-				return function(scope) {
-					if (scope.$last){
-						scope.$emit('LastRepeaterElement');
+		app.directive('emitLastRepeaterElement', function() {
+			return function(scope) {
+				if (scope.$last){
+					scope.$emit('LastRepeaterElement');
+				}
+			};
+		});
+
+		app.controller('cartCtrl', function($scope, $http) {
+			$scope.getCart = function() {
+				$http.get("php/GetUserCart.php", {params:{"username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
+					$scope.names = response.data.records;
+				});
+			};
+
+			$scope.getCart();
+
+			$scope.$on('LastRepeaterElement', function(){
+				//$(".qty").mask("99999");
+				$(".qty").keypress(function (e) {
+					//if the letter is not digit then display error and don't type anything
+					if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+						//display error message
+						//console.log("Digits Only");
+						return false;
 					}
-				};
+			   });
 			});
 
-			app.controller('cartCtrl', function($scope, $http) {
-				$scope.getCart = function() {
-					$http.get("php/GetUserCart.php", {params:{"username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
-						$scope.names = response.data.records;
-					});
-				};
-
-				$scope.getCart();
-
-				$scope.$on('LastRepeaterElement', function(){
-					//$(".qty").mask("99999");
-					$(".qty").keypress(function (e) {
-						//if the letter is not digit then display error and don't type anything
-						if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-							//display error message
-							//console.log("Digits Only");
-							return false;
-						}
-				   });
-				});
-
-				$scope.updateCart = function(partNo) {
-					var qty = $('#' + partNo + '_qty').val();
+			$scope.updateCart = function(partNo) {
+				var qty = $('#' + partNo + '_qty').val();
+				
+				if(qty.length > 0) {
+					var queryResult = "";
 					
-					if(qty.length > 0) {
-						var queryResult = "";
+					$http.get("php/UpdateCart.php", {params:{"pquantity": qty, "partno": partNo, "username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
+					    queryResult = JSON.stringify(response.data.records);
 						
-						$http.get("php/AddToCart.php", {params:{"pquantity": qty, "partno": partNo, "username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
-						    queryResult = JSON.stringify(response.data.records);
+						if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
+						{
+							//console.log(queryResult);
 							
-							if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
-							{
-								//console.log(queryResult);
-								
-								if(qty == '0') {
-									$scope.getCart();
-								}
-								else {
-									$('#' + partNo + '_qresult').attr("src","img/success.png");
-
-									setTimeout(function(){
-										$scope.getCart();
-									}, 500);
-								}
-								
+							if(qty == '0') {
+								$scope.getCart();
 							}
-							else 
-							{
-								//console.log("FAIL: " + queryResult);
+							else {
+								$('#' + partNo + '_qresult').attr("src","img/success.png");
 
-								$('#' + partNo + '_qresult').attr("src","img/fail.png");
-								
 								setTimeout(function(){
-									$('#' + partNo + '_qresult').attr("src","img/empty.png");
+									$scope.getCart();
 								}, 500);
 							}
-						});
+							
+						}
+						else 
+						{
+							//console.log("FAIL: " + queryResult);
+
+							$('#' + partNo + '_qresult').attr("src","img/fail.png");
+							
+							setTimeout(function(){
+								$('#' + partNo + '_qresult').attr("src","img/empty.png");
+							}, 500);
+						}
+					});
+				}
+				else {
+					$('#' + partNo + '_qresult').attr("src","img/fail.png");
+					
+					setTimeout(function(){
+						$('#' + partNo + '_qresult').attr("src","img/empty.png");
+					}, 500);
+				}
+			}
+
+			$scope.checkout = function() {
+				var queryResult = "";
+					
+				$http.get("php/Checkout.php", { params: { "username": <?php echo "'".$_SESSION['sess_username']."'";?> } }).then(function (response) {
+					queryResult = JSON.stringify(response.data.records);
+					
+					if(queryResult == "[{\"Status\":\"SUCCESS\"}]") {
+						alert("Checkout SUCCESS!");
+						$scope.getCart();
 					}
 					else {
-						$('#' + partNo + '_qresult').attr("src","img/fail.png");
-						
-						setTimeout(function(){
-							$('#' + partNo + '_qresult').attr("src","img/empty.png");
-						}, 500);
+						console.log(queryResult);
 					}
-				}
-			});
-		</script>
+				});
+			}
+		});
+	</script>
 </body>
 </html>

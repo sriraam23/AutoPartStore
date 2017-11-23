@@ -28,13 +28,25 @@
 	}
 	else
 	{
+		$result = "";
+
 		if(empty($pquantity))
 		{
-			$pquantity = 1;
-		}
+			if(($pquantity === 0) || ($pquantity === '0')) {
+				$result = mysqli_query($mysqli, "DELETE FROM usercart WHERE PartNo = '$partno' AND Username =  '$username'");
+				//error_log("DELETE FROM usercart WHERE PartNo = '$partno' AND Username =  '$username'");
+			}
+			else {
+				mysqli_close($mysqli);
 
-		$result = mysqli_query($mysqli, "INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = PartQuantity + " . (int)$pquantity);
-		//error_log("INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = PartQuantity + ".(int)$pquantity);
+				echo "{\"records\":[{\"Status\":\"FAIL: Couldn't add to User Cart\"}]}";
+				exit();
+			}
+		}
+		else {
+			$result = mysqli_query($mysqli, "INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = " . (int)$pquantity);
+			//error_log("INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = " . (int)$pquantity);
+		}
 
 		if($result === TRUE) {
 			mysqli_close($mysqli);
