@@ -31,7 +31,7 @@
 			   $partno = $cartitem['PartNo'];
 			   $pquantity = $cartitem['PartQuantity'];
 
-			   $checkpart = mysqli_query($mysqli, "SELECT StQuantity FROM sinventory WHERE PartNo = '$partno' AND StQuantity > 0");
+			   $checkpart = mysqli_query($mysqli, "SELECT StQuantity FROM sinventory WHERE PartNo = '$partno' AND StQuantity > 0 AND StQuantity >= '$pquantity'");
 
 			   if (mysqli_num_rows($checkpart) == 0) {
 			   		mysqli_close($mysqli);

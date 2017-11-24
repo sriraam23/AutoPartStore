@@ -39,13 +39,23 @@
 			else {
 				mysqli_close($mysqli);
 
-				echo "{\"records\":[{\"Status\":\"FAIL: Couldn't add to User Cart\"}]}";
+				echo "{\"records\":[{\"Status\":\"FAIL: Couldn't update User Cart\"}]}";
 				exit();
 			}
 		}
 		else {
-			$result = mysqli_query($mysqli, "INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = " . (int)$pquantity);
-			//error_log("INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = " . (int)$pquantity);
+			$getpart = mysqli_query($mysqli, "SELECT StQuantity FROM sinventory WHERE PartNo = '$partno' AND StQuantity > 0 AND StQuantity >= '$pquantity'");
+
+			if(mysqli_num_rows($getpart) > 0) {
+				$result = mysqli_query($mysqli, "INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = " . (int)$pquantity);
+				//error_log("INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = " . (int)$pquantity);
+			}
+			else {
+				mysqli_close($mysqli);
+
+				echo "{\"records\":[{\"Status\":\"FAIL: Couldn't update User Cart\"}]}";
+				exit();
+			}
 		}
 
 		if($result === TRUE) {
@@ -57,7 +67,7 @@
 		else {
 			mysqli_close($mysqli);
 
-			echo "{\"records\":[{\"Status\":\"FAIL: Couldn't add to User Cart\"}]}";
+			echo "{\"records\":[{\"Status\":\"FAIL: Couldn't update User Cart\"}]}";
 			exit();
 		}
 	}

@@ -176,7 +176,7 @@
 							$('#' + partNo + '_qresult').attr("src","img/fail.png");
 							
 							setTimeout(function(){
-								$('#' + partNo + '_qresult').attr("src","img/empty.png");
+								$scope.getCart();
 							}, 500);
 						}
 					});
@@ -201,6 +201,7 @@
 						$scope.getCart();
 					}
 					else {
+						alert("Checkout FAIL!");
 						console.log(queryResult);
 					}
 				});
