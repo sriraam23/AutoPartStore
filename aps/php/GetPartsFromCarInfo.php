@@ -18,26 +18,36 @@
   $inputMake = $_GET['make'];
   $inputModel = $_GET['model'];
   $inputYear = $_GET['year'];
+  $inputName = $_GET['name'];
    
   $result = "";
 
+  $nameQuery = "";
+
+  if(!empty($inputName)) {
+    $nameQuery = " WHERE n.Pname LIKE '%$inputName%' OR n.PCompany LIKE '%$inputName%' OR n.WarrantyID LIKE '%$inputName%' OR n.SubCatID LIKE '%$inputName%' OR n.PartNo LIKE '%$inputName%'";
+  }
+
+  error_log("Name: ");
+  error_log($nameQuery);
+
   if(!empty($inputMake) && !empty($inputModel) && !empty($inputYear)) {
-    $result = mysqli_query($mysqli, "SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type, 'No Warranty') as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part where PartNo in (SELECT PartNo from CarInfo where Make='$inputMake' AND Model='$inputModel' AND MinYear <= '".(int)$inputYear."' AND MaxYear >= '".(int)$inputYear."' GROUP BY PartNo)) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID, 'No Warranty') = coalesce(w.WarrantyID, 'No Warranty') ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo");
+    $result = mysqli_query($mysqli, "SELECT * FROM (SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type, 'No Warranty') as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part where PartNo in (SELECT PartNo from CarInfo where Make='$inputMake' AND Model='$inputModel' AND MinYear <= '".(int)$inputYear."' AND MaxYear >= '".(int)$inputYear."' GROUP BY PartNo)) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID) = coalesce(w.WarrantyID) ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo) AS n" . $nameQuery);
   }
   elseif (!empty($inputMake) && !empty($inputModel)) {
-    $result = mysqli_query($mysqli, "SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type, 'No Warranty') as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part where PartNo in (SELECT PartNo from CarInfo where Make='$inputMake' AND Model='$inputModel' GROUP BY PartNo)) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID, 'No Warranty') = coalesce(w.WarrantyID, 'No Warranty') ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo");
+    $result = mysqli_query($mysqli, "SELECT * FROM (SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type, 'No Warranty') as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part where PartNo in (SELECT PartNo from CarInfo where Make='$inputMake' AND Model='$inputModel' GROUP BY PartNo)) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID, 'No Warranty') = coalesce(w.WarrantyID, 'No Warranty') ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo) AS n" . $nameQuery);
   }
   elseif (!empty($inputMake) && !empty($inputYear)) {
-    $result = mysqli_query($mysqli, "SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type, 'No Warranty') as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part where PartNo in (SELECT PartNo from CarInfo where Make='$inputMake' AND MinYear <= '".(int)$inputYear."' AND MaxYear >= '".(int)$inputYear."' GROUP BY PartNo)) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID, 'No Warranty') = coalesce(w.WarrantyID, 'No Warranty') ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo");
+    $result = mysqli_query($mysqli, "SELECT * FROM (SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type, 'No Warranty') as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part where PartNo in (SELECT PartNo from CarInfo where Make='$inputMake' AND MinYear <= '".(int)$inputYear."' AND MaxYear >= '".(int)$inputYear."' GROUP BY PartNo)) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID, 'No Warranty') = coalesce(w.WarrantyID, 'No Warranty') ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo) AS n" . $nameQuery);
   }
   elseif (!empty($inputMake)) {
-    $result = mysqli_query($mysqli, "SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type, 'No Warranty') as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part where PartNo in (SELECT PartNo from CarInfo where Make='$inputMake' GROUP BY PartNo)) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID, 'No Warranty') = coalesce(w.WarrantyID, 'No Warranty') ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo");
+    $result = mysqli_query($mysqli, "SELECT * FROM (SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type, 'No Warranty') as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part where PartNo in (SELECT PartNo from CarInfo where Make='$inputMake' GROUP BY PartNo)) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID, 'No Warranty') = coalesce(w.WarrantyID, 'No Warranty') ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo) AS n" . $nameQuery);
   }
   elseif(!empty($inputYear)) {
-    $result = mysqli_query($mysqli, "SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type, 'No Warranty') as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part where PartNo in (SELECT PartNo from CarInfo where MinYear <= '".(int)$inputYear."' AND MaxYear >= '".(int)$inputYear."' GROUP BY PartNo)) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID, 'No Warranty') = coalesce(w.WarrantyID, 'No Warranty') ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo");
+    $result = mysqli_query($mysqli, "SELECT * FROM (SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type, 'No Warranty') as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part where PartNo in (SELECT PartNo from CarInfo where MinYear <= '".(int)$inputYear."' AND MaxYear >= '".(int)$inputYear."' GROUP BY PartNo)) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID, 'No Warranty') = coalesce(w.WarrantyID, 'No Warranty') ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo) AS n" . $nameQuery);
   }
   else {
-    $result = mysqli_query($mysqli, "SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type) as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID) = coalesce(w.WarrantyID) ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo");
+    $result = mysqli_query($mysqli, "SELECT * FROM (SELECT q.PartNo, q.PImage, q.Pname, q.PCompany, q.Price, q.SubCatID, q.WarrantyID, s.StQuantity FROM(SELECT r.PartNo, r.PImage, r.Pname, r.PCompany, r.Price, r.SubCatID, coalesce(w.Type) as WarrantyID FROM (SELECT PartNo, PImage, Pname, PCompany, Price, SubCatID, WarrantyID FROM Part) as r LEFT OUTER JOIN Warranty w  ON coalesce(r.WarrantyID) = coalesce(w.WarrantyID) ORDER BY PartNo) as q JOIN sinventory as s on q.PartNo = s.PartNo) AS n" . $nameQuery);
   }
 
   $outp = "";

@@ -15,6 +15,13 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
+
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/totop.js"></script>
+
+	<script type="text/javascript" src="js/dirPagination.js"></script>
 	
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
 </head>
@@ -90,50 +97,73 @@
 					<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carYear" placeholder="Car Model Year" ng-model="carYear">
 				</div>
 				<div class="form-group">
+					<label for="partName">Enter Part Name:</label>
+					<input type="text" class="form-control" id="partName" placeholder="Part Name" ng-model="partName">
+				</div>
+				<div class="form-group">
 					<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getParts()">Filter</button>
 				</div>
 			</form>
 			
 			<br/>
 			
-			<label>Search: <input ng-model="searchText"></label>
-			<table class="table table-hover">
-				<tr>
-					<th>Part Number</th>
-					<th>Part Image</th>
-					<th>Part Name</th>
-					<th>Price</th>
-					<th>Sub Category</th>
-					<th>Warranty</th>
-					<th>Quantity</th>
-					<th>Add To Cart</th>
-				</tr>
-				<tr ng-repeat="x in names | filter:searchText" emit-last-repeater-element>
-					<td>{{ x.PartNo}}</td>
-					<td><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
-					<td>{{ x.PCompany }} {{ x.Pname }}</td>
-					<td>${{ x.Price }}</td>
-					<td>{{ x.SubCatID }}</td>
-					<td>{{ x.WarrantyID }}</td>
-					<td>{{ x.Quantity }}</td>
-					<td ng-if="x.Quantity > 0"><input type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo)" class="btn btn-default" value="Add to Cart"><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
-					<td ng-if="x.Quantity < 1"><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/sold_out.png' width="100" height="100"/></td>
-				</tr>
-			</table>
-				
+			<form class="form-inline">
+		        <div class="form-group">
+		            <label >Search</label>
+		            <input type="text" ng-model="search" class="form-control" placeholder="Search">
+		        </div>
+		    </form>
+			<div class="table-responsive">
+				<table id="partsList" class="table table-bordered table-striped table-condensed">
+					<thead>
+						<tr>
+							<th ng-click="sort('PartNo')">Part Number
+								<span class="glyphicon sort-icon" ng-show="sortKey=='PartNo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th>Part Image</th>
+							<th ng-click="sort('PCompany')">Part Name
+								<span class="glyphicon sort-icon" ng-show="sortKey=='PCompany'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th ng-click="sort('Price')">Price
+								<span class="glyphicon sort-icon" ng-show="sortKey=='Price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th ng-click="sort('SubCatID')">Sub Category
+								<span class="glyphicon sort-icon" ng-show="sortKey=='SubCatID'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th ng-click="sort('WarrantyID')">Warranty
+								<span class="glyphicon sort-icon" ng-show="sortKey=='WarrantyID'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th ng-click="sort('Quantity')">Quantity
+								<span class="glyphicon sort-icon" ng-show="sortKey=='Quantity'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th>Add To Cart</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr dir-paginate="x in names|orderBy:sortKey:reverse|filter:search|itemsPerPage:6" emit-last-repeater-element>
+							<td>{{ x.PartNo}}</td>
+							<td><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
+							<td>{{ x.PCompany }} {{ x.Pname }}</td>
+							<td>${{ x.Price }}</td>
+							<td>{{ x.SubCatID }}</td>
+							<td>{{ x.WarrantyID }}</td>
+							<td>{{ x.Quantity }}</td>
+							<td ng-if="x.Quantity > 0"><input type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo)" class="btn btn-default" value="Add to Cart"><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
+							<td ng-if="x.Quantity < 1"><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/sold_out.png' width="100" height="100"/></td>
+						</tr>
+					</tbody>
+				</table>
+				<dir-pagination-controls
+			       max-size="5"
+			       direction-links="true"
+			       boundary-links="true" >
+			    </dir-pagination-controls>
+			</div>
+			<div class="col-md-12 text-center">
+      			<ul class="pagination pagination-lg pager" id="myPager"></ul>
+      		</div>
 			<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>
 		</div>		
 	</div>
 	
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/angular.min.js"></script>
-	<script type="text/javascript" src="js/totop.js"></script>
-	
 	<script>
-		var app = angular.module('aps', []);
+		var app = angular.module('aps', ['angularUtils.directives.dirPagination']);
 
 		app.directive('emitLastRepeaterElement', function() {
 			return function(scope) {
@@ -159,30 +189,28 @@
 				var make = $('#carMake').val();
 				var model = $('#carModel').val();
 				var year = $('#carYear').val();
+				var name = $('#partName').val();
 				
 				//console.log(make + "," + model + "," + year);
 
 				$http.get("php/GetPartsFromCarInfo.php",  {
-					params:{"make": make, "model": model, "year": year}
+					params:{"make": make, "model": model, "year": year, "name": name}
 				}).then(function (response) {
 					$scope.names = response.data.records;
 				});
 			};
 			
-			$scope.getCarMake();
-			
 			$scope.getParts();
 
+			$scope.getCarMake();
+
+			$scope.sort = function(keyname){
+		        $scope.sortKey = keyname;   //set the sortKey to the param passed
+		        $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+		    }
+
 			$scope.$on('LastRepeaterElement', function(){
-				//$(".qty").mask("99999");
-				$(".qty").keypress(function (e) {
-					//if the letter is not digit then display error and don't type anything
-					if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-						//display error message
-						//console.log("Digits Only");
-						return false;
-					}
-			   });
+				//$scope.sort('PartNo');
 			});
 
 			$scope.addToCart = function(partNo) {
