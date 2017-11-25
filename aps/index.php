@@ -60,10 +60,11 @@
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<p class="navbar-text">
-							<font size="+1">Hello, <?php echo $_SESSION['sess_username'] ?></font>
-						</p> 
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="history.php">Order History</a></li>
+		                </ul>
 					</li>
 					<li>
 						<a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
@@ -134,7 +135,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr dir-paginate="x in names|orderBy:sortKey:reverse|filter:search|itemsPerPage:6" emit-last-repeater-element>
+						<tr dir-paginate="x in names|orderBy:sortKey:reverse|filter:search|itemsPerPage:5" emit-last-repeater-element>
 							<td>{{ x.PartNo}}</td>
 							<td><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
 							<td>{{ x.PCompany }} {{ x.Pname }}</td>
@@ -147,15 +148,8 @@
 						</tr>
 					</tbody>
 				</table>
-				<dir-pagination-controls
-			       max-size="5"
-			       direction-links="true"
-			       boundary-links="true" >
-			    </dir-pagination-controls>
+				<dir-pagination-controls max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls>
 			</div>
-			<div class="col-md-12 text-center">
-      			<ul class="pagination pagination-lg pager" id="myPager"></ul>
-      		</div>
 			<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>

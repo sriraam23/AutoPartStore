@@ -14,5 +14,5 @@
 11. Update index page to show part images - DONE
 
 12. Create Cart Page - DONE
-13. Create Check out functionality
+13. Create Check out functionality - DONE
 

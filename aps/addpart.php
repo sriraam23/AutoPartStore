@@ -57,10 +57,11 @@
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<p class="navbar-text">
-							<font size="+1">Hello, <?php echo $_SESSION['sess_username'] ?></font>
-						</p> 
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="history.php">Order History</a></li>
+		                </ul>
 					</li>
 					<li>
 						<a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
@@ -74,11 +75,11 @@
 	
 	<div class="container">	
 		<div ng-controller="addpartCtrl">
-			<form class="form-horizontal" role="form">
+			<form class="form-horizontal" name="form" method="post" action="" enctype="multipart/form-data">
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="carMake">Select Make:</label>
 					<div class="col-sm-10">
-						<select class="form-control" id="carMake" ng-model="string" ng-change="getCarModel()"> 
+						<select class="form-control" id="carMake" name="carMake" ng-model="formData.carMake" ng-change="getCarModel()"> 
 							<option value="">Select Make</option>
 							<option ng-repeat="a in make" value={{a.Make}}>{{a.Make}}</option>
 						</select>
@@ -88,7 +89,7 @@
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="carModel">Select Model:</label>
 					<div class="col-sm-10">
-						<select class="form-control" id="carModel"> 
+						<select class="form-control" id="carModel" name="carModel" ng-model="formData.carModel"> 
 							<option value="">Select Model</option>
 							<option ng-repeat="a in model" value={{a.Model}}>{{a.Model}}</option>
 						</select>
@@ -98,49 +99,56 @@
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="carMinYear">Enter Min Year:</label>
 					<div class="col-sm-10">
-						<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carMinYear" placeholder="Car Model Minimum Year">
+						<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carMinYear" name="carMinYear" ng-model="formData.carMinYear" placeholder="Car Model Minimum Year">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="carMaxYear">Enter Max Year:</label>
 					<div class="col-sm-10">
-						<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carMaxYear" placeholder="Car Model Maximum Year">
+						<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carMaxYear" name="carMaxYear" ng-model="formData.carMaxYear" placeholder="Car Model Maximum Year">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="partno">PartNo:</label>
 					<div class="col-sm-10">
-						<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" placeholder="Part Number">
+						<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" name="partno" ng-model="formData.partno" placeholder="Part Number">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="file">Part Image:</label>
+					<div class="col-sm-10">
+						<input accept="image/*" type="file" id="file" name="file" />
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="pname">Part Name:</label>
 					<div class="col-sm-10">
-						<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" placeholder="Part Name">
+						<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" name="pname" ng-model="formData.pname" placeholder="Part Name">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="pcompany">Part Company:</label>
 					<div class="col-sm-10">
-						<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" placeholder="Part Company">
+						<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" name="pcompany" ng-model="formData.pcompany"placeholder="Part Company">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="pprice">Part Price:</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="pprice" placeholder="Part Price">
+						<input type="text" class="form-control" id="pprice" name="pprice" ng-model="formData.pprice" placeholder="Part Price">
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="psubcatid">Subcategory:</label>
 					<div class="col-sm-10">
-						<select class="form-control" id="psubcatid">
+						<select class="form-control" id="psubcatid" name="psubcatid" ng-model="formData.psubcatid">
 							<option value="">Sub Category</option>
 							<option ng-repeat="a in cats" value={{a.SubCat}}>{{a.SubCat}}</option>
 						</select>
@@ -150,25 +158,22 @@
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="pwarrantyid">Warranty:</label>
 					<div class="col-sm-10">
-						<select class="form-control" id="pwarrantyid"> 
+						<select class="form-control" id="pwarrantyid" name="pwarrantyid" ng-model="formData.pwarrantyid"> 
 							<option value="">Warranty</option>
-							<option value="">No Warranty</option>
 							<option ng-repeat="a in warrn" value={{a.WarrantyID}}>{{a.Type}}</option>
 						</select>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button class="btn btn-primary" ng-model="button" ng-click="addParts()">Submit</button>
+						<input class="btn btn-primary" id="submit" name="submit" type="submit" value="Submit"/>
 					</div>
 				</div>
-				<div class="form-group">
-					<div ng-class="resultclass">
-						<p ng-repeat="a in result"><strong>>{{a.Status}}</strong></p>
-					</div>
+				<div id="message" class="form-group">
+					<?php include 'php/AddPart.php';?>
 				</div>
 			</form>
-			
+
 			<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>
@@ -180,7 +185,13 @@
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/totop.js"></script>
 		
-	<script>	
+	<script>
+		$(document).ready(function() {
+			$("#submit").click(function() {
+				$('#message').css("display", "block");
+			});
+		});
+
 		var app = angular.module('addpart', []);
 		
 		app.controller('addpartCtrl', function($scope, $http) {
@@ -200,40 +211,7 @@
 			$scope.getPartWarranty = function() {
 				$http.get("php/GetPartWarranty.php").then(function (response) {$scope.warrn = response.data.records;});
 			};
-			
-			$scope.addParts = function() {
-				var make = $('#carMake').val();
-				var model = $('#carModel').val();
-				var carMinYear = $('#carMinYear').val();
-				var carMaxYear = $('#carMaxYear').val();
-								
-				var partno = $('#partno').val();
-				var pname = $('#pname').val();
-				var pcompany = $('#pcompany').val();
-				var pprice = $('#pprice').val();
-				var psubcatid = $('#psubcatid').val();
-				var pwarrantyid = $('#pwarrantyid').val();
-									
-			    var queryResult = "";
-				
-				$http.get("php/AddNewPart.php",{params:{"make": make, "model": model, "carMinYear": carMinYear, "carMaxYear": carMaxYear, "partno": partno, "pname": pname, "pcompany": pcompany, "pprice": pprice, "psubcatid": psubcatid, "pwarrantyid": pwarrantyid}}).then(function (response) {
-				    queryResult = JSON.stringify(response.data.records);
-					
-					if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
-					{
-						//console.log(queryResult);
-						$scope.resultclass = "alert alert-success";
-					}
-					else 
-					{
-						//console.log("FAIL: " + queryResult);
-						$scope.resultclass = "alert alert-danger";
-					}
-					
-					$scope.result = response.data.records;
-				});
-			}
-			
+
 			$scope.getCarMake();
 			$scope.getPartSubCat();
 			$scope.getPartWarranty();

@@ -48,11 +48,9 @@
         exit();
       }
     }
-    else {
-      mysqli_close($mysqli);
-
-      echo "{\"records\":[{\"Status\":\"FAIL\"}]}";
-      exit();
-    }
+  }
+  else {
+    echo "{\"records\":[{\"Status\":\"FAIL\"}]}";
+    exit();
   }
 ?>

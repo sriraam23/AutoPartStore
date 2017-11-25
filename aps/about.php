@@ -56,10 +56,11 @@
 				</ul>
 				
 				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<p class="navbar-text">
-							<font size="+1">Hello, <?php echo $_SESSION['sess_username'] ?></font>
-						</p> 
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="history.php">Order History</a></li>
+		                </ul>
 					</li>
 					<li>
 						<a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">

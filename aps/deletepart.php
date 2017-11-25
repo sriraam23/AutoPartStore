@@ -56,10 +56,11 @@
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<p class="navbar-text">
-							<font size="+1">Hello, <?php echo $_SESSION['sess_username'] ?></font>
-						</p> 
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="history.php">Order History</a></li>
+		                </ul>
 					</li>
 					<li>
 						<a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
@@ -95,10 +96,9 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="pname">Part Image:</label>
+						<label class="control-label col-sm-2" for="cimage">Part Image:</label>
 						<div class="col-sm-10">
-							<img ng-src='img/{{ part.PImage}}' alt='{{ part.Pname }}'></img>
-							<!--<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" placeholder="Part Name" value={{part.Pname}} disabled>-->
+							<img ng-src='img/{{ part.PImage}}' alt='{{ part.Pname }}' height="100" width="100" id="cimage" name="cimage"'></img>
 						</div>
 					</div>
 					
