@@ -52,10 +52,15 @@
 
 					<?php endif; ?>
 
-					<li><a href="usercart.php">Cart</a></li>
+					<!--<li><a href="usercart.php">Cart</a></li>-->
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="usercart.php" class="navbar-brand">
+							<span class="glyphicon glyphicon-shopping-cart"></span> <?php include 'php/GetCartItemCount.php' ?>
+						</a>
+					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">

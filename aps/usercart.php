@@ -19,7 +19,7 @@
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
 </head>
 
-<body>
+<body ng-controller="cartCtrl">
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -49,10 +49,15 @@
 
 					<?php endif; ?>
 
-					<li class="active"><a href="usercart.php">Cart</a></li>
+					<!--<li><a href="usercart.php">Cart</a></li>-->
 				</ul>
 				
 				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="usercart.php" class="navbar-brand">
+							<span class="glyphicon glyphicon-shopping-cart"></span> <span id="count"> {{ cartitems }} </span> 
+						</a>
+					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -70,7 +75,7 @@
 		</div>
 	</nav>
 	<div class="container">
-		<div ng-controller="cartCtrl">
+		<div>
 			<table class="table table-hover">
 				<thead>
 				<tr>
@@ -125,16 +130,32 @@
 		});
 
 		app.controller('cartCtrl', function($scope, $http) {
+			$scope.updateCartCount = function() {
+				$http.get("php/GetCartItemCount.php",{}).then(function (response) {
+				    $scope.cartitems = response.data;
+					//$('#count').html($scope.cartitems);
+					//console.log($scope.cartitems);
+				});
+			}
+
+			$scope.updateCartCount();
+
 			$scope.getCart = function() {
 				$http.get("php/GetUserCart.php", {params:{"username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
 					$scope.names = response.data.records;
 				});
+
+				setTimeout(function(){
+					$scope.updateCartCount();
+				}, 50);
 			};
 
 			$scope.getCart();
-
+			
 			$scope.$on('LastRepeaterElement', function(){
 				//$(".qty").mask("99999");
+				$scope.updateCartCount();
+
 				$(".qty").keypress(function (e) {
 					//if the letter is not digit then display error and don't type anything
 					if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
@@ -166,6 +187,7 @@
 
 								setTimeout(function(){
 									$scope.getCart();
+									$scope.updateCartCount();
 								}, 500);
 							}
 							
@@ -178,6 +200,7 @@
 							
 							setTimeout(function(){
 								$scope.getCart();
+								$scope.updateCartCount();
 							}, 500);
 						}
 					});
@@ -187,6 +210,7 @@
 					
 					setTimeout(function(){
 						$('#' + partNo + '_qresult').attr("src","img/empty.png");
+						$scope.updateCartCount();
 					}, 500);
 				}
 			}

@@ -26,7 +26,7 @@
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
 </head>
 
-<body>
+<body ng-controller="appCtrl">
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -56,10 +56,15 @@
 
 					<?php endif; ?>
 
-					<li><a href="usercart.php">Cart</a></li>
+					<!--<li><a href="usercart.php">Cart</a></li>-->
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="usercart.php" class="navbar-brand">
+							<span class="glyphicon glyphicon-shopping-cart"></span> <span id="count"> {{ cartitems }} </span>
+						</a>
+					</li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
@@ -77,7 +82,7 @@
 	</nav>
 
 	<div class="container">
-		<div ng-controller="appCtrl">
+		<div>
 			<form class="form-inline">
 				<div class="form-group">
 					<label for="carMake">Select Make:</label>
@@ -168,6 +173,14 @@
 		});
 		
 		app.controller('appCtrl', function($scope, $http) {
+			$scope.updateCartCount = function() {
+				$http.get("php/GetCartItemCount.php",{}).then(function (response) {
+				    $scope.cartitems = response.data;
+					//$('#count').html($scope.cartitems);
+					//console.log($scope.cartitems);
+				});
+			}
+
 			$scope.getCarMake = function() {
 				$http.get("php/GetCarMakeInfo.php").then(function (response) {$scope.make = response.data.records;});
 				//$scope.carYear = "";
@@ -192,6 +205,10 @@
 				}).then(function (response) {
 					$scope.names = response.data.records;
 				});
+
+				setTimeout(function(){
+					$scope.updateCartCount();
+				}, 50);
 			};
 			
 			$scope.getParts();
@@ -205,6 +222,7 @@
 
 			$scope.$on('LastRepeaterElement', function(){
 				//$scope.sort('PartNo');
+				$scope.updateCartCount();
 			});
 
 			$scope.addToCart = function(partNo) {
@@ -220,6 +238,7 @@
 
 						setTimeout(function(){
 							$('#' + partNo + '_qresult').attr("src","img/empty.png");
+							$scope.updateCartCount();
 						}, 500);
 					}
 					else 
@@ -228,10 +247,10 @@
 
 						setTimeout(function(){
 							$('#' + partNo + '_qresult').attr("src","img/empty.png");
+							$scope.updateCartCount();
 						}, 500);
 					}
 				});
-				
 			}
 		});
 	</script>
