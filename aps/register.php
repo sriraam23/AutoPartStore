@@ -32,11 +32,11 @@
       }
     </style>
   </head>
-  <body>
+  <body ng-controller="registerUserCtrl">
     <div class="container container-table">
       <div class="row vertical-center-row">
         <div class="col-md-8 col-md-offset-2 text-center">
-          <div ng-controller="registerUserCtrl">
+          <div>
         		<form id="register" name="register" class="form-horizontal" role="form" data-toggle="validator" ng-submit="registerUser()">
               <fieldset>
                 <div class="form-group has-feedback">
@@ -256,10 +256,10 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title" id="succregLabel">Thank You !</h4>
+            <h4 class="modal-title" id="succregLabel">Registration</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead">Registation successfull!</p>
+            <p class="lead"><img src='img/success.png'/>Registation successfull!</p>
             <a href="login.php" class="rd_more btn btn-default">Go to Login</a>
           </div>
         </div>
@@ -271,10 +271,10 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title" id="failregLabel">Sorry!</h4>
+            <h4 class="modal-title" id="failregLabel">Registration</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead">Registation unsuccessfull!</p>
+            <p class="lead"<img src='img/fail.png'/>Registation unsuccessfull!</p>
             <a href="#" onclick="$('#failreg').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>

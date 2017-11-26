@@ -26,7 +26,7 @@
 
 			if(empty("$make") === TRUE)
 			{
-			   echo "<div class='alert alert-danger'><div class='alert alert-danger'><span>Error: No Make!</span></div>";
+			   echo "<div class='alert alert-danger'><span>Error: No Make!</span></div>";
 			   mysqli_close($mysqli);
 			}
 			elseif(empty("$model") === TRUE)

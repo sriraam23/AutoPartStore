@@ -22,7 +22,7 @@
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
 </head>
 
-<body>
+<body ng-controller="delpartCtrl">
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -65,19 +65,16 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="history.php">Order History</a></li>
+							<li class="divider"></li>
+							<li><a href="#" onclick="$('#logoutModal').modal('show');"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
 		                </ul>
-					</li>
-					<li>
-						<a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
-							<span class="glyphicon glyphicon-log-out"></span> Log out
-						</a>
 					</li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>
 	<div class="container">
-		<div ng-controller="delpartCtrl">
+		<div>
 			<form class="form-inline">
 				<div class="form-group">
 					<label for="part">Select PartNo:</label>
@@ -87,7 +84,7 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getAllPartInfo()">Submit</button>
+					<button  class="btn btn-default" id="getPartsInfo" ng-model="button" ng-click="getAllPartInfo()">Get Part Info</button>
 				</div>
 			</form>
 			
@@ -96,7 +93,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="partno">Part Number:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" placeholder="Part Number" value={{part.PartNo}} disabled>
+							<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" placeholder="Part Number" value={{part.PartNo}} readonly/>
 						</div>
 					</div>
 
@@ -110,35 +107,38 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pname">Part Name:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" placeholder="Part Name" value={{part.Pname}} disabled>
+							<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" placeholder="Part Name" value={{part.Pname}} readonly/>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pcompany">Part Company:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" placeholder="Part Company" value={{part.PCompany}} disabled>
+							<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" placeholder="Part Company" value={{part.PCompany}} readonly/>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pprice">Part Price:</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="pprice" placeholder="Part Price" value={{part.Price}} disabled>
+						<div class="col-sm-10 hide-inputbtns">
+							<div class="input-group"> 
+								<span class="input-group-addon">$</span>
+	        					<input type="number" ng-value="{{part.Price}}" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pprice" name="pprice" placeholder="Part Price" readonly/>
+	        				</div>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="psubcatid">Part Sub Category:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="psubcatid" placeholder="Part Sub Category" value={{part.SubCatID}} disabled>
+							<input type="text" class="form-control" id="psubcatid" placeholder="Part Sub Category" value={{part.SubCatID}} readonly/>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pwarrantyid">Part Warranty:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="pwarrantyid" placeholder="Part Warranty" value={{part.WarrantyID}} disabled>
+							<input type="text" class="form-control" id="pwarrantyid" placeholder="Part Warranty" value={{part.WarrantyID}} readonly/>
 						</div>
 					</div>
 					
@@ -161,55 +161,72 @@
 			</a>
 		</div>		
 	</div>
-		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/angular.min.js"></script>
-		<script type="text/javascript" src="js/totop.js"></script>
+
+	<div class="modal fade success-popup" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="logoutModalLabel">Log Out</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead">Are you sure you want to logout?</p>
+            <a href="logout.php" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-danger">Ok</a>
+            <a href="#" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-success">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/totop.js"></script>
+	
+	<script>
+	var app = angular.module('delpart', []);
+	
+	app.controller('delpartCtrl', function($scope, $http) {
+		$scope.getAllParts = function() {
+			$http.get("php/GetAllParts.php").then(function (response) {$scope.names = response.data.records;});
+		};
 		
-		<script>
-		var app = angular.module('delpart', []);
+		$scope.getAllPartInfo = function() {
+			$scope.resultclass = "alert";
+			$scope.result = "";
+			
+			var part = $("#part").val();
+			$http.get("php/GetAllPartFromPartNo.php",{params:{"part": part}}).then(function (response) {$scope.parts = response.data.records;});
+		};
 		
-		app.controller('delpartCtrl', function($scope, $http) {
-			$scope.getAllParts = function() {
-				$http.get("php/GetAllParts.php").then(function (response) {$scope.names = response.data.records;});
-			};
+		$scope.deletePart = function() {
+			var partno = $('#partno').val();
+								
+		    var queryResult = "";
 			
-			$scope.getAllPartInfo = function() {
-				$scope.resultclass = "alert";
-				$scope.result = "";
+			$http.get("php/DeletePart.php",{params:{"partno": partno}}).then(function (response) {
+			    queryResult = JSON.stringify(response.data.records);
 				
-				var part = $("#part").val();
-				$http.get("php/GetAllPartFromPartNo.php",{params:{"part": part}}).then(function (response) {$scope.parts = response.data.records;});
-			};
-			
-			$scope.deletePart = function() {
-				var partno = $('#partno').val();
-									
-			    var queryResult = "";
+				if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
+				{
+					//console.log(queryResult);
+					$scope.resultclass = "alert alert-success";
+					
+					$scope.parts = JSON.parse("{\"records\":[{\"PartNo\":\"\",\"PImage\":\"\",\"Pname\":\"\",\"PCompany\":\"\",\"Price\":\"\",\"SubCatID\":\"\",\"WarrantyID\":\"\"}]}");
+					$scope.getAllParts();
+				}
+				else 
+				{
+					//console.log("FAIL: " + queryResult);
+					$scope.resultclass = "alert alert-danger";
+				}
 				
-				$http.get("php/DeletePart.php",{params:{"partno": partno}}).then(function (response) {
-				    queryResult = JSON.stringify(response.data.records);
-					
-					if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
-					{
-						//console.log(queryResult);
-						$scope.resultclass = "alert alert-success";
-						
-						$scope.parts = JSON.parse("{\"records\":[{\"PartNo\":\"\",\"PImage\":\"\",\"Pname\":\"\",\"PCompany\":\"\",\"Price\":\"\",\"SubCatID\":\"\",\"WarrantyID\":\"\"}]}");
-						$scope.getAllParts();
-					}
-					else 
-					{
-						//console.log("FAIL: " + queryResult);
-						$scope.resultclass = "alert alert-danger";
-					}
-					
-					$scope.result = response.data.records;
-				});
-			}
-			
-			$scope.getAllParts();
-		});
-		</script>
+				$scope.result = response.data.records;
+			});
+		}
+		
+		$scope.getAllParts();
+	});
+	</script>
 </body>
 </html>

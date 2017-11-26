@@ -25,9 +25,11 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/totop.js"></script>
+	<script type="text/javascript" src="js/validator.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 </head>
 
-<body>
+<body id='uppartCtrl' ng-controller="uppartCtrl">
 	<?php
 	session_start();
 	if(!(isset($_SESSION['sess_username']))){
@@ -76,38 +78,35 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="history.php">Order History</a></li>
+							<li class="divider"></li>
+							<li><a href="#" onclick="$('#logoutModal').modal('show');"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
 		                </ul>
-					</li>
-					<li>
-						<a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
-							<span class="glyphicon glyphicon-log-out"></span> Log out
-						</a>
 					</li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>
 	<div class="container">
-		<div ng-controller="uppartCtrl">
+		<div>
 			<form class="form-inline">
 				<div class="form-group">
 					<label for="part">Select PartNo:</label>
 					<select class="form-control" id="part" ng-model="string" ng-change="getCarModel()"> 
 						<option value="">Select Part</option>
-						<option ng-repeat="a in names" value={{a.PartNo}}>{{a.PartNo}}</option>
+						<option ng-repeat="a in names" value='{{a.PartNo}}'>{{a.PartNo}}</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getAllPartInfo()">Submit</button>
+					<button  class="btn btn-default" id="getPartsInfo" ng-model="button" ng-click="getAllPartInfo()">Get Part Info</button>
 				</div>
 			</form>
 			
-			<div ng-repeat="part in parts">
-				<form class="form-horizontal" name="form" method="post" action="" enctype="multipart/form-data">
+			<div ng-repeat="part in parts" emit-last-repeater-element>
+				<form class="form-horizontal" id="form" name="form" method="post" action="" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="partno">Part Number:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" name="partno" placeholder="Part Number" value={{part.PartNo}}>
+							<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" name="partno" placeholder="Part Number" value="{{part.PartNo}}" readonly>
 						</div>
 					</div>
 
@@ -135,21 +134,24 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pcompany">Part Company:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" name="pcompany" placeholder="Part Company" value={{part.PCompany}}>
+							<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" name="pcompany" placeholder="Part Company" value={{part.PCompany}} >
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pprice">Part Price:</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="pprice" name="pprice" placeholder="Part Price" value={{part.Price}}>
+						<div class="col-sm-10 hide-inputbtns">
+							<div class="input-group"> 
+								<span class="input-group-addon">$</span>
+	        					<input type="number" ng-value="{{part.Price}}" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pprice" name="pprice" placeholder="Part Price"/>
+	        				</div>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="psubcat">Part Sub Category:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="psubcat" name="psubcat" placeholder="Part Sub Category" value={{part.SubCatID}} disabled>
+							<input type="text" class="form-control" id="psubcat" name="psubcat" placeholder="Part Sub Category" value={{part.SubCatID}} readonly>
 						</div>
 					</div>
 					
@@ -166,7 +168,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pwarranty">Part Warranty:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="pwarranty" name="pwarranty" placeholder="Part Warranty" value={{part.WarrantyID}} disabled>
+							<input type="text" class="form-control" id="pwarranty" name="pwarranty" placeholder="Part Warranty" value={{part.WarrantyID}} readonly>
 						</div>
 					</div>
 					
@@ -197,47 +199,91 @@
 			</a>
 		</div>		
 	</div>
-		<script>
-			$(document).ready(function() {
-				$("#submit").click(function() {
-					$('#message').css("display", "block");
-				});
-			});
 
-			var app = angular.module('uppart', []);
+	<div class="modal fade success-popup" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="logoutModalLabel">Log Out</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead">Are you sure you want to logout?</p>
+            <a href="logout.php" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-danger">Ok</a>
+            <a href="#" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-success">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	<script>
+		$(function(){
+      	});
+
+		var app = angular.module('uppart', []);
+
+		app.directive('emitLastRepeaterElement', function() {
+			return function(scope) {
+				if (scope.$last){
+					scope.$emit('LastRepeaterElement');
+				}
+			};
+		});
+		
+		app.controller('uppartCtrl', function($scope, $http) {
+			$scope.getAllParts = function() {
+				$http.get("./php/GetAllParts.php").then(function (response) {$scope.names = response.data.records;});
+			};
 			
-			app.controller('uppartCtrl', function($scope, $http) {
-				$scope.getAllParts = function() {
-					$http.get("./php/GetAllParts.php").then(function (response) {$scope.names = response.data.records;});
-				};
+			$scope.getAllPartInfo = function() {
+				$scope.resultclass = "alert";
+				$scope.result = "";
 				
-				$scope.getAllPartInfo = function() {
-					$scope.resultclass = "alert";
-					$scope.result = "";
-					
-					var part = $("#part").val();
-					$http.get("./php/GetAllPartFromPartNo.php",{params:{"part": part}}).then(function (response) {
-						$scope.parts = response.data.records;
-						
-						$scope.getPartSubCat();
-						$scope.getPartWarranty();
-					});
+				var part = $("#part").val();
 
-					$('#message').css("display", "none");
-				};
-				
-				$scope.getPartSubCat = function() {
-					//console.log("Getting Sub Categories...");
-					$http.get("./php/GetPartSubCat.php").then(function (response) {$scope.cats = response.data.records;});
-				};
-				
-				$scope.getPartWarranty = function() {
-					//console.log("Getting Warranty...");
-					$http.get("./php/GetPartWarranty.php").then(function (response) {$scope.warrn = response.data.records;});
-				};
-				
-				$scope.getAllParts();
+				$http.get("./php/GetAllPartFromPartNo.php",{params:{"part": part}}).then(function (response) {
+					$scope.parts = response.data.records;
+					
+					$scope.getPartSubCat();
+					$scope.getPartWarranty();
+				});
+
+				//$('#message').css("display", "none");
+			};
+
+			$scope.$on('LastRepeaterElement', function(){
+				$('#message').css("display", "none");
+				/*
+				console.log($('#partid').html());
+				var partid = $.trim($('#partid').html());
+
+				if(partid.length > 0) {
+					$("#part > [value='']").attr("selected", "false");
+					$("#part > [value=" + partid + "]").attr("selected", "true");
+					console.log($('#part').html());
+				}
+				*/
+				/*
+				$("#form").submit(function(e) {
+					console.log("Here");
+					$('#message').css("display", "show");
+					e.preventDefault();
+				});
+				*/
 			});
-		</script>
+
+			$scope.getPartSubCat = function() {
+				//console.log("Getting Sub Categories...");
+				$http.get("./php/GetPartSubCat.php").then(function (response) {$scope.cats = response.data.records;});
+			};
+			
+			$scope.getPartWarranty = function() {
+				//console.log("Getting Warranty...");
+				$http.get("./php/GetPartWarranty.php").then(function (response) {$scope.warrn = response.data.records;});
+			};
+			
+			$scope.getAllParts();
+		});
+	</script>
 </body>
 </html>

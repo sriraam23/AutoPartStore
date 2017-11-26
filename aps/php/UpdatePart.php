@@ -133,7 +133,7 @@
 				   	}
 				   	else {
 				   		mysqli_close($mysqli);
-				   		echo "<div class='alert alert-danger'><span>Error: Couldn't Update Part!</span></div>";
+				   		echo "<div class='alert alert-danger'><span>Error: <span id='partid'>". $partno . "</span> Couldn't Update Part!</span></div>";
 				   		//error_log("10");
 				   	}
 				}

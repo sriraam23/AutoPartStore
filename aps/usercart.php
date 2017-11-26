@@ -62,13 +62,9 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="history.php">Order History</a></li>
+							<li class="divider"></li>
+							<li><a href="#" onclick="$('#logoutModal').modal('show');"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
 		                </ul>
-					</li>
-
-					<li>
-						<a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
-							<span class="glyphicon glyphicon-log-out"></span> Log out
-						</a>
 					</li>
 				</ul>
 			</div><!--/.nav-collapse -->
@@ -83,7 +79,8 @@
 					<th>Part Name</th>
 					<th>Price</th>
 					<th>Quantity</th>
-					<th>Update Cart</th>
+					<th></th>
+					<th></th>
 				</tr>
 				</thead>
 				<tbody>
@@ -93,10 +90,12 @@
 					<td>${{ x.Price }}</td>
 					<td><input type='text' class="col-xs-2 qty" id='{{ x.PartNo }}_qty' name='{{ x.PartNo }}_qty' value='{{ x.PartQuantity }}'/></td>
 					<td><input type="button" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" class="btn btn-default" value="Update Cart"/><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
+					<td align="right"><a href="#" ng-click="deleteFromCart(x.PartNo)"><span class="glyphicon glyphicon-remove"></span></a></td>
 				</tr>
 				</tbody>
 				<tfoot>
 					<tr>
+						<th></th>
 						<th></th>
 						<th></th>
 						<th></th>
@@ -111,6 +110,52 @@
 			</a>
 		</div>		
 	</div>
+
+	<div class="modal fade success-popup" id="succcheck" tabindex="-1" role="dialog" aria-labelledby="succCheckLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="succCheckLabel">Check Out</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/success.png'/>Checkout successfull!</p>
+            <a href="#" onclick="$('#succcheck').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade success-popup" id="failcheck" tabindex="-1" role="dialog" aria-labelledby="failCheckLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="failCheckLabel">Check Out</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/fail.png'/>Checkout unsuccessfull!</p>
+            <a href="#" onclick="$('#failcheck').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade success-popup" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="logoutModalLabel">Log Out</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead">Are you sure you want to logout?</p>
+            <a href="logout.php" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-danger">Ok</a>
+            <a href="#" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-success">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -135,6 +180,13 @@
 				    $scope.cartitems = response.data;
 					//$('#count').html($scope.cartitems);
 					//console.log($scope.cartitems);
+
+					if($scope.cartitems == 0) {
+						$('#checkout').prop("disabled",true);
+					}
+					else {
+						$('#checkout').prop("disabled",false);
+					}
 				});
 			}
 
@@ -215,6 +267,44 @@
 				}
 			}
 
+			$scope.deleteFromCart = function(partNo) {
+				var queryResult = "";
+				var qty = 0;
+
+				$http.get("php/UpdateCart.php", {params:{"pquantity": qty, "partno": partNo, "username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
+				    queryResult = JSON.stringify(response.data.records);
+					
+					if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
+					{
+						//console.log(queryResult);
+						
+						if(qty == '0') {
+							$scope.getCart();
+						}
+						else {
+							$('#' + partNo + '_qresult').attr("src","img/success.png");
+
+							setTimeout(function(){
+								$scope.getCart();
+								$scope.updateCartCount();
+							}, 500);
+						}
+						
+					}
+					else 
+					{
+						console.log("FAIL: " + queryResult);
+
+						$('#' + partNo + '_qresult').attr("src","img/fail.png");
+						
+						setTimeout(function(){
+							$scope.getCart();
+							$scope.updateCartCount();
+						}, 500);
+					}
+				});
+			}
+
 			$scope.checkout = function() {
 				var queryResult = "";
 					
@@ -222,12 +312,12 @@
 					queryResult = JSON.stringify(response.data.records);
 					
 					if(queryResult == "[{\"Status\":\"SUCCESS\"}]") {
-						alert("Checkout SUCCESS!");
+						$('#succcheck').modal('show');
 						$scope.getCart();
 					}
 					else {
-						alert("Checkout FAIL!");
-						console.log(queryResult);
+						$('#failcheck').modal('show');
+						//console.log(queryResult);
 					}
 				});
 			}

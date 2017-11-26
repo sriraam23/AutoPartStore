@@ -16,8 +16,8 @@
 12. Create Cart Page - DONE
 13. Create Check out functionality - DONE
 
-14. Checkout success or fail display
-15. Logout display
+14. Checkout success or fail display - DONE
+15. Logout display - DONE
 16. Soft Delete?
-17. Search and filter
-18. Admin - All Items
+17. Search and filter?
+18. Admin - All Items?
