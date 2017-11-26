@@ -28,7 +28,7 @@
 		   
 		   	if($presult === TRUE) {
 		   		while($rs = mysqli_fetch_array($image)) {
-		   			rename("../img/" . $rs["PImage"], "../img/del/" . $rs["PImage"]);
+		   			//rename("../img/" . $rs["PImage"], "../img/del/" . $rs["PImage"]);
 		   		}
 
 			   	mysqli_close($mysqli);

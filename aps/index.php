@@ -85,14 +85,14 @@
 					<label for="carMake">Select Make:</label>
 					<select class="form-control" id="carMake" ng-model="string" ng-change="getCarModel()"> 
 						<option value="">Select Make</option>
-						<option ng-repeat="a in make" value={{a.Make}}>{{a.Make}}</option>
+						<option class="ng-cloak" ng-repeat="a in make" value={{a.Make}}>{{a.Make}}</option>
 					</select>
 				</div>
 				<div class="form-group">
 					<label for="carModel">Select Model:</label>
 					<select class="form-control" id="carModel"> 
 						<option value="">Select Model</option>
-						<option ng-repeat="a in model" value={{a.Model}}>{{a.Model}}</option>
+						<option class="ng-cloak" ng-repeat="a in model" value={{a.Model}}>{{a.Model}}</option>
 					</select>
 				</div>
 				<div class="form-group">

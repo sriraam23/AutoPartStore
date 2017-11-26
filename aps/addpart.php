@@ -90,7 +90,7 @@
 					<div class="col-sm-10">
 						<select class="form-control" id="carMake" name="carMake" ng-model="formData.carMake" ng-change="getCarModel()" required> 
 							<option value="">Select Make</option>
-							<option ng-repeat="a in make" value={{a.Make}}>{{a.Make}}</option>
+							<option class="ng-cloak" ng-repeat="a in make" value={{a.Make}}>{{a.Make}}</option>
 						</select>
 					</div>
 				</div>
@@ -100,7 +100,7 @@
 					<div class="col-sm-10">
 						<select class="form-control" id="carModel" name="carModel" required> 
 							<option value="">Select Model</option>
-							<option ng-repeat="a in model" value={{a.Model}}>{{a.Model}}</option>
+							<option class="ng-cloak" ng-repeat="a in model" value={{a.Model}}>{{a.Model}}</option>
 						</select>
 					</div>
 				</div>
@@ -162,7 +162,7 @@
 					<div class="col-sm-10">
 						<select class="form-control" id="psubcatid" name="psubcatid" required>
 							<option value="">Sub Category</option>
-							<option ng-repeat="a in cats" value={{a.SubCat}}>{{a.SubCat}}</option>
+							<option class="ng-cloak" ng-repeat="a in cats" value={{a.SubCat}}>{{a.SubCat}}</option>
 						</select>
 					</div>
 				</div> 
@@ -172,7 +172,7 @@
 					<div class="col-sm-10">
 						<select class="form-control" id="pwarrantyid" name="pwarrantyid" required> 
 							<option value="">Warranty</option>
-							<option ng-repeat="a in warrn" value={{a.WarrantyID}}>{{a.Type}}</option>
+							<option class="ng-cloak" ng-repeat="a in warrn" value={{a.WarrantyID}}>{{a.Type}}</option>
 						</select>
 					</div>
 				</div>

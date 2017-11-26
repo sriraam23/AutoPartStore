@@ -84,7 +84,7 @@
 				</tr>
 				</thead>
 				<tbody>
-				<tr ng-repeat="x in names" emit-last-repeater-element>
+				<tr class="ng-cloak" ng-repeat="x in names" emit-last-repeater-element>
 					<td><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
 					<td>{{ x.PCompany }} {{ x.Pname }}</td>
 					<td>${{ x.Price }}</td>

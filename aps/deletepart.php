@@ -80,7 +80,7 @@
 					<label for="part">Select PartNo:</label>
 					<select class="form-control" id="part" ng-model="string" ng-change="getCarModel()"> 
 						<option value="">Select Part</option>
-						<option ng-repeat="a in names" value={{a.PartNo}}>{{a.PartNo}}</option>
+						<option class="ng-cloak" ng-repeat="a in names" value={{a.PartNo}}>{{a.PartNo}}</option>
 					</select>
 				</div>
 				<div class="form-group">
@@ -88,8 +88,8 @@
 				</div>
 			</form>
 			
-			<div ng-repeat="part in parts">
-				<form class="form-horizontal" role="form">
+			<div class="ng-cloak" ng-repeat="part in parts">
+				<form class="form-horizontal" role="form" method="get" action="">
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="partno">Part Number:</label>
 						<div class="col-sm-10">
@@ -144,7 +144,7 @@
 					
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button class="btn btn-primary" ng-model="button" ng-click="deletePart()">Delete</button>
+							<button class="btn btn-primary" type="submit" ng-model="button" ng-click="deletePart()">Delete</button>
 						</div>
 					</div>
 				</form>
@@ -152,7 +152,7 @@
 			
 			<div class="form-group">
 				<div ng-class="resultclass">
-					<p ng-repeat="a in result"><strong>>{{a.Status}}</strong></p>
+					<p class="ng-cloak" ng-repeat="a in result"><strong>>{{a.Status}}</strong></p>
 				</div>
 			</div>
 			

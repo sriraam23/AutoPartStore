@@ -37,9 +37,12 @@
       <div class="row vertical-center-row">
         <div class="row">
           <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <img src="img/favicon.ico"> Auto Parts Store </img>
+            <br/>
+            <br/>
             <div class="panel panel-default">
               <div class="panel-heading">
-                <font size="+2"><strong>Autopart Store Sign in</strong></font>
+                <font size="+2"><strong>Sign in</strong></font>
               </div>
               <div class="panel-body" ng-controller="loginCtrl">
                 <form role="form" data-toggle="validator" ng-submit="loginUser()">

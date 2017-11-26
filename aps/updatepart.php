@@ -93,7 +93,7 @@
 					<label for="part">Select PartNo:</label>
 					<select class="form-control" id="part" ng-model="string" ng-change="getCarModel()"> 
 						<option value="">Select Part</option>
-						<option ng-repeat="a in names" value='{{a.PartNo}}'>{{a.PartNo}}</option>
+						<option class="ng-cloak" ng-repeat="a in names" value='{{a.PartNo}}'>{{a.PartNo}}</option>
 					</select>
 				</div>
 				<div class="form-group">
@@ -101,7 +101,7 @@
 				</div>
 			</form>
 			
-			<div ng-repeat="part in parts" emit-last-repeater-element>
+			<div class="ng-cloak" ng-repeat="part in parts" emit-last-repeater-element>
 				<form class="form-horizontal" id="form" name="form" method="post" action="" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="partno">Part Number:</label>
@@ -160,7 +160,7 @@
 						<div class="col-sm-10">
 							<select class="form-control" id="psubcatid" name="psubcatid">
 								<option value="">Sub Category</option>
-								<option ng-repeat="a in cats" value={{a.SubCat}}>{{a.SubCat}}</option>
+								<option class="ng-cloak" ng-repeat="a in cats" value={{a.SubCat}}>{{a.SubCat}}</option>
 							</select>
 						</div>
 					</div> 
@@ -177,7 +177,7 @@
 						<div class="col-sm-10">
 							<select class="form-control" id="pwarrantyid" name="pwarrantyid"> 
 								<option value="">Warranty</option>
-								<option ng-repeat="a in warrn" value={{a.WarrantyID}}>{{a.Type}}</option>
+								<option class="ng-cloak" ng-repeat="a in warrn" value={{a.WarrantyID}}>{{a.Type}}</option>
 							</select>
 						</div>
 					</div>

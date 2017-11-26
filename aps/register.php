@@ -37,6 +37,11 @@
       <div class="row vertical-center-row">
         <div class="col-md-8 col-md-offset-2 text-center">
           <div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <font size="+2"><strong>Create account</strong></font>
+              </div>
+              <div class="panel-body" ng-controller="loginCtrl">
         		<form id="register" name="register" class="form-horizontal" role="form" data-toggle="validator" ng-submit="registerUser()">
               <fieldset>
                 <div class="form-group has-feedback">
@@ -246,6 +251,8 @@
                 </div>
               </fieldset>
         		</form>
+            </div>
+            </div>
           </div>
       	</div>
       </div>

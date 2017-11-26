@@ -85,7 +85,7 @@
 					<th>Inventory</th>
 				</thead>
 				<tbody>
-					<tr data-ng-repeat="(order, items) in groups">
+					<tr class="ng-cloak" data-ng-repeat="(order, items) in groups">
 					    <td data-label="OrderID">{{order}}</td>
 					    <td>
 						    <table class="table table-bordered table-striped table-condensed">
@@ -97,7 +97,7 @@
 						    		<th>Quantity</th>
 						    	</thead>
 						    	<tbody>
-							        <tr data-ng-repeat="item in items">
+							        <tr class="ng-cloak" data-ng-repeat="item in items">
 							            <td>{{ item.PartNo}}</td>
 										<td><img ng-src='img/{{ item.PImage}}' alt='{{ item.Pname }}' height="100" width="100"></img></td>
 										<td>{{ item.PCompany }} {{ item.PName }}</td>
