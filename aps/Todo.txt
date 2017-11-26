@@ -21,3 +21,10 @@
 16. Soft Delete?
 17. Search and filter?
 18. Admin - All Items?
+
+Registration Heading
+Soft delete tag
+All items for Admin with delete flag
+Update Item quantity
+Reactivate item
+Wait time on each page
