@@ -19,6 +19,15 @@
 			$price = $_POST['pprice'];
 			$subcatid = $_POST['psubcatid'];
 			$warrantyid = $_POST['pwarrantyid'];
+			$quantity = $_POST['quantity'];
+			$delete = $_POST['delete'];
+
+			if($delete == 'on') {
+				$delete = '1';
+			}
+			else {
+				$delete = '0';
+			}
 
 			if(empty("$partno") === TRUE)
 			{
@@ -73,21 +82,22 @@
 
 								if(empty($subcatid) && empty($warrantyid))
 								{
-								   $result = mysqli_query($mysqli, "UPDATE Part set PImage='$file_name', Pname='$pname', PCompany='$pcompany', Price='$price' WHERE PartNo='$partno'");
-
+								   $result = mysqli_query($mysqli, "UPDATE Part set PImage='$file_name', Pname='$pname', PCompany='$pcompany', Price='$price', Deleted='$delete' WHERE PartNo='$partno'");
 								}
 								elseif(empty($warrantyid))
 								{
-								   $result = mysqli_query($mysqli, "UPDATE Part set PImage='$file_name', Pname='$pname', PCompany='$pcompany', Price='$price', SubCatID='$subcatid' WHERE PartNo='$partno'");
+								   $result = mysqli_query($mysqli, "UPDATE Part set PImage='$file_name', Pname='$pname', PCompany='$pcompany', Price='$price', SubCatID='$subcatid', Deleted='$delete' WHERE PartNo='$partno'");
 								}
 								elseif(empty($subcatid)){
-									$result = mysqli_query($mysqli, "UPDATE Part set PImage='$file_name', Pname='$pname', PCompany='$pcompany', Price='$price', WarrantyID='$warrantyid' WHERE PartNo='$partno'");
+									$result = mysqli_query($mysqli, "UPDATE Part set PImage='$file_name', Pname='$pname', PCompany='$pcompany', Price='$price', WarrantyID='$warrantyid', Deleted='$delete' WHERE PartNo='$partno'");
 								}
 								else {
-									$result = mysqli_query($mysqli, "UPDATE Part set PImage='$file_name', Pname='$pname', PCompany='$pcompany', Price='$price', SubCatID='$subcatid', WarrantyID='$warrantyid' WHERE PartNo='$partno'");
+									$result = mysqli_query($mysqli, "UPDATE Part set PImage='$file_name', Pname='$pname', PCompany='$pcompany', Price='$price', SubCatID='$subcatid', WarrantyID='$warrantyid', Deleted='$delete' WHERE PartNo='$partno'");
 								}
 
 							   	if($result === TRUE) {
+							   		$qresult = mysqli_query($mysqli, "INSERT INTO sinventory (StoreID, PartNo, StQuantity) VALUES ('1', '$partno', '$quantity') ON DUPLICATE KEY UPDATE StQuantity = " . (int)$quantity);
+				   					
 							   		mysqli_close($mysqli);
 							   		echo "<div class='alert alert-success'><span>Success: Part Updated!</span></div>";
 							   		//error_log("6");
@@ -112,21 +122,23 @@
 
 					if(empty($subcatid) && empty($warrantyid))
 					{
-					   $result = mysqli_query($mysqli, "UPDATE Part set Pname='$pname', PCompany='$pcompany', Price='$price' WHERE PartNo='$partno'");
-
+					   $result = mysqli_query($mysqli, "UPDATE Part set Pname='$pname', PCompany='$pcompany', Price='$price', Deleted='$delete' WHERE PartNo='$partno'");
 					}
 					elseif(empty($warrantyid))
 					{
-					   $result = mysqli_query($mysqli, "UPDATE Part set Pname='$pname', PCompany='$pcompany', Price='$price', SubCatID='$subcatid' WHERE PartNo='$partno'");
+					   $result = mysqli_query($mysqli, "UPDATE Part set Pname='$pname', PCompany='$pcompany', Price='$price', SubCatID='$subcatid', Deleted='$delete' WHERE PartNo='$partno'");
 					}
 					elseif(empty($subcatid)){
-						$result = mysqli_query($mysqli, "UPDATE Part set Pname='$pname', PCompany='$pcompany', Price='$price', WarrantyID='$warrantyid' WHERE PartNo='$partno'");
+						$result = mysqli_query($mysqli, "UPDATE Part set Pname='$pname', PCompany='$pcompany', Price='$price', WarrantyID='$warrantyid', Deleted='$delete' WHERE PartNo='$partno'");
 					}
 					else {
-						$result = mysqli_query($mysqli, "UPDATE Part set Pname='$pname', PCompany='$pcompany', Price='$price', SubCatID='$subcatid', WarrantyID='$warrantyid' WHERE PartNo='$partno'");
+						$result = mysqli_query($mysqli, "UPDATE Part set Pname='$pname', PCompany='$pcompany', Price='$price', SubCatID='$subcatid', WarrantyID='$warrantyid', Deleted='$delete' WHERE PartNo='$partno'");
 					}
 
 				   	if($result === TRUE) {
+				   		//INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = PartQuantity + " . (int)$pquantity)
+				   		$qresult = mysqli_query($mysqli, "INSERT INTO sinventory (StoreID, PartNo, StQuantity) VALUES ('1', '$partno', '$quantity') ON DUPLICATE KEY UPDATE StQuantity = " . (int)$quantity);
+				   		
 				   		mysqli_close($mysqli);
 				   		echo "<div class='alert alert-success'><span>Success: <span id='partid'>". $partno . "</span> Part Updated!</span></div>";
 				   		//error_log("9");

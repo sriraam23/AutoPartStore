@@ -1,7 +1,8 @@
 <?php
 	include 'php/CheckSession.php';
 	include 'php/CheckAdmin.php';
-		if ($_SESSION['admin'] != 1){
+	
+	if ($_SESSION['admin'] != 1){
 		header('Location: index.php');
 	}
 ?>
@@ -54,13 +55,14 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="index.php">Get Parts</a></li>
+					<li><a href="index.php">Buy Parts</a></li>
 
 					<?php if($_SESSION['admin'] == 1) : ?>
 
+					<li><a href="allparts.php">All Parts</a></li>
 					<li><a href="addpart.php">Add Part</a></li>
 					<li class="active"><a href="updatepart.php">Update Part</a></li>
-					<li><a href="deletepart.php">Delete Part</a></li>
+					<!--<li><a href="deletepart.php">Delete Part</a></li>-->
 					<li><a href="about.php">About</a></li>
 
 					<?php endif; ?>
@@ -127,14 +129,14 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pname">Part Name:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" name="pname" placeholder="Part Name" value={{part.Pname}}>
+							<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" name="pname" placeholder="Part Name" value={{part.Pname}} required/>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pcompany">Part Company:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" name="pcompany" placeholder="Part Company" value={{part.PCompany}} >
+							<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" name="pcompany" placeholder="Part Company" value={{part.PCompany}} required/>
 						</div>
 					</div>
 					
@@ -143,7 +145,7 @@
 						<div class="col-sm-10 hide-inputbtns">
 							<div class="input-group"> 
 								<span class="input-group-addon">$</span>
-	        					<input type="number" ng-value="{{part.Price}}" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pprice" name="pprice" placeholder="Part Price"/>
+	        					<input type="number" ng-value="{{part.Price}}" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pprice" name="pprice" placeholder="Part Price"/ required>
 	        				</div>
 						</div>
 					</div>
@@ -179,6 +181,20 @@
 								<option value="">Warranty</option>
 								<option class="ng-cloak" ng-repeat="a in warrn" value={{a.WarrantyID}}>{{a.Type}}</option>
 							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="quantity">Quantity:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="quantity" name="quantity" placeholder="Quantity" value='{{part.Quantity}}' required>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="delete">Delete:</label>
+						<div class="col-sm-10 text-left">
+							<input style="margin-top: 12px;" type="checkbox" class="" id="delete" name="delete" ng-checked="{{part.Deleted}} == 1">
 						</div>
 					</div>
 					

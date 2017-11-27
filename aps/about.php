@@ -1,7 +1,8 @@
 <?php
 	include 'php/CheckSession.php';
 	include 'php/CheckAdmin.php';
-		if ($_SESSION['admin'] != 1){
+
+	if ($_SESSION['admin'] != 1){
 		header('Location: index.php');
 	}
 ?>
@@ -41,13 +42,14 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="index.php">Get Parts</a></li>
+					<li><a href="index.php">Buy Parts</a></li>
 
 					<?php if($_SESSION['admin'] == 1) : ?>
 
+					<li><a href="allparts.php">All Parts</a></li>
 					<li><a href="addpart.php">Add Part</a></li>
 					<li><a href="updatepart.php">Update Part</a></li> 
-					<li><a href="deletepart.php">Delete Part</a></li>
+					<!--<li><a href="deletepart.php">Delete Part</a></li>-->
 					<li class="active"><a href="about.php">About</a></li>
 
 					<?php endif; ?>

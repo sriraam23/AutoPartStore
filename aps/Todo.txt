@@ -18,13 +18,19 @@
 
 14. Checkout success or fail display - DONE
 15. Logout display - DONE
-16. Soft Delete?
-17. Search and filter?
-18. Admin - All Items?
 
-Registration Heading
-Soft delete tag
-All items for Admin with delete flag
-Update Item quantity
-Reactivate item
-Wait time on each page
+16. Soft Delete?
+	- Soft delete tag - DONE
+	- Reactivate item - DONE
+	- All items for Admin with delete flag - DONE
+---------------------------------------------------------------------------------------------------------
+	- If deleted item in Cart - WHAT TO DO IN THIS CASE?
+---------------------------------------------------------------------------------------------------------
+
+17. Admin - All Items? - DONE
+18. Search and filter?
+	- Remove live search - DONE
+19. Update Item quantity - DONE
+20. Misc.
+	- Registration Heading - DONE
+	- Wait time on each page - DONE

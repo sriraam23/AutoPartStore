@@ -110,7 +110,7 @@
 							   		//error_log("INSERT INTO CarInfo (Make, Model, MinYear, MaxYear, PartNo) VALUES ('$make','$model','".(int)$miny."','".(int)$maxy."','$partno')");
 
 							   		if($carresult === TRUE) {
-							   			$invresult = mysqli_query($mysqli, "INSERT INTO sinventory (StQuantity, StoreID, PartNo) VALUES ('10','1','$partno')");
+							   			$invresult = mysqli_query($mysqli, "INSERT INTO sinventory (StQuantity, StoreID, PartNo) VALUES ('0','1','$partno')");
 
 							   			if($invresult === TRUE) {
 							   				mysqli_close($mysqli);
@@ -157,7 +157,7 @@
 				   		//error_log("INSERT INTO CarInfo (Make, Model, MinYear, MaxYear, PartNo) VALUES ('$make','$model','".(int)$miny."','".(int)$maxy."','$partno')");
 
 				   		if($carresult === TRUE) {
-				   			$invresult = mysqli_query($mysqli, "INSERT INTO sinventory (StQuantity, StoreID, PartNo) VALUES ('10','1','$partno')");
+				   			$invresult = mysqli_query($mysqli, "INSERT INTO sinventory (StQuantity, StoreID, PartNo) VALUES ('0','1','$partno')");
 
 				   			if($invresult === TRUE) {
 				   				mysqli_close($mysqli);

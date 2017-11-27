@@ -45,13 +45,14 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="index.php">Get Parts</a></li>
+					<li class="active"><a href="index.php">Buy Parts</a></li>
 					
 					<?php if($_SESSION['admin'] == 1) : ?>
 			 		
+			 		<li><a href="allparts.php">All Parts</a></li>
 			 		<li><a href="addpart.php">Add Part</a></li>
 					<li><a href="updatepart.php">Update Part</a></li> 
-					<li><a href="deletepart.php">Delete Part</a></li>
+					<!--<li><a href="deletepart.php">Delete Part</a></li>-->
 					<li><a href="about.php">About</a></li>
 
 					<?php endif; ?>
@@ -100,7 +101,7 @@
 					<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carYear" placeholder="Car Model Year" ng-model="carYear">
 				</div>
 				<div class="form-group">
-					<label for="partName">Enter Part Name:</label>
+					<label for="partName">Keyword:</label>
 					<input type="text" class="form-control" id="partName" placeholder="Part Name" ng-model="partName">
 				</div>
 				<div class="form-group">
@@ -109,13 +110,14 @@
 			</form>
 			
 			<br/>
-			
+			<!--
 			<form class="form-inline">
 		        <div class="form-group">
 		            <label >Search</label>
 		            <input type="text" ng-model="search" class="form-control" placeholder="Search">
 		        </div>
 		    </form>
+			-->
 			<div class="table-responsive">
 				<table id="partsList" class="table table-bordered table-striped table-condensed">
 					<thead>
@@ -137,9 +139,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr dir-paginate="x in names|orderBy:sortKey:reverse|filter:search|itemsPerPage:5" emit-last-repeater-element>
+						<tr dir-paginate="x in names|orderBy:sortKey:reverse|itemsPerPage:5" class="ng-cloak" emit-last-repeater-element>
 							<td>{{ x.PartNo}}</td>
-							<td><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
+							<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
 							<td>{{ x.PCompany }} {{ x.Pname }}</td>
 							<td>${{ x.Price }}</td>
 							<td>{{ x.SubCatID }}</td>

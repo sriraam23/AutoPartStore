@@ -1,8 +1,12 @@
 <?php
 	include 'php/CheckSession.php';
 	include 'php/CheckAdmin.php';
+
+	if ($_SESSION['admin'] != 1){
+		header('Location: index.php');
+	}
 ?>
-<html ng-app="history" lang="en">
+<html ng-app="allParts" lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -19,13 +23,14 @@
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/angular.min.js"></script>
-	<script type="text/javascript" src="js/underscore-min.js"></script>
 	<script type="text/javascript" src="js/totop.js"></script>
-		
+
+	<script type="text/javascript" src="js/dirPagination.js"></script>
+	
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
 </head>
 
-<body>
+<body ng-controller="allPartsCtrl">
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -48,7 +53,7 @@
 					
 					<?php if($_SESSION['admin'] == 1) : ?>
 			 		
-			 		<li><a href="allparts.php">All Parts</a></li>
+			 		<li class="active"><a href="allparts.php">All Parts</a></li>
 			 		<li><a href="addpart.php">Add Part</a></li>
 					<li><a href="updatepart.php">Update Part</a></li> 
 					<!--<li><a href="deletepart.php">Delete Part</a></li>-->
@@ -62,7 +67,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li>
 						<a href="usercart.php" class="navbar-brand">
-							<span class="glyphicon glyphicon-shopping-cart"></span> <?php include 'php/GetCartItemCount.php' ?>
+							<span class="glyphicon glyphicon-shopping-cart"></span> <span id="count"> {{ cartitems }} </span>
 						</a>
 					</li>
 					<li class="dropdown">
@@ -79,39 +84,49 @@
 	</nav>
 
 	<div class="container">
-		<div ng-controller="histCtrl">
-			<table class="table table-bordered table-striped table-condensed">
-				<thead>
-					<th>OrderID</th>
-					<th>Inventory</th>
-				</thead>
-				<tbody>
-					<tr class="ng-cloak" data-ng-repeat="(order, items) in groups">
-					    <td data-label="OrderID">{{order}}</td>
-					    <td>
-						    <table class="table table-bordered table-striped table-condensed">
-						    	<thead>
-						    		<th>Part Number</th>
-						    		<th>Image</th>
-						    		<th>Part Name</th>
-						    		<th>Price</th>
-						    		<th>Quantity</th>
-						    	</thead>
-						    	<tbody>
-							        <tr class="ng-cloak" data-ng-repeat="item in items">
-							            <td>{{ item.PartNo}}</td>
-										<td><img ng-src='img/{{ item.PImage}}' alt='{{ item.Pname }}' height="100" width="100"></img></td>
-										<td>{{ item.PCompany }} {{ item.PName }}</td>
-										<td>${{ item.PartsCost }}</td>
-										<td>{{ item.OrQuantity }}</td>
-							        </tr>
-								</tbody>
-						    </table>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<div>
+			<form class="form-inline">
+		        <div class="form-group">
+		            <label >Search</label>
+		            <input type="text" ng-model="search" class="form-control" placeholder="Search">
+		        </div>
+		    </form>
 
+			<div class="table-responsive">
+				<table id="partsList" class="table table-bordered table-striped table-condensed">
+					<thead>
+						<tr>
+							<th ng-click="sort('PartNo')">Part Number
+								<span class="glyphicon sort-icon" ng-show="sortKey=='PartNo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th>Part Image</th>
+							<th ng-click="sort('PCompany')">Part Name
+								<span class="glyphicon sort-icon" ng-show="sortKey=='PCompany'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th ng-click="sort('Price')">Price
+								<span class="glyphicon sort-icon" ng-show="sortKey=='Price'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th ng-click="sort('SubCatID')">Sub Category
+								<span class="glyphicon sort-icon" ng-show="sortKey=='SubCatID'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th ng-click="sort('WarrantyID')">Warranty
+								<span class="glyphicon sort-icon" ng-show="sortKey=='WarrantyID'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th ng-click="sort('Quantity')">Quantity
+								<span class="glyphicon sort-icon" ng-show="sortKey=='Quantity'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr dir-paginate="x in names|orderBy:sortKey:reverse|filter:search|itemsPerPage:5" class="ng-cloak" emit-last-repeater-element>
+							<td>{{ x.PartNo}}</td>
+							<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"/></td>
+							<td>{{ x.PCompany }} {{ x.Pname }}</td>
+							<td>${{ x.Price }}</td>
+							<td>{{ x.SubCatID }}</td>
+							<td>{{ x.WarrantyID }}</td>
+							<td>{{ x.Quantity }}</td>
+							<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ x.Deleted }}' alt='{{ x.Deleted }}' height="80" width="150"/></td>
+						</tr>
+					</tbody>
+				</table>
+				<dir-pagination-controls max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls>
+			</div>
 			<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>
@@ -135,7 +150,7 @@
     </div>
 	
 	<script>
-		var app = angular.module('history', []);
+		var app = angular.module('allParts', ['angularUtils.directives.dirPagination']);
 
 		app.directive('emitLastRepeaterElement', function() {
 			return function(scope) {
@@ -145,16 +160,16 @@
 			};
 		});
 		
-		app.controller('histCtrl', function($scope, $http) {
-			$scope.getOrders = function() {
-				$http.get("php/GetUserHistory.php", {params:{"username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
+		app.controller('allPartsCtrl', function($scope, $http) {
+			$scope.getParts = function() {
+				$http.get("php/GetAllPartsAdmin.php",  {
+					params:{}
+				}).then(function (response) {
 					$scope.names = response.data.records;
-					$scope.groups = _.groupBy($scope.names, "OrderID");
-					console.log($scope.groups);
 				});
 			};
 			
-			$scope.getOrders();
+			$scope.getParts();
 
 			$scope.sort = function(keyname){
 		        $scope.sortKey = keyname;   //set the sortKey to the param passed
@@ -162,7 +177,6 @@
 		    }
 
 			$scope.$on('LastRepeaterElement', function(){
-				//$scope.sort('PartNo');
 			});
 		});
 	</script>
