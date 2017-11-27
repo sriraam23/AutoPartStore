@@ -50,13 +50,13 @@
                 <form role="form" data-toggle="validator" ng-submit="loginUser()">
                   <fieldset>
                     <div class="row">
-                      <div class="col-sm-12 col-md-10 col-md-offset-1">
+                      <div class="col-md-15 col-md-10 col-md-offset-1">
                         <div class="form-group">
                           <div id="login_error" class="alert alert-danger" role="alert" hidden>Invalid username or password!</div>
                         </div>
                         <div class="form-group has-feedback">
-                          <div class="col-md-10 input-group">
-                            <label for="username" class="col-md-4">Username</label>
+                          <div class="col-md-12 input-group">
+                            <label for="username" class="col-md-2">Username</label>
                             <span class="input-group-addon">
                               <i class="glyphicon glyphicon-user"></i>
                             </span> 
@@ -64,8 +64,8 @@
                           </div>
                         </div>
                         <div class="form-group has-feedback">
-                          <div class="col-md-10 input-group">
-                            <label for="password" class="col-md-4">Password</label>
+                          <div class="col-md-12 input-group">
+                            <label for="password" class="col-md-2">Password</label>
                             <span class="input-group-addon">
                               <i class="glyphicon glyphicon-lock"></i>
                             </span>
