@@ -52,6 +52,9 @@
         <div style="text-align: center;"><img style="width:64px;height:64px;" src="img/favicon.ico"><span style="font-size: 30px;"><strong> Auto Parts Store </strong></span></div>
         <br/>
         <div class="col-md-8 col-md-offset-2 text-center">
+<<<<<<< HEAD
+>>>>>>> 3fb1acefc81afc4369f3b4e88575753c8499090c
+=======
 >>>>>>> 3fb1acefc81afc4369f3b4e88575753c8499090c
             <div class="panel panel-default">
               <div class="panel-heading">
