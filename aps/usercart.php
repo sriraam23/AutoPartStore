@@ -240,8 +240,11 @@
 
 								setTimeout(function(){
 									$scope.getCart();
+								}, 1000);
+
+								setTimeout(function(){
 									$scope.updateCartCount();
-								}, 500);
+								}, 50);
 							}
 							
 						}
@@ -253,8 +256,11 @@
 							
 							setTimeout(function(){
 								$scope.getCart();
+							}, 1000);
+
+							setTimeout(function(){
 								$scope.updateCartCount();
-							}, 500);
+							}, 50);
 						}
 					});
 				}
@@ -263,8 +269,11 @@
 					
 					setTimeout(function(){
 						$('#' + partNo + '_qresult').attr("src","img/empty.png");
+					}, 1000);
+
+					setTimeout(function(){
 						$scope.updateCartCount();
-					}, 500);
+					}, 50);
 				}
 			}
 
@@ -287,8 +296,11 @@
 
 							setTimeout(function(){
 								$scope.getCart();
+							}, 1000);
+
+							setTimeout(function(){
 								$scope.updateCartCount();
-							}, 500);
+							}, 50);
 						}
 						
 					}
@@ -300,8 +312,11 @@
 						
 						setTimeout(function(){
 							$scope.getCart();
+						}, 1000);
+
+						setTimeout(function(){
 							$scope.updateCartCount();
-						}, 500);
+						}, 50);
 					}
 				});
 			}

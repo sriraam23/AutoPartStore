@@ -254,7 +254,7 @@
 						setTimeout(function(){
 							$('#' + partNo + '_qresult').attr("src","img/empty.png");
 							$scope.updateCartCount();
-						}, 500);
+						}, 1000);
 					}
 					else 
 					{
@@ -263,7 +263,7 @@
 						setTimeout(function(){
 							$('#' + partNo + '_qresult').attr("src","img/empty.png");
 							$scope.updateCartCount();
-						}, 500);
+						}, 1000);
 					}
 				});
 			}

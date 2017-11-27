@@ -73,7 +73,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li>
 						<a href="usercart.php" class="navbar-brand">
-							<span class="glyphicon glyphicon-shopping-cart"></span> <span id="count"> {{ cartitems }} </span>
+							<span class="glyphicon glyphicon-shopping-cart"></span> <span id="count" class="ng-cloak"> {{ cartitems }} </span>
 						</a>
 					</li>
 					<li class="dropdown">
