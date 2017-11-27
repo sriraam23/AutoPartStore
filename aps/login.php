@@ -35,37 +35,51 @@
       }
     </style>
   </head>
-  <body>
+  <body ng-controller="loginCtrl">
     <div class="container container-table">
       <div class="row vertical-center-row">
         <div class="row">
           <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <div style="text-align: center;"><img style="width:64px;height:64px;" src="img/favicon.ico"><span style="font-size: 30px"><strong> Auto Parts Store </strong></span></div>
+            <div style="text-align: center;">
+              <img style="width:64px;height:64px;" src="img/favicon.ico">
+              <span style="font-size: 30px; vertical-align: middle;"><strong> Auto Parts Store </strong></span></div>
             <br/>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <font size="+2"><strong>Sign in</strong></font>
               </div>
-              <div class="panel-body" ng-controller="loginCtrl">
-                <form role="form" data-toggle="validator" ng-submit="loginUser()">
+              <div class="panel-body">
+                <form role="form" ng-submit="loginUser()">
                   <fieldset>
                     <div class="row">
-                      <div class="col-sm-12 col-md-10 col-md-offset-1">
+                      <div class="col-md-15 col-md-10 col-md-offset-1">
                         <div class="form-group">
                           <div id="login_error" class="alert alert-danger" role="alert" hidden>Invalid username or password!</div>
                         </div>
+<<<<<<< HEAD
+                        <div class="form-group">
+                          <label for="username">Username</label>
+                          <div class="input-group">
+=======
                         <div class="form-group has-feedback">
-                          <div class="col-md-10 input-group">
-                            <label for="username" class="col-md-4">Username</label>
+                          <div class="col-md-12 input-group">
+                            <label for="username" class="col-md-2">Username</label>
+>>>>>>> 3fb1acefc81afc4369f3b4e88575753c8499090c
                             <span class="input-group-addon">
                               <i class="glyphicon glyphicon-user"></i>
                             </span> 
-                            <input class="form-control" placeholder="Username" id="username" name="username" type="text" autofocus="" required>
+                            <input class="form-control" placeholder="Username" id="username" name="username" type="text" required>
                           </div>
                         </div>
+<<<<<<< HEAD
+                        <div class="form-group">
+                          <label for="password">Password</label>
+                          <div class="input-group">
+=======
                         <div class="form-group has-feedback">
-                          <div class="col-md-10 input-group">
-                            <label for="password" class="col-md-4">Password</label>
+                          <div class="col-md-12 input-group">
+                            <label for="password" class="col-md-2">Password</label>
+>>>>>>> 3fb1acefc81afc4369f3b4e88575753c8499090c
                             <span class="input-group-addon">
                               <i class="glyphicon glyphicon-lock"></i>
                             </span>
@@ -73,7 +87,7 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+                          <input id="loginbtn" type="submit" class="btn btn-primary btn-block" value="Sign in">
                         </div>
                       </div>
                     </div>
@@ -90,6 +104,9 @@
     </div>
 
     <script type="text/javascript">
+      $(function(){
+      });
+
       var app = angular.module('login', []);
     
       app.controller('loginCtrl', function($scope, $http) {
