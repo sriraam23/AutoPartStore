@@ -142,7 +142,7 @@
                     <div class="input-group">
                       <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                       <select id="state" name="state" class="form-control selectpicker" required>
-                        <option value="">Please select your state</option>
+                        <option value="">State</option>
                         <option value="Alabama">Alabama</option>
                         <option value="Alaska">Alaska</option>
                         <option value="Arizona">Arizona</option>
