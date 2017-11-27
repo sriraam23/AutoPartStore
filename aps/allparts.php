@@ -75,7 +75,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="history.php">Order History</a></li>
 							<li class="divider"></li>
-							<li><a href="#" onclick="$('#logoutModal').modal('show');"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
+							<li><a href="#" onclick="$('#logoutModal').modal('show');"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 		                </ul>
 					</li>
 				</ul>
@@ -138,7 +138,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title" id="logoutModalLabel">Log Out</h4>
+            <h4 class="modal-title" id="logoutModalLabel">Logout</h4>
           </div>
           <div class="modal-body text-center">
             <p class="lead">Are you sure you want to logout?</p>
