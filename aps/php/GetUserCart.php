@@ -30,8 +30,8 @@
      $outp .= '"PImage":"'   . $rs["PImage"]    . '",';
      $outp .= '"Pname":"'   . $rs["Pname"]    . '",';
      $outp .= '"PCompany":"'  . $rs["PCompany"]   . '",';
-     $outp .= '"Price":"'    . $rs["TotalPrice"]     . '",';
-     $outp .= '"PartQuantity":"'   . $rs["PartQuantity"] . '"}';
+     $outp .= '"Price":'    . $rs["TotalPrice"]     . ',';
+     $outp .= '"PartQuantity":'   . $rs["PartQuantity"] . '}';
   }
 
   $outp ='{"records":['.$outp.']}';

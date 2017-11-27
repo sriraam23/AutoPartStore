@@ -22,11 +22,11 @@
      $outp .= '"PImage":"'   . $rs["PImage"]    . '",';
      $outp .= '"Pname":"'   . $rs["Pname"]    . '",';
      $outp .= '"PCompany":"'  . $rs["PCompany"]   . '",';
-     $outp .= '"Price":"'    . $rs["Price"]     . '",';
+     $outp .= '"Price":'    . $rs["Price"]     . ',';
      $outp .= '"SubCatID":"'   . $rs["SubCatID"]    . '",';
      $outp .= '"WarrantyID":"'   . $rs["WarrantyID"]    . '",';
      $outp .= '"Deleted":"'   . $rs["Deleted"]    . '",';
-     $outp .= '"Quantity":"' . $rs["StQuantity"]  . '"}';
+     $outp .= '"Quantity":' . $rs["StQuantity"]  . '}';
    }
    
    $outp ='{"records":['.$outp.']}';

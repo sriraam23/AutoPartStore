@@ -69,7 +69,7 @@
 							echo "<div class='alert alert-danger'><span>Return Code: " . $_FILES["file"]["error"] . "</span></div>";
 						}
 						else {
-							$file_name = $_POST['partno'] . "_" . time() . "_" . uniqid(mt_rand(), true) . "." . $file_extension;
+							$file_name = $_POST['partno'] . "_" . time() . "_" . mt_rand(10000000, 99999999) . "." . $file_extension;
 
 							if (file_exists("img/" . $file_name)) {
 								echo "<div class='alert alert-danger'><span>Error: Couldn't upload image!</span></div>";

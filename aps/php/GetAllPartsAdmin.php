@@ -24,7 +24,7 @@ if($_SESSION['admin'] == 1) {
       $outp .= '"PImage":"'   . $rs["PImage"]    . '",';
       $outp .= '"Pname":"'   . $rs["Pname"]    . '",';
       $outp .= '"PCompany":"'  . $rs["PCompany"]   . '",';
-      $outp .= '"Price":"'    . $rs["Price"]     . '",';
+      $outp .= '"Price":'    . $rs["Price"]     . ',';
       $outp .= '"SubCatID":"'   . $rs["SubCatID"]    . '",';
       $outp .= '"WarrantyID":"'   . $rs["WarrantyID"]    . '",';
       if($rs["Deleted"] == '0') {
@@ -33,7 +33,7 @@ if($_SESSION['admin'] == 1) {
       else {
         $outp .= '"Deleted":"deleted.png",';
       }
-      $outp .= '"Quantity":"' . $rs["StQuantity"]  . '"}';
+      $outp .= '"Quantity":' . $rs["StQuantity"]  . '}';
     }
 
     $outp ='{"records":['.$outp.']}';

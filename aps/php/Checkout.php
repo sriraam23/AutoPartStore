@@ -45,7 +45,7 @@
 			$carttotal = mysqli_query($mysqli, "SELECT SUM(p.Price * c.PartQuantity) as TotalSum FROM usercart c LEFT OUTER JOIN part p ON c.PartNo = p.PartNo WHERE c.username = '$username'");
 			$userinfo = mysqli_query($mysqli, "SELECT Street, City, State, Zipcode FROM customer WHERE Username = '$username'");
 
-			$orderid = $username . time() . uniqid(mt_rand(), true);
+			$orderid = $username . "_" . time() . "_" . mt_rand(10000000, 99999999);
 
 			$cartcost = mysqli_fetch_array($carttotal)['TotalSum'];
 

@@ -78,10 +78,10 @@
 	<div class="container">
 		<div id="teaminfo">
 			<h3>CS 6314-002 Web Programming Languages</h3>
-			<h3>Online Auto Part Store</h3>
+			<h3>Online Auto Parts Store</h3>
 			<h4>Members:</h4>
-				<h6>Kartheek Kopparapu (kxk060100)</h6>
-				<h6>Sriraam Ramakrishnan (sxr163730)</h6>
+			<h5>Kartheek Kopparapu (kxk060100)</h5>
+			<h5>Sriraam Ramakrishnan (sxr163730)</h5>
 		</div>
 		
 		<div>

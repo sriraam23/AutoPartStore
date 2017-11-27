@@ -253,8 +253,11 @@
 
 						setTimeout(function(){
 							$('#' + partNo + '_qresult').attr("src","img/empty.png");
-							$scope.updateCartCount();
 						}, 1000);
+
+						setTimeout(function(){
+							$scope.updateCartCount();
+						}, 50);
 					}
 					else 
 					{
@@ -262,8 +265,11 @@
 
 						setTimeout(function(){
 							$('#' + partNo + '_qresult').attr("src","img/empty.png");
-							$scope.updateCartCount();
 						}, 1000);
+
+						setTimeout(function(){
+							$scope.updateCartCount();
+						}, 50);
 					}
 				});
 			}
