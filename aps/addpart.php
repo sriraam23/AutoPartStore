@@ -179,7 +179,7 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<input class="btn btn-primary" id="submit" name="submit" type="submit" value="Submit"/>
+						<input class="btn btn-primary" id="submit" name="submit" type="submit" value="Add"/>
 					</div>
 				</div>
 				<div id="message" class="form-group">
