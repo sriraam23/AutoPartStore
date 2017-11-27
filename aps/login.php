@@ -56,36 +56,19 @@
                         <div class="form-group">
                           <div id="login_error" class="alert alert-danger" role="alert" hidden>Invalid username or password!</div>
                         </div>
-<<<<<<< HEAD
                         <div class="form-group">
                           <label for="username">Username</label>
                           <div class="input-group">
-=======
-                        <div class="form-group has-feedback">
-                          <div class="col-md-12 input-group">
-                            <label for="username" class="col-md-2">Username</label>
-<<<<<<< HEAD
->>>>>>> 3fb1acefc81afc4369f3b4e88575753c8499090c
-=======
->>>>>>> 3fb1acefc81afc4369f3b4e88575753c8499090c
                             <span class="input-group-addon">
                               <i class="glyphicon glyphicon-user"></i>
                             </span> 
                             <input class="form-control" placeholder="Username" id="username" name="username" type="text" required>
                           </div>
                         </div>
-<<<<<<< HEAD
+
                         <div class="form-group">
                           <label for="password">Password</label>
                           <div class="input-group">
-=======
-                        <div class="form-group has-feedback">
-                          <div class="col-md-12 input-group">
-                            <label for="password" class="col-md-2">Password</label>
-<<<<<<< HEAD
->>>>>>> 3fb1acefc81afc4369f3b4e88575753c8499090c
-=======
->>>>>>> 3fb1acefc81afc4369f3b4e88575753c8499090c
                             <span class="input-group-addon">
                               <i class="glyphicon glyphicon-lock"></i>
                             </span>

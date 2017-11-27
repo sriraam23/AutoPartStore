@@ -38,7 +38,6 @@
   <body ng-controller="registerUserCtrl" >
     <div class="container container-table">
       <div class="row vertical-center-row">
-<<<<<<< HEAD
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
             <div style="text-align: center;">
@@ -48,14 +47,6 @@
 
             <br/>
 
-=======
-        <div style="text-align: center;"><img style="width:64px;height:64px;" src="img/favicon.ico"><span style="font-size: 30px;"><strong> Auto Parts Store </strong></span></div>
-        <br/>
-        <div class="col-md-8 col-md-offset-2 text-center">
-<<<<<<< HEAD
->>>>>>> 3fb1acefc81afc4369f3b4e88575753c8499090c
-=======
->>>>>>> 3fb1acefc81afc4369f3b4e88575753c8499090c
             <div class="panel panel-default">
               <div class="panel-heading">
                 <font size="+2"><strong>Create account</strong></font>
@@ -129,8 +120,7 @@
                         <span class="help-block with-errors" />
                       </div>
                     </div>
-<<<<<<< HEAD
-                    
+
                     <div class="form-group has-feedback">
                       <label for="city">City</label>  
                       <div class="input-group">
@@ -140,76 +130,9 @@
                       <div class="text-left">
                         <span class="help-block with-errors" />
                       </div>
-=======
-                  </div>
-                  <div class="col-md-4 text-left">
-                    <span class="help-block with-errors" />
-                  </div>
-                </div>
-       
-                <div class="form-group has-feedback"> 
-                  <label for="state" class="col-md-4 control-label">State</label>
-                  <div class="col-md-4 selectContainer">
-                    <div class="input-group">
-                      <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                      <select id="state" name="state" class="form-control selectpicker" required>
-                        <option value="">State</option>
-                        <option value="Alabama">Alabama</option>
-                        <option value="Alaska">Alaska</option>
-                        <option value="Arizona">Arizona</option>
-                        <option value="Arkansas">Arkansas</option>
-                        <option value="California">California</option>
-                        <option value="Colorado">Colorado</option>
-                        <option value="Connecticut">Connecticut</option>
-                        <option value="Delaware">Delaware</option>
-                        <option value="District of Columbia">District of Columbia</option>
-                        <option value="Florida">Florida</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Hawaii">Hawaii</option>
-                        <option value="Idaho">Idaho</option>
-                        <option value="Illinois">Illinois</option>
-                        <option value="Indiana">Indiana</option>
-                        <option value="Iowa">Iowa</option>
-                        <option value="Kansas">Kansas</option>
-                        <option value="Kentucky">Kentucky</option>
-                        <option value="Louisiana">Louisiana</option>
-                        <option value="Maine">Maine</option>
-                        <option value="Maryland">Maryland</option>
-                        <option value="Massachusetts">Massachusetts</option>
-                        <option value="Michigan">Michigan</option>
-                        <option value="Minnesota">Minnesota</option>
-                        <option value="Mississippi">Mississippi</option>
-                        <option value="Missouri">Missouri</option>
-                        <option value="Montana">Montana</option>
-                        <option value="Nebraska">Nebraska</option>
-                        <option value="Nevada">Nevada</option>
-                        <option value="New Hampshire">New Hampshire</option>
-                        <option value="New Jersey">New Jersey</option>
-                        <option value="New Mexico">New Mexico</option>
-                        <option value="New York">New York</option>
-                        <option value="North Carolina">North Carolina</option>
-                        <option value="North Dakota">North Dakota</option>
-                        <option value="Ohio">Ohio</option>
-                        <option value="Oklahoma">Oklahoma</option>
-                        <option value="Oregon">Oregon</option>
-                        <option value="Pennsylvania">Pennsylvania</option>
-                        <option value="Rhode Island">Rhode Island</option>
-                        <option value="South Carolina">South Carolina</option>
-                        <option value="South Dakota">South Dakota</option>
-                        <option value="Tennessee">Tennessee</option>
-                        <option value="Texas">Texas</option>
-                        <option value="Uttah">Uttah</option>
-                        <option value="Vermont">Vermont</option>
-                        <option value="Virginia">Virginia</option>
-                        <option value="Washington">Washington</option>
-                        <option value="West Virginia">West Virginia</option>
-                        <option value="Wisconsin">Wisconsin</option>
-                        <option value="Wyoming">Wyoming</option>
-                      </select>
->>>>>>> 3fb1acefc81afc4369f3b4e88575753c8499090c
                     </div>
-                    
-                    <div class="form-group has-feedback">
+
+                    <div class="form-group has-feedback"> 
                       <label for="state">State</label>
                       <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
