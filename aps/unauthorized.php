@@ -42,7 +42,7 @@
 		                    <hr/>
 		                    <div class="row">
 		                    	<div class="col-md-6">
-		                    		<img src="img/forbidden.jpg" alt="unauthorized" height="350px" />
+		                    		<img src="img/forbidden.jpg" alt="unauthorized" height="50%" />
 		                    	</div>
 		                    	<div class="col-md-6">
 		                    		<p><font size="+2"><strong>Access is denied due to invalid credentials.</strong></font></p>
