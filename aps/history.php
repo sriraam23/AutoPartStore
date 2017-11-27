@@ -10,7 +10,7 @@
 	<meta http-equiv="content-language" content="en" />
 	<meta name="google" content="notranslate" />
 	
-	<title>Auto Part Store</title>
+	<title>Auto Parts Store</title>
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
@@ -38,7 +38,7 @@
 				<a class="navbar-brand" href="index.php">
 					<span style="padding-right: 10px">
 						<img alt="Brand" src="./img/favicon.ico">
-						Auto Part Store  
+						Auto Parts Store  
 					</span>
 				</a>
 			</div>

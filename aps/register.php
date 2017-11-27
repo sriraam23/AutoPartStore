@@ -18,7 +18,7 @@
     <script type="text/javascript" src="js/validator.min.js"></script>
     <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 
-    <title>Autopart Store Registration</title>
+    <title>Auto Parts Store Registration</title>
     <style>
       html, body, .container-table {
         height: 100%;
@@ -35,8 +35,9 @@
   <body ng-controller="registerUserCtrl">
     <div class="container container-table">
       <div class="row vertical-center-row">
-        <div class="col-md-8 col-md-offset-2 text-center">
-          <div>
+        <div style="text-align: center;"><img style="width:64px;height:64px;" src="img/favicon.ico"><span style="font-size: 30px;"><strong> Auto Parts Store </strong></span></div>
+        <br/>
+        <div class="col-md-6 col-md-offset-3 text-center">
             <div class="panel panel-default">
               <div class="panel-heading">
                 <font size="+2"><strong>Create account</strong></font>
@@ -252,8 +253,11 @@
               </fieldset>
         		</form>
             </div>
+            <div class="panel-footer ">
+                Already have an account? <a href="login.php"> Sign In Here </a>
             </div>
-          </div>
+            </div>
+          
       	</div>
       </div>
     </div>

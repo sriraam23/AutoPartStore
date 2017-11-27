@@ -18,7 +18,7 @@
     <script type="text/javascript" src="js/totop.js"></script>
     <script type="text/javascript" src="js/validator.min.js"></script>
 
-    <title>Autopart Store Login</title>
+    <title>Auto Parts Store Sign In</title>
     <style>
       html, body, .container-table {
         height: 100%;
@@ -30,6 +30,9 @@
         display: table-cell;
         vertical-align: middle;
       }
+      h1 {
+        display: inline;
+      }
     </style>
   </head>
   <body>
@@ -37,8 +40,7 @@
       <div class="row vertical-center-row">
         <div class="row">
           <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <img src="img/favicon.ico"> Auto Parts Store </img>
-            <br/>
+            <div style="text-align: center;"><img style="width:64px;height:64px;" src="img/favicon.ico"><span style="font-size: 30px"><strong> Auto Parts Store </strong></span></div>
             <br/>
             <div class="panel panel-default">
               <div class="panel-heading">
@@ -53,7 +55,8 @@
                           <div id="login_error" class="alert alert-danger" role="alert" hidden>Invalid username or password!</div>
                         </div>
                         <div class="form-group has-feedback">
-                          <div class="input-group">
+                          <div class="col-md-10 input-group">
+                            <label for="username" class="col-md-4">Username</label>
                             <span class="input-group-addon">
                               <i class="glyphicon glyphicon-user"></i>
                             </span> 
@@ -61,7 +64,8 @@
                           </div>
                         </div>
                         <div class="form-group has-feedback">
-                          <div class="input-group">
+                          <div class="col-md-10 input-group">
+                            <label for="password" class="col-md-4">Password</label>
                             <span class="input-group-addon">
                               <i class="glyphicon glyphicon-lock"></i>
                             </span>
@@ -77,7 +81,7 @@
                 </form>
               </div>
               <div class="panel-footer ">
-                Don't have an account! <a href="register.php"> Sign Up Here </a>
+                Don't have an account? <a href="register.php"> Sign Up Here </a>
               </div>
             </div>
           </div>
