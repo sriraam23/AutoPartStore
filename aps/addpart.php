@@ -3,7 +3,7 @@
 	include 'php/CheckAdmin.php';
 
 	if ($_SESSION['admin'] != 1){
-		header('Location: index.php');
+		header('Location: unauthorized.php');
 	}
 ?>
 <html ng-app="addpart" lang="en">
