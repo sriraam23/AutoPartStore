@@ -73,7 +73,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li>
 						<a href="usercart.php" class="navbar-brand">
-							<span class="glyphicon glyphicon-shopping-cart"></span> <?php include 'php/GetCartItemCount.php' ?>
+							<span class="glyphicon glyphicon-shopping-cart"></span> <span id="count"> {{ cartitems }} </span>
 						</a>
 					</li>
 					<li class="dropdown">
@@ -247,8 +247,22 @@
 		});
 		
 		app.controller('uppartCtrl', function($scope, $http) {
+			$scope.updateCartCount = function() {
+				$http.get("php/GetCartItemCount.php",{}).then(function (response) {
+				    $scope.cartitems = response.data;
+					//$('#count').html($scope.cartitems);
+					//console.log($scope.cartitems);
+				});
+			}
+
 			$scope.getAllParts = function() {
-				$http.get("./php/GetAllParts.php").then(function (response) {$scope.names = response.data.records;});
+				$http.get("./php/GetAllParts.php").then(function (response) {
+					$scope.names = response.data.records;
+
+					setTimeout(function(){
+						$scope.updateCartCount();
+					}, 50);
+				});
 			};
 			
 			$scope.getAllPartInfo = function() {
@@ -262,6 +276,10 @@
 					
 					$scope.getPartSubCat();
 					$scope.getPartWarranty();
+
+					setTimeout(function(){
+						$scope.updateCartCount();
+					}, 50);
 				});
 
 				//$('#message').css("display", "none");
@@ -286,6 +304,9 @@
 					e.preventDefault();
 				});
 				*/
+				setTimeout(function(){
+					$scope.updateCartCount();
+				}, 50);
 			});
 
 			$scope.getPartSubCat = function() {

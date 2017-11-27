@@ -138,6 +138,10 @@
 				   	if($result === TRUE) {
 				   		//INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = PartQuantity + " . (int)$pquantity)
 				   		$qresult = mysqli_query($mysqli, "INSERT INTO sinventory (StoreID, PartNo, StQuantity) VALUES ('1', '$partno', '$quantity') ON DUPLICATE KEY UPDATE StQuantity = " . (int)$quantity);
+
+				   		if($delete == '1') {
+				   			$dresult = mysqli_query($mysqli, "DELETE FROM usercart WHERE PartNo = '$partno'");
+				   		}
 				   		
 				   		mysqli_close($mysqli);
 				   		echo "<div class='alert alert-success'><span>Success: <span id='partid'>". $partno . "</span> Part Updated!</span></div>";
