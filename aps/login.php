@@ -32,6 +32,10 @@
       h1 {
         display: inline;
       }
+
+      body {
+        padding-top: 0px;
+      }
     </style>
   </head>
   <body ng-controller="loginCtrl">
