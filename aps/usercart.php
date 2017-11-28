@@ -76,6 +76,7 @@
 			<table class="table table-hover">
 				<thead>
 				<tr>
+					<th>Part Number</th>
 					<th>Part Image</th>
 					<th>Part Name</th>
 					<th>Price</th>
@@ -86,6 +87,7 @@
 				</thead>
 				<tbody>
 				<tr class="ng-cloak" ng-repeat="x in names" emit-last-repeater-element>
+					<td>{{ x.PartNo }}</td>
 					<td><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
 					<td>{{ x.PCompany }} {{ x.Pname }}</td>
 					<td>${{ x.Price }}</td>
@@ -135,7 +137,7 @@
             <h4 class="modal-title" id="failCheckLabel">Check Out</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead"><img src='img/fail.png'/>Checkout unsuccessfull!</p>
+            <p class="lead"><img src='img/fail.png'/>Checkout unsuccessfull! <span id="failstatus"></span></p>
             <a href="#" onclick="$('#failcheck').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>
@@ -194,7 +196,7 @@
 			$scope.updateCartCount();
 
 			$scope.getCart = function() {
-				$http.get("php/GetUserCart.php", {params:{"username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
+				$http.get("php/GetUserCart.php", {params:{}}).then(function (response) {
 					$scope.names = response.data.records;
 				});
 
@@ -324,7 +326,7 @@
 			$scope.checkout = function() {
 				var queryResult = "";
 					
-				$http.get("php/Checkout.php", { params: { "username": <?php echo "'".$_SESSION['sess_username']."'";?> } }).then(function (response) {
+				$http.get("php/Checkout.php", { params: {}}).then(function (response) {
 					queryResult = JSON.stringify(response.data.records);
 					
 					if(queryResult == "[{\"Status\":\"SUCCESS\"}]") {
@@ -332,6 +334,9 @@
 						$scope.getCart();
 					}
 					else {
+						$scope.failstatus = response.data.records;
+						console.log($scope.failstatus[0].Status);
+						$('#failstatus').text($scope.failstatus[0].Status);
 						$('#failcheck').modal('show');
 						//console.log(queryResult);
 					}

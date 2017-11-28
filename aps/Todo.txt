@@ -24,7 +24,7 @@
 	- Reactivate item - DONE
 	- All items for Admin with delete flag - DONE
 ---------------------------------------------------------------------------------------------------------
-	- If deleted item in Cart - WHAT TO DO IN THIS CASE?
+	- If deleted item in Cart - WHAT TO DO IN THIS CASE? - DONE
 ---------------------------------------------------------------------------------------------------------
 
 17. Admin - All Items? - DONE
