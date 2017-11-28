@@ -17,6 +17,9 @@
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
 	
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
+
+	<style>
+	</style>
 </head>
 
 <body ng-controller="cartCtrl">
@@ -73,7 +76,7 @@
 	</nav>
 	<div class="container">
 		<div>
-			<table class="table table-hover">
+			<table class="table table-hover table-condensed">
 				<thead>
 				<tr>
 					<th>Part Number</th>
@@ -87,13 +90,26 @@
 				</thead>
 				<tbody>
 				<tr class="ng-cloak" ng-repeat="x in names" emit-last-repeater-element>
-					<td>{{ x.PartNo }}</td>
-					<td><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
-					<td>{{ x.PCompany }} {{ x.Pname }}</td>
-					<td>${{ x.Price }}</td>
-					<td><input type='text' class="col-xs-2 qty" id='{{ x.PartNo }}_qty' name='{{ x.PartNo }}_qty' value='{{ x.PartQuantity }}'/></td>
-					<td><input type="button" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" class="btn btn-default" value="Update Cart"/><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
-					<td align="right"><a href="#" ng-click="deleteFromCart(x.PartNo)"><span class="glyphicon glyphicon-remove"></span></a></td>
+					<td align="center" style="vertical-align: middle;">{{ x.PartNo }}</td>
+					<td align="center" style="vertical-align: middle;">
+						<img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img>
+					</td>
+					<td align="left" style="vertical-align: middle;">{{ x.PCompany }} {{ x.Pname }}</td>
+					<td align="center" style="vertical-align: middle;">${{ x.Price }}</td>
+					<td align="right" style="vertical-align: middle; text-align: right;">
+						<input type='text' class="col-xs-2 qty" id='{{ x.PartNo }}_qty' name='{{ x.PartNo }}_qty' value='{{ x.PartQuantity }}'/>
+					</td>
+					<td align="center" style="vertical-align: middle; text-align: center;">
+						<input type='button' class="btn btn-default" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" value="Update Cart"/>
+						<span>
+							<img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/>
+						</span>
+					</td>
+					<td align="right" style="vertical-align: top;">
+						<a href="#" ng-click="deleteFromCart(x.PartNo)">
+							<span class="glyphicon glyphicon-remove"></span>
+						</a>
+					</td>
 				</tr>
 				</tbody>
 				<tfoot>
@@ -103,7 +119,11 @@
 						<th></th>
 						<th></th>
 						<th></th>
-						<th><input type="button" id="checkout" ng-click="checkout()" class="btn btn-primary" value="Checkout"/></th>
+						<th></th>
+						<th align="right" style="vertical-align: middle; text-align: right;">
+							<input type='button' class="btn btn-primary" id="checkout" ng-click="checkout()" value="Checkout"/>
+						</th>
+
 					</tr>
 				</tfoot>
 			</table>

@@ -114,13 +114,13 @@
 					</thead>
 					<tbody>
 						<tr dir-paginate="x in names|orderBy:sortKey:reverse|filter:search|itemsPerPage:5" class="ng-cloak" emit-last-repeater-element>
-							<td>{{ x.PartNo}}</td>
+							<td align="left" style="vertical-align: middle;">{{ x.PartNo}}</td>
 							<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"/></td>
-							<td>{{ x.PCompany }} {{ x.Pname }}</td>
-							<td>${{ x.Price }}</td>
-							<td>{{ x.SubCatID }}</td>
-							<td>{{ x.WarrantyID }}</td>
-							<td>{{ x.Quantity }}</td>
+							<td align="left" style="vertical-align: middle;">{{ x.PCompany }} {{ x.Pname }}</td>
+							<td align="left" style="vertical-align: middle;">${{ x.Price }}</td>
+							<td align="left" style="vertical-align: middle;">{{ x.SubCatID }}</td>
+							<td align="left" style="vertical-align: middle;">{{ x.WarrantyID }}</td>
+							<td align="center" style="vertical-align: middle;">{{ x.Quantity }}</td>
 							<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ x.Deleted }}' alt='{{ x.Deleted }}' height="80" width="150"/></td>
 						</tr>
 					</tbody>

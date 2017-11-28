@@ -99,11 +99,11 @@
 						    	</thead>
 						    	<tbody>
 							        <tr class="ng-cloak" data-ng-repeat="item in items">
-							            <td>{{ item.PartNo}}</td>
-										<td><img ng-src='img/{{ item.PImage}}' alt='{{ item.Pname }}' height="100" width="100"></img></td>
-										<td>{{ item.PCompany }} {{ item.PName }}</td>
-										<td>${{ item.PartsCost }}</td>
-										<td>{{ item.OrQuantity }}</td>
+							            <td align="left" style="vertical-align: middle;">{{ item.PartNo}}</td>
+										<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ item.PImage}}' alt='{{ item.Pname }}' height="100" width="100"></img></td>
+										<td align="left" style="vertical-align: middle;">{{ item.PCompany }} {{ item.PName }}</td>
+										<td align="left" style="vertical-align: middle;">${{ item.PartsCost }}</td>
+										<td align="center" style="vertical-align: middle;">{{ item.OrQuantity }}</td>
 							        </tr>
 								</tbody>
 						    </table>
