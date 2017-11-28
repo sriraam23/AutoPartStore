@@ -29,6 +29,10 @@
 				display: table-cell;
 				vertical-align: middle;
 			}
+
+			body {
+				padding-top: 0px;
+			}
 	    </style>
 		</head>
 
