@@ -117,7 +117,7 @@
 							<td align="left" style="vertical-align: middle;">{{ x.PartNo}}</td>
 							<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"/></td>
 							<td align="left" style="vertical-align: middle;">{{ x.PCompany }} {{ x.Pname }}</td>
-							<td align="left" style="vertical-align: middle;">${{ x.Price }}</td>
+							<td align="left" style="vertical-align: middle;">${{ x.Price.toFixed(2) }}</td>
 							<td align="left" style="vertical-align: middle;">{{ x.SubCatID }}</td>
 							<td align="left" style="vertical-align: middle;">{{ x.WarrantyID }}</td>
 							<td align="center" style="vertical-align: middle;">{{ x.Quantity }}</td>

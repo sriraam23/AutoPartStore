@@ -23,7 +23,7 @@
     $result = "";
 
     if(!empty($username)) {
-      $result = mysqli_query($mysqli, "SELECT c.PartNo, p.PImage, p.Pname, p.PCompany, (p.Price * c.PartQuantity) as TotalPrice , c.PartQuantity FROM usercart c LEFT OUTER JOIN part p ON c.PartNo = p.PartNo WHERE c.username = '$username'");
+      $result = mysqli_query($mysqli, "SELECT c.PartNo, p.PImage, p.Pname, p.PCompany, c.PPrice, c.TPPrice, c.PartQuantity FROM usercart c LEFT OUTER JOIN part p ON c.PartNo = p.PartNo WHERE c.username = '$username'");
     }
 
     $outp = "";
@@ -33,7 +33,8 @@
        $outp .= '"PImage":"'   . $rs["PImage"]    . '",';
        $outp .= '"Pname":"'   . $rs["Pname"]    . '",';
        $outp .= '"PCompany":"'  . $rs["PCompany"]   . '",';
-       $outp .= '"Price":'    . $rs["TotalPrice"]     . ',';
+       $outp .= '"PPrice":'    . $rs["PPrice"]     . ',';
+       $outp .= '"TPPrice":'    . $rs["TPPrice"]     . ',';
        $outp .= '"PartQuantity":'   . $rs["PartQuantity"] . '}';
     }
 

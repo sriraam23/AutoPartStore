@@ -14,15 +14,8 @@
 			printf("Connect failed: %s\n", mysqli_connect_error());
 			exit();
 		}
-
-		if(empty("$username"))
-		{
-			echo "{\"records\":[{\"Status\":\"FAIL - No Username.\"}]}";
-			mysqli_close($mysqli);
-			exit();
-		}
 		else {
-			$cart = mysqli_query($mysqli, "SELECT PartNo, PartQuantity FROM usercart WHERE Username = '$username'");
+			$cart = mysqli_query($mysqli, "SELECT PartNo, PartQuantity, PPrice, TPPrice FROM usercart WHERE Username = '$username'");
 			//error_log("SELECT PartNo, PartQuantity FROM usercart WHERE Username = '$username'");
 
 			if(mysqli_num_rows($cart) > 0) {
@@ -44,7 +37,7 @@
 				   }
 				}
 
-				$cartprice = mysqli_query($mysqli, "SELECT c.PartNo, (p.Price * c.PartQuantity) as TotalPrice , c.PartQuantity FROM usercart c LEFT OUTER JOIN part p ON c.PartNo = p.PartNo WHERE c.username = '$username'");
+				$cartprice = mysqli_query($mysqli, "SELECT c.PartNo, p.Price, (p.Price * c.PartQuantity) as TotalPrice , c.PartQuantity FROM usercart c LEFT OUTER JOIN part p ON c.PartNo = p.PartNo WHERE c.username = '$username'");
 				$carttotal = mysqli_query($mysqli, "SELECT SUM(p.Price * c.PartQuantity) as TotalSum FROM usercart c LEFT OUTER JOIN part p ON c.PartNo = p.PartNo WHERE c.username = '$username'");
 				$userinfo = mysqli_query($mysqli, "SELECT Street, City, State, Zipcode FROM customer WHERE Username = '$username'");
 
@@ -71,8 +64,9 @@
 					{
 					   $partno = $cartitem['PartNo'];
 					   $pquantity = $cartitem['PartQuantity'];
+					   $pprice = $cartitem['TotalPrice'];
 
-					   $orderpart = mysqli_query($mysqli, "INSERT INTO oinventory(OrderID, PartNo, OrQuantity) VALUES ('$orderid', '$partno', '" . (int)$pquantity . "')");
+					   $orderpart = mysqli_query($mysqli, "INSERT INTO oinventory(OrderID, PartNo, OrQuantity, TPPrice) VALUES ('$orderid', '$partno', '" . (int)$pquantity . "', '" . $pprice . "')");
 					   $delpart = mysqli_query($mysqli, "DELETE FROM usercart WHERE PartNo = '$partno' AND Username = '$username'");
 					   $updatepart = mysqli_query($mysqli, "UPDATE sinventory SET StQuantity = StQuantity - '" . (int)$pquantity . "' WHERE PartNo = '$partno'");
 

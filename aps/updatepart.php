@@ -145,7 +145,7 @@
 						<div class="col-sm-10 hide-inputbtns">
 							<div class="input-group"> 
 								<span class="input-group-addon">$</span>
-	        					<input type="number" ng-value="{{part.Price}}" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pprice" name="pprice" placeholder="Part Price"/ required>
+	        					<input type="number" value="{{part.Price.toFixed(2)}}" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pprice" name="pprice" placeholder="Part Price"/ required>
 	        				</div>
 						</div>
 					</div>

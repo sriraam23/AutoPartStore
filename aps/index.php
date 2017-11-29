@@ -143,11 +143,11 @@
 							<td align="left" style="vertical-align: middle;">{{ x.PartNo}}</td>
 							<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
 							<td align="left" style="vertical-align: middle;">{{ x.PCompany }} {{ x.Pname }}</td>
-							<td align="left" style="vertical-align: middle;">${{ x.Price }}</td>
+							<td align="left" style="vertical-align: middle;">${{ x.Price.toFixed(2) }}</td>
 							<td align="left" style="vertical-align: middle;">{{ x.SubCatID }}</td>
 							<td align="left" style="vertical-align: middle;">{{ x.WarrantyID }}</td>
 							<td align="center" style="vertical-align: middle;">{{ x.Quantity }}</td>
-							<td align="center" style="vertical-align: middle;" ng-if="x.Quantity > 0"><input type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo)" class="btn btn-default" value="Add to Cart"><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
+							<td align="center" style="vertical-align: middle;" ng-if="x.Quantity > 0"><input type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo, x.Price)" class="btn btn-default" value="Add to Cart"><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
 							<td align="center" style="vertical-align: middle;"ng-if="x.Quantity < 1"><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/sold_out.png' width="100" height="100"/></td>
 						</tr>
 					</tbody>
@@ -240,11 +240,12 @@
 				$scope.updateCartCount();
 			});
 
-			$scope.addToCart = function(partNo) {
-				//console.log(partNo);
+			$scope.addToCart = function(partNo, price) {
+				console.log(partNo);
+				console.log(price);
 				var queryResult = "";
 				
-				$http.get("php/AddToCart.php",{params:{"partno": partNo, "username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
+				$http.get("php/AddToCart.php",{params:{"partno": partNo, "price": price}}).then(function (response) {
 				    queryResult = JSON.stringify(response.data.records);
 					
 					if(queryResult == "[{\"Status\":\"SUCCESS\"}]")

@@ -16,7 +16,9 @@
 			$partno = $_POST['partno'];
 			$pname = $_POST['pname'];
 			$pcompany = $_POST['pcompany'];
-			$price = $_POST['pprice'];
+			error_log($_POST['pprice']);
+			$price = number_format($_POST['pprice'], 2, '.', '');
+			error_log($price);
 			$subcatid = $_POST['psubcatid'];
 			$warrantyid = $_POST['pwarrantyid'];
 			$quantity = $_POST['quantity'];

@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	$username =  $_SESSION['sess_username'];
+	$username = $_SESSION['sess_username'];
 
 	if(!empty($username)) {
 		include 'dbconfig.php';
@@ -21,12 +21,6 @@
 		if(empty("$partno"))
 		{
 			echo "{\"records\":[{\"Status\":\"FAIL: No PartNo.\"}]}";
-			mysqli_close($mysqli);
-			exit();
-		}
-		elseif(empty("$username"))
-		{
-			echo "{\"records\":[{\"Status\":\"FAIL: No Username.\"}]}";
 			mysqli_close($mysqli);
 			exit();
 		}
@@ -51,8 +45,14 @@
 				$getpart = mysqli_query($mysqli, "SELECT StQuantity FROM sinventory WHERE PartNo = '$partno' AND StQuantity > 0 AND StQuantity >= '$pquantity'");
 
 				if(mysqli_num_rows($getpart) > 0) {
-					$result = mysqli_query($mysqli, "INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = " . (int)$pquantity);
-					//error_log("INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = " . (int)$pquantity);
+					$pprice = mysqli_query($mysqli, "SELECT Price FROM Part WHERE PartNo = '$partno'");
+
+
+					$rs = mysqli_fetch_array($pprice);
+					$curPrice = $rs["Price"];
+
+					$result = mysqli_query($mysqli, "UPDATE usercart SET PartQuantity = '" . (int)$pquantity . "', PPrice = '$curPrice', TPPrice = (PartQuantity * PPrice) WHERE PartNo = '$partno' AND username = '$username'");
+					//error_log("UPDATE usercart SET PartQuantity = '" . (int)$pquantity . "', PPrice = '$curPrice', TPPrice = (PartQuantity * PPrice) WHERE PartNo = '$partno' AND username = '$username'");
 				}
 				else {
 					mysqli_close($mysqli);

@@ -78,39 +78,52 @@
 		<div>
 			<table class="table table-hover table-condensed">
 				<thead>
-				<tr>
-					<th>Part Number</th>
-					<th>Part Image</th>
-					<th>Part Name</th>
-					<th>Price</th>
-					<th>Quantity</th>
-					<th></th>
-					<th></th>
-				</tr>
+					<tr>
+						<th>Part Number</th>
+						<th>Part Image</th>
+						<th>Part Name</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th></th>
+						<th></th>
+					</tr>
 				</thead>
 				<tbody>
-				<tr class="ng-cloak" ng-repeat="x in names" emit-last-repeater-element>
-					<td align="center" style="vertical-align: middle;">{{ x.PartNo }}</td>
-					<td align="center" style="vertical-align: middle;">
-						<img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img>
-					</td>
-					<td align="left" style="vertical-align: middle;">{{ x.PCompany }} {{ x.Pname }}</td>
-					<td align="center" style="vertical-align: middle;">${{ x.Price }}</td>
-					<td align="right" style="vertical-align: middle; text-align: right;">
-						<input type='text' class="col-xs-2 qty" id='{{ x.PartNo }}_qty' name='{{ x.PartNo }}_qty' value='{{ x.PartQuantity }}'/>
-					</td>
-					<td align="center" style="vertical-align: middle; text-align: center;">
-						<input type='button' class="btn btn-default" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" value="Update Cart"/>
-						<span>
-							<img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/>
-						</span>
-					</td>
-					<td align="right" style="vertical-align: top;">
-						<a href="#" ng-click="deleteFromCart(x.PartNo)">
-							<span class="glyphicon glyphicon-remove"></span>
-						</a>
-					</td>
-				</tr>
+					<tr class="ng-cloak" ng-repeat="x in names" emit-last-repeater-element ng-init="total = 0" ng-init="pqty = 0">
+						<td align="center" style="vertical-align: middle;">{{ x.PartNo }}</td>
+						<td align="center" style="vertical-align: middle;">
+							<img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img>
+						</td>
+						<td align="left" style="vertical-align: middle;">{{ x.PCompany }} {{ x.Pname }}</td>
+
+						<td align="left" style="vertical-align: middle;" ng-init="$parent.total = $parent.total + (x.TPPrice)">${{ x.TPPrice.toFixed(2) }}</td>
+						
+						<td align="left" style="vertical-align: middle; text-align: left;" ng-init="$parent.pqty = $parent.pqty + (x.PartQuantity)">
+							<input type='text' class="col-xs-2 qty" id='{{ x.PartNo }}_qty' name='{{ x.PartNo }}_qty' value='{{ x.PartQuantity }}'/>
+						</td>
+						
+						<td align="center" style="vertical-align: middle; text-align: center;">
+							<input type='button' class="btn btn-default" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" value="Update Cart"/>
+							<span>
+								<img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/>
+							</span>
+						</td>
+						<td align="right" style="vertical-align: top;">
+							<a href="#" ng-click="deleteFromCart(x.PartNo)">
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>
+						</td>
+					</tr>
+					<tr class="info">
+						<td>Total</td>
+						<td></td>
+						<td></td>
+						<td align="left" style="vertical-align: middle;">${{ total.toFixed(2) }}</td>
+						<td align="left" style="vertical-align: middle;"><input type='text' class="col-xs-2 qty" value='{{ pqty }}' readonly></td>
+						<td></td>
+						<td></td>
+
+					</tr>
 				</tbody>
 				<tfoot>
 					<tr>
@@ -242,12 +255,15 @@
 			});
 
 			$scope.updateCart = function(partNo) {
+				$scope.total = 0;
+				$scope.pqty = 0;
+				
 				var qty = $('#' + partNo + '_qty').val();
 				
 				if(qty.length > 0) {
 					var queryResult = "";
 					
-					$http.get("php/UpdateCart.php", {params:{"pquantity": qty, "partno": partNo, "username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
+					$http.get("php/UpdateCart.php", {params:{"pquantity": qty, "partno": partNo}}).then(function (response) {
 					    queryResult = JSON.stringify(response.data.records);
 						
 						if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
@@ -303,7 +319,7 @@
 				var queryResult = "";
 				var qty = 0;
 
-				$http.get("php/UpdateCart.php", {params:{"pquantity": qty, "partno": partNo, "username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
+				$http.get("php/UpdateCart.php", {params:{"pquantity": qty, "partno": partNo}}).then(function (response) {
 				    queryResult = JSON.stringify(response.data.records);
 					
 					if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
@@ -345,8 +361,8 @@
 
 			$scope.checkout = function() {
 				var queryResult = "";
-					
-				$http.get("php/Checkout.php", { params: {}}).then(function (response) {
+				
+				$http.get("php/Checkout.php", {params:{}}).then(function (response) {
 					queryResult = JSON.stringify(response.data.records);
 					
 					if(queryResult == "[{\"Status\":\"SUCCESS\"}]") {
