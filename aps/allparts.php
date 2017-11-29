@@ -14,7 +14,7 @@
 	<meta http-equiv="content-language" content="en" />
 	<meta name="google" content="notranslate" />
 	
-	<title>Auto Parts Store</title>
+	<title>Auto Parts Store - All Parts</title>
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
@@ -142,7 +142,7 @@
           </div>
           <div class="modal-body text-center">
             <p class="lead">Are you sure you want to logout?</p>
-            <a href="logout.php" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-danger">Ok</a>
+            <a href="php/logout.php" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-danger">Ok</a>
             <a href="#" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-success">Cancel</a>
           </div>
         </div>

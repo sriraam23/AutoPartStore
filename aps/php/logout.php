@@ -6,6 +6,6 @@
 	setcookie(session_name(),'',0,'/');
 	session_regenerate_id(true);
 
-	header( 'Location: login.php' ) ;
+	header( 'Location: /aps/login.php' ) ;
 	exit();
 ?>

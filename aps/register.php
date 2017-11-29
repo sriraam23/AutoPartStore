@@ -17,7 +17,8 @@
     <script type="text/javascript" src="js/validator.min.js"></script>
     <script type="text/javascript" src="js/jquery.mask.min.js"></script>
 
-    <title>Auto Parts Store Registration</title>
+    <title>Auto Parts Store - Registration</title>
+
     <style>
       html, body, .container-table {
         height: 100%;

@@ -17,7 +17,7 @@
     <script type="text/javascript" src="js/totop.js"></script>
     <script type="text/javascript" src="js/validator.min.js"></script>
 
-    <title>Auto Parts Store Sign In</title>
+    <title>Auto Parts Store - Sign In</title>
     <style>
       html, body, .container-table {
         height: 100%;

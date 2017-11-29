@@ -10,7 +10,7 @@
 	<meta http-equiv="content-language" content="en" />
 	<meta name="google" content="notranslate" />
 	
-	<title>Auto Parts Store</title>
+	<title>Auto Parts Store - Buy Parts</title>
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
@@ -102,7 +102,7 @@
 				</div>
 				<div class="form-group">
 					<label for="partName">Keyword:</label>
-					<input type="text" class="form-control" id="partName" placeholder="Part Name" ng-model="partName">
+					<input type="text" class="form-control" id="partName" placeholder="Keyword" ng-model="partName">
 				</div>
 				<div class="form-group">
 					<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getParts()">Filter</button>
@@ -169,7 +169,7 @@
           </div>
           <div class="modal-body text-center">
             <p class="lead">Are you sure you want to logout?</p>
-            <a href="logout.php" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-danger">Ok</a>
+            <a href="php/logout.php" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-danger">Ok</a>
             <a href="#" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-success">Cancel</a>
           </div>
         </div>

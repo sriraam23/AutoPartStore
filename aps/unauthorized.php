@@ -6,7 +6,7 @@
 		<meta http-equiv="content-language" content="en" />
 		<meta name="google" content="notranslate" />
 		
-		<title>Auto Parts Store</title>
+		<title>Auto Parts Store - Unauthorized</title>
 
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
