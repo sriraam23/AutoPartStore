@@ -19,6 +19,7 @@
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/angular-filter.min.js"></script>
 	<script type="text/javascript" src="js/underscore-min.js"></script>
 	<script type="text/javascript" src="js/totop.js"></script>
 		
@@ -86,25 +87,33 @@
 					<th>Inventory</th>
 				</thead>
 				<tbody>
-					<tr class="ng-cloak" data-ng-repeat="(order, items) in groups">
-					    <td data-label="OrderID">{{order}}</td>
+					<tr class="ng-cloak" ng-repeat="(key, value) in orders | groupBy: '[OrderID]'">
+					    <td>{{key}}</td>
 					    <td>
 						    <table class="table table-bordered table-striped table-condensed">
 						    	<thead>
 						    		<th>Part Number</th>
 						    		<th>Image</th>
 						    		<th>Part Name</th>
-						    		<th>Price</th>
 						    		<th>Quantity</th>
+						    		<th>Price</th>
 						    	</thead>
 						    	<tbody>
-							        <tr class="ng-cloak" data-ng-repeat="item in items">
-							            <td align="left" style="vertical-align: middle;">{{ item.PartNo}}</td>
-										<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ item.PImage}}' alt='{{ item.Pname }}' height="100" width="100"></img></td>
+							        <tr class="ng-cloak" data-ng-repeat="item in value" ng-init="total = 0">
+							        	<td id='{{order}}' hidden>$ {{ item.Cost }}</td>
+							            <td align="left" style="vertical-align: middle;">{{ item.PartNo }}</td>
+										<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ item.PImage }}' alt='{{ item.Pname }}' height="100" width="100"></img></td>
 										<td align="left" style="vertical-align: middle;">{{ item.PCompany }} {{ item.PName }}</td>
-										<td align="left" style="vertical-align: middle;">${{ item.PartsCost }}</td>
 										<td align="center" style="vertical-align: middle;">{{ item.OrQuantity }}</td>
+										<td align="left" style="vertical-align: middle;" ng-init="$parent.total = $parent.total + (item.PartsCost)">${{ item.PartsCost }}</td>
 							        </tr>
+							        <tr class="info">
+      									<td><b>Total</b></td>
+      									<td></td>
+      									<td></td>
+      									<td></td>
+      									<td><b>${{ total.toFixed(2) }}</b></td>
+    								</tr>
 								</tbody>
 						    </table>
 						</td>
@@ -135,7 +144,7 @@
     </div>
 	
 	<script>
-		var app = angular.module('history', []);
+		var app = angular.module('history', ['angular.filter']);
 
 		app.directive('emitLastRepeaterElement', function() {
 			return function(scope) {
@@ -147,10 +156,9 @@
 		
 		app.controller('histCtrl', function($scope, $http) {
 			$scope.getOrders = function() {
-				$http.get("php/GetUserHistory.php", {params:{"username": <?php echo "'".$_SESSION['sess_username']."'";?>}}).then(function (response) {
-					$scope.names = response.data.records;
-					$scope.groups = _.groupBy($scope.names, "OrderID");
-					console.log($scope.groups);
+				$http.get("php/GetUserHistory.php", {params:{}}).then(function (response) {
+					$scope.orders = response.data.records;
+					//console.log($scope.orders);
 				});
 			};
 			
