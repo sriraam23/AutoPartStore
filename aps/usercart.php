@@ -257,7 +257,7 @@
 			$scope.updateCart = function(partNo) {
 				$scope.total = 0;
 				$scope.pqty = 0;
-				
+
 				var qty = $('#' + partNo + '_qty').val();
 				
 				if(qty.length > 0) {
@@ -316,6 +316,9 @@
 			}
 
 			$scope.deleteFromCart = function(partNo) {
+				$scope.total = 0;
+				$scope.pqty = 0;
+
 				var queryResult = "";
 				var qty = 0;
 
@@ -360,6 +363,9 @@
 			}
 
 			$scope.checkout = function() {
+				$scope.total = 0;
+				$scope.pqty = 0;
+				
 				var queryResult = "";
 				
 				$http.get("php/Checkout.php", {params:{}}).then(function (response) {
