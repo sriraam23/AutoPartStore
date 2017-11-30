@@ -96,7 +96,12 @@
 								}
 
 							   	if($result === TRUE) {
+							   		$cresult = mysqli_query($mysqli, "UPDATE usercart SET PPrice = '$price', TPPrice = (PPrice * PartQuantity) WHERE PartNo = '$partno'");
 							   		$qresult = mysqli_query($mysqli, "INSERT INTO sinventory (StoreID, PartNo, StQuantity) VALUES ('1', '$partno', '$quantity') ON DUPLICATE KEY UPDATE StQuantity = " . (int)$quantity);
+
+							   		if($delete == '1') {
+				   						$dresult = mysqli_query($mysqli, "DELETE FROM usercart WHERE PartNo = '$partno'");
+				   					}
 				   					
 							   		mysqli_close($mysqli);
 							   		echo json_encode(array('Status' => "SUCCESS"));
@@ -136,7 +141,7 @@
 					}
 
 				   	if($result === TRUE) {
-				   		//INSERT INTO usercart (PartNo, Username, PartQuantity) VALUES ('$partno','$username','" . (int)$pquantity . "') ON DUPLICATE KEY UPDATE PartQuantity = PartQuantity + " . (int)$pquantity)
+				   		$cresult = mysqli_query($mysqli, "UPDATE usercart SET PPrice = '$price', TPPrice = (PPrice * PartQuantity) WHERE PartNo = '$partno'");
 				   		$qresult = mysqli_query($mysqli, "INSERT INTO sinventory (StoreID, PartNo, StQuantity) VALUES ('1', '$partno', '$quantity') ON DUPLICATE KEY UPDATE StQuantity = " . (int)$quantity);
 
 				   		if($delete == '1') {
