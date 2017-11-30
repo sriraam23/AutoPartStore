@@ -40,7 +40,7 @@
 
 			$result = mysqli_query($mysqli, "INSERT INTO usercart (PartNo, Username, PartQuantity, PPrice, TPPrice) VALUES ('$partno','$username','" . (int)$pquantity . "', '" . sprintf("%.2f", $pprice) . "', '" . sprintf("%.2f", $pprice) . "') ON DUPLICATE KEY UPDATE PartQuantity = PartQuantity + " . (int)$pquantity . ", PPrice = " . sprintf("%.2f", $pprice) . ", TPPrice = PartQuantity * PPrice");
 			
-			error_log("INSERT INTO usercart (PartNo, Username, PartQuantity, PPrice, TPPrice) VALUES ('$partno','$username','" . (int)$pquantity . "', '" . sprintf("%.2f", $pprice) . "', '" . sprintf("%.2f", $pprice) . "') ON DUPLICATE KEY UPDATE PartQuantity = PartQuantity + " . (int)$pquantity . ", PPrice = " . sprintf("%.2f", $pprice) . ", TPPrice = PartQuantity * PPrice");
+			//error_log("INSERT INTO usercart (PartNo, Username, PartQuantity, PPrice, TPPrice) VALUES ('$partno','$username','" . (int)$pquantity . "', '" . sprintf("%.2f", $pprice) . "', '" . sprintf("%.2f", $pprice) . "') ON DUPLICATE KEY UPDATE PartQuantity = PartQuantity + " . (int)$pquantity . ", PPrice = " . sprintf("%.2f", $pprice) . ", TPPrice = PartQuantity * PPrice");
 
 			if($result === TRUE) {
 				mysqli_close($mysqli);
