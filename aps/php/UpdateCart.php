@@ -20,7 +20,7 @@
 
 		if(empty("$partno"))
 		{
-			echo "{\"records\":[{\"Status\":\"FAIL: No PartNo.\"}]}";
+			echo "{\"records\":[{\"Status\":\"No PartNo!\"}]}";
 			mysqli_close($mysqli);
 			exit();
 		}
@@ -37,7 +37,7 @@
 				else {
 					mysqli_close($mysqli);
 
-					echo "{\"records\":[{\"Status\":\"FAIL: Couldn't update User Cart\"}]}";
+					echo "{\"records\":[{\"Status\":\"Could not update User Cart\"}]}";
 					exit();
 				}
 			}
@@ -57,7 +57,7 @@
 				else {
 					mysqli_close($mysqli);
 
-					echo "{\"records\":[{\"Status\":\"FAIL: Couldn't update User Cart\"}]}";
+					echo "{\"records\":[{\"Status\":\"Part $partno does not have the required inventory!\"}]}";
 					exit();
 				}
 			}
@@ -71,15 +71,15 @@
 			else {
 				mysqli_close($mysqli);
 
-				echo "{\"records\":[{\"Status\":\"FAIL: Couldn't update User Cart\"}]}";
+				echo "{\"records\":[{\"Status\":\"Could not update User Cart!\"}]}";
 				exit();
 			}
 		}
 
 		mysqli_close($mysqli);
-		echo "{\"records\":[{\"Status\":\"FAIL\"}]}";
+		echo "{\"records\":[{\"Status\":\"FAIL!\"}]}";
 	}
 	else {
-		echo "{\"records\":[{\"Status\":\"FAIL - No Username.\"}]}";
+		echo "{\"records\":[{\"Status\":\"No Username!\"}]}";
 	}
 ?>

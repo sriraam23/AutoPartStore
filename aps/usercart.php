@@ -179,6 +179,36 @@
       </div>
     </div>
 
+    <div class="modal fade success-popup" id="succupdate" tabindex="-1" role="dialog" aria-labelledby="succUpdateLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="succUpdateLabel">Update Cart</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/success.png'/>Update Cart Successfull!</p>
+            <a href="#" onclick="$('#succupdate').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade success-popup" id="failupdate" tabindex="-1" role="dialog" aria-labelledby="failUpdateLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="failUpdateLabel">Update Cart</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/fail.png'/>Update Cart Failed! <span id="failupstatus"></span></p>
+            <a href="#" onclick="$('#failupdate').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="modal fade success-popup" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel">
       <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -266,17 +296,36 @@
 					var queryResult = "";
 					
 					$http.get("php/UpdateCart.php", {params:{"pquantity": qty, "partno": partNo}}).then(function (response) {
-					    queryResult = JSON.stringify(response.data.records);
+					    //queryResult = JSON.stringify(response.data.records);
+					    $scope.updatestatus = response.data.records;
+						queryResult = $scope.updatestatus[0].Status;
+
 						
-						if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
+						if(queryResult.indexOf("SUCCESS") >= 0)
 						{
 							//console.log(queryResult);
 							
 							if(qty == '0') {
-								$scope.getCart();
+								$('#succupdate').modal('show');
+
+								setTimeout(function(){
+									$scope.getCart();
+								}, 1000);
+
+								setTimeout(function(){
+									$scope.updateCartCount();
+								}, 50);
 							}
 							else {
+								/*
 								$('#' + partNo + '_qresult').attr("src","img/success.png");
+
+								setTimeout(function(){
+									$scope.getCart();
+								}, 1000);
+								*/
+
+								$('#succupdate').modal('show');
 
 								setTimeout(function(){
 									$scope.getCart();
@@ -291,9 +340,16 @@
 						else 
 						{
 							//console.log("FAIL: " + queryResult);
-
+							/*
 							$('#' + partNo + '_qresult').attr("src","img/fail.png");
 							
+							setTimeout(function(){
+								$scope.getCart();
+							}, 1000);
+							*/
+							$('#failupstatus').text(queryResult);
+							$('#failupdate').modal('show');
+
 							setTimeout(function(){
 								$scope.getCart();
 							}, 1000);
@@ -305,10 +361,18 @@
 					});
 				}
 				else {
+					/*
 					$('#' + partNo + '_qresult').attr("src","img/fail.png");
 					
 					setTimeout(function(){
 						$('#' + partNo + '_qresult').attr("src","img/empty.png");
+					}, 1000);
+					*/
+
+					$('#failupdate').modal('show');
+
+					setTimeout(function(){
+						$scope.getCart();
 					}, 1000);
 
 					setTimeout(function(){
