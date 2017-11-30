@@ -147,7 +147,7 @@
 						<tr dir-paginate="x in names|orderBy:sortKey:reverse|itemsPerPage:4" class="ng-cloak" emit-last-repeater-element>
 							<td align="left" style="vertical-align: middle;">{{ x.PartNo}}</td>
 							<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
-							<td align="left" style="vertical-align: middle;">{{ x.PCompany }} {{ x.Pname }}</td>
+							<td align="left" style="vertical-align: middle;"><a href="part.php?partno={{x.PartNo}}">{{ x.PCompany }} {{ x.Pname }}</a></td>
 							<td align="left" style="vertical-align: middle;">${{ x.Price.toFixed(2) }}</td>
 							<td align="left" style="vertical-align: middle;">{{ x.SubCatID }}</td>
 							<td align="left" style="vertical-align: middle;">{{ x.WarrantyID }}</td>
