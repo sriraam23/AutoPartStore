@@ -175,7 +175,7 @@
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="succCheckLabel">Add To Cart</h4>
+            <h4 class="modal-title" id="succCheckLabel">Add to Cart</h4>
           </div>
           <div class="modal-body text-center">
             <p class="lead"><img src='img/success.png'/><br/>Add to Cart Successful!</p>
@@ -190,7 +190,7 @@
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="failCheckLabel">Add To Cart</h4>
+            <h4 class="modal-title" id="failCheckLabel">Add to Cart</h4>
           </div>
           <div class="modal-body text-center">
             <p class="lead"><img src='img/fail.png'/><br/>Add to Cart Failed! <br/> <span id="failstatus"></span></p>
