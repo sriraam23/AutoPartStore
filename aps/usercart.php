@@ -100,7 +100,7 @@
 						<td align="left" style="vertical-align: middle;" ng-init="$parent.total = $parent.total + (x.TPPrice)">${{ x.TPPrice.toFixed(2) }}</td>
 						
 						<td align="left" style="vertical-align: middle; text-align: left;" ng-init="$parent.pqty = $parent.pqty + (x.PartQuantity)">
-							<input type='text' class="col-xs-3 qty" id='{{ x.PartNo }}_qty' name='{{ x.PartNo }}_qty' value='{{ x.PartQuantity }}'/>
+							<input type='text' style="text-align:center;" class="col-xs-3 qty" id='{{ x.PartNo }}_qty' name='{{ x.PartNo }}_qty' value='{{ x.PartQuantity }}'/>
 						</td>
 						
 						<td align="center" style="vertical-align: middle; text-align: center;">
@@ -120,7 +120,7 @@
 						<td></td>
 						<td></td>
 						<td class="ng-cloak" align="left" style="vertical-align: middle;">${{ total.toFixed(2) }}</td>
-						<td class="ng-cloak" align="left" style="vertical-align: middle;"><input type='text' class="col-xs-3 qty" style="border: 0;box-shadow: none;background-color:rgba(0,0,0,0);" value='{{ pqty }}' readonly></td>
+						<td class="ng-cloak" align="left" style="vertical-align: middle;"><input type='text' class="col-xs-3 qty" style="text-align:center;border: 0;box-shadow: none;background-color:rgba(0,0,0,0);" value='{{ pqty }}' readonly></td>
 						<td></td>
 						<td></td>
 
