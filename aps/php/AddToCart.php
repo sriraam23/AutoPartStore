@@ -21,13 +21,13 @@
 
 		if(empty("$partno"))
 		{
-			echo "{\"records\":[{\"Status\":\"FAIL: No PartNo.\"}]}";
+			echo "{\"records\":[{\"Status\":\"No PartNo.\"}]}";
 			mysqli_close($mysqli);
 			exit();
 		}
-		elseif(empty("$pprice"))
+		elseif(empty("$pprice") && $pprice != '0.00' && $pprice != '0')
 		{
-			echo "{\"records\":[{\"Status\":\"FAIL: No price.\"}]}";
+			echo "{\"records\":[{\"Status\":\"No price.\"}]}";
 			mysqli_close($mysqli);
 			exit();
 		}
@@ -51,15 +51,15 @@
 			else {
 				mysqli_close($mysqli);
 
-				echo "{\"records\":[{\"Status\":\"FAIL: Couldn't add to User Cart\"}]}";
+				echo "{\"records\":[{\"Status\":\"Couldn't add to User Cart\"}]}";
 				exit();
 			}
 		}
 
 		mysqli_close($mysqli);
-		echo "{\"records\":[{\"Status\":\"FAIL\"}]}";
+		echo "{\"records\":[{\"Status\":\"Couldn't add to User Cart\"}]}";
 	}
 	else{
-		echo "{\"records\":[{\"Status\":\"FAIL\"}]}";
+		echo "{\"records\":[{\"Status\":\"Couldn't add to User Cart\"}]}";
 	}
 ?>

@@ -53,10 +53,10 @@
 			 		<li><a href="addpart.php">Add Part</a></li>
 					<li><a href="updatepart.php">Update Part</a></li> 
 					<!--<li><a href="deletepart.php">Delete Part</a></li>-->
-					<li><a href="about.php">About</a></li>
 
 					<?php endif; ?>
 
+					<li><a href="about.php">About</a></li>
 					<!--<li><a href="usercart.php">Cart</a></li>-->
 				</ul>
 

@@ -63,10 +63,10 @@
 					<li><a href="addpart.php">Add Part</a></li>
 					<li class="active"><a href="updatepart.php">Update Part</a></li>
 					<!--<li><a href="deletepart.php">Delete Part</a></li>-->
-					<li><a href="about.php">About</a></li>
 
 					<?php endif; ?>
 					
+					<li><a href="about.php">About</a></li>
 					<!--<li><a href="usercart.php">Cart</a></li>-->
 				</ul>
 
@@ -104,11 +104,11 @@
 			</form>
 			
 			<div class="ng-cloak" ng-repeat="part in parts" emit-last-repeater-element>
-				<form class="form-horizontal" id="form" name="form" method="post" action="" enctype="multipart/form-data">
+				<form class="form-horizontal" id="updateform" name="updateform" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="partno">Part Number:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" name="partno" placeholder="Part Number" value="{{part.PartNo}}" readonly>
+							<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" name="partno" placeholder="Part Number" value="{{part.PartNo}}" readonly required />
 						</div>
 					</div>
 
@@ -122,21 +122,21 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="file">Part Image:</label>
 						<div class="col-sm-10">
-							<input accept="image/*" type="file" id="file" name="file" name="file" />
+							<input accept="image/*" type="file" id="pimage" name="pimage" />
 						</div>
 					</div>
 						
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pname">Part Name:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" name="pname" placeholder="Part Name" value={{part.Pname}} required/>
+							<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" name="pname" placeholder="Part Name" value={{part.Pname}} required />
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pcompany">Part Company:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" name="pcompany" placeholder="Part Company" value={{part.PCompany}} required/>
+							<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" name="pcompany" placeholder="Part Company" value={{part.PCompany}} required />
 						</div>
 					</div>
 					
@@ -145,7 +145,7 @@
 						<div class="col-sm-10 hide-inputbtns">
 							<div class="input-group"> 
 								<span class="input-group-addon">$</span>
-	        					<input type="number" value="{{part.Price.toFixed(2)}}" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pprice" name="pprice" placeholder="Part Price"/ required>
+								<input type="number" ng-model='number' min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pprice" name="pprice" placeholder="Part Price" ng-value="{{part.Price.toFixed(2) || 0.00}}" required />
 	        				</div>
 						</div>
 					</div>
@@ -153,7 +153,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="psubcat">Part Sub Category:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="psubcat" name="psubcat" placeholder="Part Sub Category" value={{part.SubCatID}} readonly>
+							<input type="text" class="form-control" id="psubcat" name="psubcat" placeholder="Part Sub Category" value={{part.SubCatID}} readonly />
 						</div>
 					</div>
 					
@@ -170,7 +170,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pwarranty">Part Warranty:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="pwarranty" name="pwarranty" placeholder="Part Warranty" value={{part.WarrantyID}} readonly>
+							<input type="text" class="form-control" id="pwarranty" name="pwarranty" placeholder="Part Warranty" value={{part.WarrantyID}} readonly />
 						</div>
 					</div>
 					
@@ -187,14 +187,14 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="quantity">Quantity:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="quantity" name="quantity" placeholder="Quantity" value='{{part.Quantity}}' required>
+							<input type="text" class="form-control" id="quantity" name="quantity" placeholder="Quantity" value='{{part.Quantity}}' required />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="delete">Delete:</label>
 						<div class="col-sm-10 text-left">
-							<input style="margin-top: 12px;" type="checkbox" class="" id="delete" name="delete" ng-checked="{{part.Deleted}} == 1">
+							<input style="margin-top: 12px;" type="checkbox" class="" id="delete" name="delete" ng-checked="{{part.Deleted}} == 1" />
 						</div>
 					</div>
 					
@@ -206,21 +206,44 @@
 				</form>
 			</div>
 
-			<div id="message" class="form-group">
-				<?php include 'php/UpdatePart.php';?>
-			</div>
-			
 			<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>
 		</div>		
 	</div>
 
+	<div class="modal fade success-popup" id="succUpdate" tabindex="-1" role="dialog" aria-labelledby="succUpdateLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="succUpdateLabel">Update Part</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/success.png'/><br/>Update Part Successfull!</p>
+            <button ng-model='button' ng-click="updated()" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade success-popup" id="failUpdate" tabindex="-1" role="dialog" aria-labelledby="failUpdateLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="failUpdateLabel">Update Part</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/fail.png'/><br/>Update Part Failed! <br/> <span id="failUpdateStatus"></span></p>
+            <a href="#" onclick="$('#failUpdate').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
 	<div class="modal fade success-popup" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel">
       <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             <h4 class="modal-title" id="logoutModalLabel">Logout</h4>
           </div>
           <div class="modal-body text-center">
@@ -234,6 +257,7 @@
 
 	<script>
 		$(function(){
+			
       	});
 
 		var app = angular.module('uppart', []);
@@ -266,9 +290,6 @@
 			};
 			
 			$scope.getAllPartInfo = function() {
-				$scope.resultclass = "alert";
-				$scope.result = "";
-				
 				var part = $("#part").val();
 
 				$http.get("./php/GetAllPartFromPartNo.php",{params:{"part": part}}).then(function (response) {
@@ -286,24 +307,37 @@
 			};
 
 			$scope.$on('LastRepeaterElement', function(){
-				$('#message').css("display", "none");
-				/*
-				console.log($('#partid').html());
-				var partid = $.trim($('#partid').html());
+				$("#updateform").submit(function(e) {
+	        		e.preventDefault();
+	    			e.stopPropagation();
 
-				if(partid.length > 0) {
-					$("#part > [value='']").attr("selected", "false");
-					$("#part > [value=" + partid + "]").attr("selected", "true");
-					console.log($('#part').html());
-				}
-				*/
-				/*
-				$("#form").submit(function(e) {
-					console.log("Here");
-					$('#message').css("display", "show");
-					e.preventDefault();
+	        		if(!$('#submit').hasClass('disabled')) {
+	        			//console.log("Updating...");
+
+						var img = $('#pimage').val();
+						var forms = ($(this).serialize());
+
+						$.ajax({
+							type:"POST",          
+							url: "php/UpdatePart.php",
+							data: new FormData( this ),
+							processData: false,
+						    contentType: false,
+							success: function(result){
+								if(result['Status'] == "SUCCESS") {
+									//$scope.parts = "";
+									//$scope.getAllParts();
+									$('#succUpdate').modal('show');
+								}
+								else {
+									//console.log(result['Status']);
+									$('#failUpdateStatus').text(result['Status']);
+									$('#failUpdate').modal('show');
+								}
+							} 
+						});
+					}
 				});
-				*/
 				setTimeout(function(){
 					$scope.updateCartCount();
 				}, 50);
@@ -320,6 +354,16 @@
 			};
 			
 			$scope.getAllParts();
+
+			$scope.updated = function() {
+				setTimeout(function(){
+					//console.log("Reset form!");
+					//$scope.getAllParts();
+					angular.element('#getPartsInfo').triggerHandler('click');
+			    }, 0);
+				
+				$('#succUpdate').modal('hide');
+			}
 		});
 	</script>
 </body>

@@ -1,10 +1,6 @@
 <?php
 	include 'php/CheckSession.php';
 	include 'php/CheckAdmin.php';
-
-	if ($_SESSION['admin'] != 1){
-		header('Location: unauthorized.php');
-	}
 ?>
 <html lang="en">
 <head>
@@ -50,10 +46,10 @@
 					<li><a href="addpart.php">Add Part</a></li>
 					<li><a href="updatepart.php">Update Part</a></li> 
 					<!--<li><a href="deletepart.php">Delete Part</a></li>-->
-					<li class="active"><a href="about.php">About</a></li>
 
 					<?php endif; ?>
 
+					<li class="active"><a href="about.php">About</a></li>
 					<!--<li><a href="usercart.php">Cart</a></li>-->
 				</ul>
 				

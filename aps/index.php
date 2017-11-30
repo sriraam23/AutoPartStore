@@ -53,10 +53,10 @@
 			 		<li><a href="addpart.php">Add Part</a></li>
 					<li><a href="updatepart.php">Update Part</a></li> 
 					<!--<li><a href="deletepart.php">Delete Part</a></li>-->
-					<li><a href="about.php">About</a></li>
 
 					<?php endif; ?>
 
+					<li><a href="about.php">About</a></li>
 					<!--<li><a href="usercart.php">Cart</a></li>-->
 				</ul>
 
@@ -195,7 +195,7 @@
             <h4 class="modal-title" id="failCheckLabel">Add To Cart</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead"><img src='img/fail.png'/><br/>Add to Cart Failed! <span id="failstatus"></span></p>
+            <p class="lead"><img src='img/fail.png'/><br/>Add to Cart Failed! <br/> <span id="failstatus"></span></p>
             <a href="#" onclick="$('#failcheck').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>
@@ -319,7 +319,8 @@
 							$('#' + partNo + '_qresult').attr("src","img/empty.png");
 						}, 1000);
 						*/
-
+						
+						$('#failstatus').text(response.data.records[0].Status);
 						$('#failcheck').modal('show');
 
 						setTimeout(function(){

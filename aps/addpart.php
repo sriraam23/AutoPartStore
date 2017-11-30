@@ -57,10 +57,10 @@
 					<li class="active"><a href="addpart.php">Add Part</a></li>
 					<li><a href="updatepart.php">Update Part</a></li>
 					<!--<li><a href="deletepart.php">Delete Part</a></li>-->
-					<li><a href="about.php">About</a></li>
 
 					<?php endif; ?>
 
+					<li><a href="about.php">About</a></li>
 					<!--<li><a href="usercart.php">Cart</a></li>-->
 				</ul>
 
@@ -85,7 +85,8 @@
 	
 	<div class="container">	
 		<div>
-			<form class="form-horizontal" name="form" method="post" action="" enctype="multipart/form-data" data-toggle="validator">
+			<form class="form-horizontal" id="addform" name="addform" enctype="multipart/form-data" data-toggle="validator">
+				<!--
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="carMake">Select Make:</label>
 					<div class="col-sm-10">
@@ -119,7 +120,7 @@
 						<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carMaxYear" name="carMaxYear" placeholder="Car Model Maximum Year" required>
 					</div>
 				</div>
-				
+				-->
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="partno">PartNo:</label>
 					<div class="col-sm-10">
@@ -128,9 +129,9 @@
 				</div>
 
 				<div class="form-group">
-					<label class="control-label col-sm-2" for="file">Part Image:</label>
+					<label class="control-label col-sm-2" for="pimage">Part Image:</label>
 					<div class="col-sm-10">
-						<input accept="image/*" type="file" id="file" name="file" />
+						<input accept="image/*" type="file" id="pimage" name="pimage" />
 					</div>
 				</div>
 				
@@ -182,9 +183,6 @@
 						<input class="btn btn-primary" id="submit" name="submit" type="submit" value="Add"/>
 					</div>
 				</div>
-				<div id="message" class="form-group">
-					<?php include 'php/AddPart.php';?>
-				</div>
 			</form>
 
 			<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
@@ -192,6 +190,36 @@
 			</a>
 		</div>		
 	</div>
+
+	<div class="modal fade success-popup" id="succadd" tabindex="-1" role="dialog" aria-labelledby="succaddLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="succaddLabel">Add Part</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/success.png'/><br/>Add Part Successfull!</p>
+            <a href="#" onclick="$('#addform')[0].reset();$('#succadd').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade success-popup" id="failadd" tabindex="-1" role="dialog" aria-labelledby="failaddLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="failaddLabel">Add Part</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/fail.png'/><br/>Add Part Unsuccessfull! <br/> <span id="failaddstatus"></span></p>
+            <a href="#" onclick="$('#failadd').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
 	<div class="modal fade success-popup" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel">
       <div class="modal-dialog modal-sm" role="document">
@@ -214,8 +242,32 @@
         	$("#carMinYear").mask("9999");
         	$("#carMaxYear").mask("9999");
 
-        	$("#submit").click(function() {
-				$('#message').css("display", "block");
+        	$("#addform").submit(function(e) {
+        		e.preventDefault();
+    			e.stopPropagation();
+
+        		if(!$('#submit').hasClass('disabled')) {
+					var img = $('#pimage').val();
+					var forms = ($(this).serialize());
+
+					$.ajax({
+						type:"POST",          
+						url: "php/AddPart.php",
+						data: new FormData( this ),
+						processData: false,
+					    contentType: false,
+						success: function(result){
+							if(result['Status'] == "SUCCESS") {
+								$('#succadd').modal('show');
+							}
+							else {
+								//console.log(result['Status']);
+								$('#failaddstatus').text(result['Status']);
+								$('#failadd').modal('show');
+							}
+						} 
+					});
+				}
 			});
       	});
 

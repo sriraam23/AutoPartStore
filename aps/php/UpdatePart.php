@@ -1,24 +1,20 @@
 <?php
-	if (isset($_POST['submit'])) {
-		$dbhost = 'localhost';
-		$dbuser = 'root';
-		$dbpass = 'root';
-		$dbname = 'autopartstore';
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		include 'dbconfig.php';
 
-		// echo "$dbuser";
 		$mysqli = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
 		/* check connection */
 		if (mysqli_connect_errno()) {
-			echo "<div class='alert alert-danger'><span>Error: Couldn't connect to Databse!</span></div>";
+			echo json_encode(array('Status' => "Couldn't connect to Databse!"));
 		}
 		else {
 			$partno = $_POST['partno'];
 			$pname = $_POST['pname'];
 			$pcompany = $_POST['pcompany'];
-			error_log($_POST['pprice']);
+			//error_log($_POST['pprice']);
 			$price = number_format($_POST['pprice'], 2, '.', '');
-			error_log($price);
+			//error_log($price);
 			$subcatid = $_POST['psubcatid'];
 			$warrantyid = $_POST['pwarrantyid'];
 			$quantity = $_POST['quantity'];
@@ -33,52 +29,54 @@
 
 			if(empty("$partno") === TRUE)
 			{
-			   echo "<div class='alert alert-danger'><span>Error: No PartNo!</span></div>";
+			   echo json_encode(array('Status' => "No PartNo!"));
 			   mysqli_close($mysqli);
 			   //error_log("1");
 			}
 			elseif(empty("$pname") === TRUE)
 			{
-			   echo "<div class='alert alert-danger'><span>Error: No Pname!</span></div>";
+			   echo json_encode(array('Status' => "No Pname!"));
 			   mysqli_close($mysqli);
-			   error_log("2");
+			   //error_log("2");
 			}
 			elseif(empty("$pcompany") === TRUE)
 			{
-			   echo "<div class='alert alert-danger'><span>Error: No PCompany!</span></div>";
+			   echo json_encode(array('Status' => "No PCompany!"));
 			   mysqli_close($mysqli);
 			   //error_log("3");
 			}
 			elseif(empty("$price") === TRUE)
 			{
-			   echo "<div class='alert alert-danger'><span>Error: No Price!</span></div>";
+			   echo json_encode(array('Status' => "No Price!"));
 			   mysqli_close($mysqli);
 			   //error_log("4");
 			}
 			else {
 				$validextensions = array("jpeg", "jpg", "png");
-				$temporary = explode(".", $_FILES["file"]["name"]);
+				$temporary = explode(".", $_FILES["pimage"]["name"]);
 				$file_extension = end($temporary);
 
+				//error_log($file_extension);
+
 				if(!empty($file_extension)) {
-					if ((($_FILES["file"]["type"] == "image/png") || 
-						($_FILES["file"]["type"] == "image/jpg") || 
-						($_FILES["file"]["type"] == "image/jpeg")) && 
-						($_FILES["file"]["size"] < 100000) && 
+					if ((($_FILES["pimage"]["type"] == "image/png") || 
+						($_FILES["pimage"]["type"] == "image/jpg") || 
+						($_FILES["pimage"]["type"] == "image/jpeg")) && 
+						($_FILES["pimage"]["size"] < 500000) && 
 						in_array($file_extension, $validextensions)) {
 
-						if ($_FILES["file"]["error"] > 0) {
-							echo "<div class='alert alert-danger'><span>Return Code: " . $_FILES["file"]["error"] . "</span></div>";
+						if ($_FILES["pimage"]["error"] > 0) {
+							echo json_encode(array('Status' => "Image Upload Error: " . $_FILES["pimage"]["error"]));
 						}
 						else {
 							$file_name = $_POST['partno'] . "_" . time() . "_" . mt_rand(10000000, 99999999) . "." . $file_extension;
 
-							if (file_exists("img/" . $file_name)) {
-								echo "<div class='alert alert-danger'><span>Error: Couldn't upload image!</span></div>";
+							if (file_exists("../img/" . $file_name)) {
+								echo json_encode(array('Status' => "Couldn't upload image!"));
 								//error_log("5");
 							}
 							else {
-								move_uploaded_file($_FILES["file"]["tmp_name"], "img/" . $file_name);
+								move_uploaded_file($_FILES["pimage"]["tmp_name"], "../img/" . $file_name);
 
 								$result = "";
 
@@ -101,21 +99,21 @@
 							   		$qresult = mysqli_query($mysqli, "INSERT INTO sinventory (StoreID, PartNo, StQuantity) VALUES ('1', '$partno', '$quantity') ON DUPLICATE KEY UPDATE StQuantity = " . (int)$quantity);
 				   					
 							   		mysqli_close($mysqli);
-							   		echo "<div class='alert alert-success'><span>Success: Part Updated!</span></div>";
+							   		echo json_encode(array('Status' => "SUCCESS"));
 							   		//error_log("6");
 							   	}
 							   	else {
-							   		unlink("img/" . $file_name);
+							   		unlink("../img/" . $file_name);
 
 							   		mysqli_close($mysqli);
-							   		echo "<div class='alert alert-danger'><span>Error: Couldn't Update Part!</span></div>";
+							   		echo json_encode(array('Status' => "Couldn't Update Part!"));
 							   		//error_log("7");
 							   	}
 							}
 						}
 					}
 					else {
-						echo "<div class='alert alert-danger'><span>Error: Invalid file Size or file Type!</span></div>";
+						echo json_encode(array('Status' => "Invalid image type or image file size greater than 500 KB!"));
 						//error_log("8");
 					}
 				}
@@ -146,16 +144,19 @@
 				   		}
 				   		
 				   		mysqli_close($mysqli);
-				   		echo "<div class='alert alert-success'><span>Success: <span id='partid'>". $partno . "</span> Part Updated!</span></div>";
+				   		echo json_encode(array('Status' => "SUCCESS"));
 				   		//error_log("9");
 				   	}
 				   	else {
 				   		mysqli_close($mysqli);
-				   		echo "<div class='alert alert-danger'><span>Error: <span id='partid'>". $partno . "</span> Couldn't Update Part!</span></div>";
+				   		echo json_encode(array('Status' => "Couldn't Update Part!"));
 				   		//error_log("10");
 				   	}
 				}
 			}
 		}
+	}
+	else {
+		echo json_encode(array('Status' => "FAIL"));
 	}
 ?>

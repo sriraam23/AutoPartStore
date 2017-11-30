@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 30, 2017 at 02:49 AM
+-- Generation Time: Nov 30, 2017 at 07:28 AM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.1.5
 
@@ -77,8 +77,7 @@ INSERT INTO `carinfo` (`Make`, `Model`, `MinYear`, `MaxYear`, `PartNo`) VALUES
 ('Mercedes', 'Benz', 2002, 2015, 'E-1650'),
 ('Honda', 'Civic', 2000, 2010, 'HD-DLG'),
 ('Toyota', 'Carolla', 2002, 2016, 'HD-DLG'),
-('Toyota', 'Carolla', 2002, 2016, 'SA10720'),
-('Audi', 'A8', 2000, 2017, 'Test');
+('Toyota', 'Carolla', 2002, 2016, 'SA10720');
 
 -- --------------------------------------------------------
 
@@ -145,6 +144,7 @@ CREATE TABLE `oinventory` (
 --
 
 INSERT INTO `oinventory` (`OrQuantity`, `OrderID`, `PartNo`, `TPPrice`) VALUES
+(1, 'Test12345_1512026804_11374545', 'Test', 10.00),
 (4, 'Test1234_1511995405_17890417', '04159', 95.96),
 (3, 'Test1234_1511999707_50660798', '04159', 71.97),
 (3, 'Test1234_1511999707_50660798', '242-5530', 356.97),
@@ -180,6 +180,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`OrderID`, `OrderTime`, `Cost`, `EDDate`, `SDate`, `DDate`, `Shipped`, `Delivered`, `Street`, `City`, `State`, `Zipcode`, `Username`, `StoreID`) VALUES
+('Test12345_1512026804_11374545', '2017-11-30 01:26:44', 10.00, NULL, NULL, NULL, 0, 0, 'Test12345', 'Test12345', 'Texas', 77777, 'Test12345', 1),
 ('Test1234_1511995405_17890417', '2017-11-29 16:43:25', 95.96, '2017-11-29 00:00:00', '2017-11-29 00:00:00', '2017-11-29 00:00:00', 1, 1, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
 ('Test1234_1511999707_50660798', '2017-11-29 17:55:07', 428.94, '2017-11-29 00:00:00', '2017-11-29 00:00:00', '2017-11-29 00:00:00', 1, 1, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
 ('Test1234_1511999780_16529272', '2017-11-29 17:56:20', 23.99, '2017-11-29 00:00:00', '2017-11-29 00:00:00', NULL, 1, 0, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
@@ -207,7 +208,7 @@ CREATE TABLE `part` (
 --
 
 INSERT INTO `part` (`PartNo`, `Pname`, `PCompany`, `PImage`, `Price`, `SubCatID`, `WarrantyID`, `Deleted`) VALUES
-('01320', 'Max ATF', 'Royal Purple', '01320.jpg', 7.99, 'Transmission Fluid', 7, 0),
+('01320', 'Max ATF', 'Royal Purple', '01320.jpg', 9.99, 'Transmission Fluid', 1, 0),
 ('04159', 'Battery Cable', 'Lynx O.E', '04159.jpg', 23.99, 'Battery Cable', 1, 0),
 ('06822', 'Transmax DEXRON-VI', 'Castrol', '06822.jpg', 8.39, 'Transmission Fluid', 7, 0),
 ('10418', 'Multi-Vechile Automatic Transmission Fluid', 'Lucas', '10418.jpg', 7.99, 'Transmission Fluid', 7, 0),
@@ -237,7 +238,7 @@ INSERT INTO `part` (`PartNo`, `Pname`, `PCompany`, `PImage`, `Price`, `SubCatID`
 ('PBJS32000', 'Emergency 24V Jump Starter', 'POWERALL', 'pbjs32000.jpg', 239.99, 'Battery Booster', 1, 0),
 ('PSJ-1812', 'ProSeries Portable Battery', 'Schumacher', 'psj-1812.jpg', 149.99, 'Battery Booster', 1, 0),
 ('SA10720', 'Air Filter', 'STP', 'sa10720.jpg', 24.99, 'Air Filter', 1, 0),
-('Test', 'Test', 'Test', 'default.jpg', 1.00, 'Transmission Fluid', 1, 0);
+('Test', 'Test', 'Test', 'default.jpg', 10.00, 'Air Filter', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -274,12 +275,12 @@ CREATE TABLE `sinventory` (
 --
 
 INSERT INTO `sinventory` (`StQuantity`, `StoreID`, `PartNo`) VALUES
-(8, 1, '01320'),
+(9, 1, '01320'),
 (5, 1, '04159'),
 (0, 1, '06822'),
 (0, 1, '10418'),
 (4, 1, '242-5530'),
-(10, 1, '24454'),
+(15, 1, '24454'),
 (10, 1, '258-504'),
 (10, 1, '258-521'),
 (10, 1, '258-522'),
@@ -304,7 +305,7 @@ INSERT INTO `sinventory` (`StQuantity`, `StoreID`, `PartNo`) VALUES
 (10, 1, 'PBJS32000'),
 (10, 1, 'PSJ-1812'),
 (10, 1, 'SA10720'),
-(1, 1, 'Test');
+(0, 1, 'Test');
 
 -- --------------------------------------------------------
 
@@ -452,6 +453,13 @@ CREATE TABLE `usercart` (
   `PPrice` decimal(10,2) NOT NULL,
   `TPPrice` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `usercart`
+--
+
+INSERT INTO `usercart` (`PartNo`, `Username`, `PartQuantity`, `PPrice`, `TPPrice`) VALUES
+('04159', 'Test1234', 1, 23.99, 23.99);
 
 -- --------------------------------------------------------
 
@@ -675,7 +683,7 @@ ALTER TABLE `carinfo`
 --
 ALTER TABLE `oinventory`
   ADD CONSTRAINT `oinventory_ibfk_1` FOREIGN KEY (`OrderID`) REFERENCES `orders` (`OrderID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `oinventory_ibfk_2` FOREIGN KEY (`PartNo`) REFERENCES `part` (`PartNo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `oinventory_ibfk_2` FOREIGN KEY (`PartNo`) REFERENCES `part` (`PartNo`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
@@ -696,7 +704,7 @@ ALTER TABLE `part`
 --
 ALTER TABLE `sinventory`
   ADD CONSTRAINT `sinventory_ibfk_1` FOREIGN KEY (`StoreID`) REFERENCES `store` (`StoreID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `sinventory_ibfk_2` FOREIGN KEY (`PartNo`) REFERENCES `part` (`PartNo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `sinventory_ibfk_2` FOREIGN KEY (`PartNo`) REFERENCES `part` (`PartNo`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints for table `store`
