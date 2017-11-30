@@ -288,8 +288,8 @@
 			});
 
 			$scope.addToCart = function(partNo, price) {
-				console.log(partNo);
-				console.log(price);
+				//console.log(partNo);
+				//console.log(price);
 				var queryResult = "";
 				
 				$http.get("php/AddToCart.php",{params:{"partno": partNo, "price": price}}).then(function (response) {
