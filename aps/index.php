@@ -107,6 +107,9 @@
 				<div class="form-group">
 					<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getParts()">Filter</button>
 				</div>
+				<div class="form-group">
+					<button  class="btn btn-primary" id="getPartsInfoClear" ng-model="button" ng-click="getPartsClear()">Clear</button>
+				</div>
 			</form>
 			
 			<br/>
@@ -227,6 +230,27 @@
 			};
 			
 			$scope.getParts();
+
+			$scope.getPartsClear = function() {
+				var make = '';
+				var model = '';
+				var year = '';
+				var name = '';
+				
+				//console.log(make + "," + model + "," + year);
+
+				$http.get("php/GetPartsFromCarInfo.php",  {
+					params:{"make": make, "model": model, "year": year, "name": name}
+				}).then(function (response) {
+					$scope.names = response.data.records;
+				});
+
+				setTimeout(function(){
+					$scope.updateCartCount();
+				}, 50);
+			};
+
+			$scope.getPartsClear();
 
 			$scope.getCarMake();
 
