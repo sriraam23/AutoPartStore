@@ -17,7 +17,7 @@
 		$result = "";
 
 		if(!empty($username)) {
-			$result = mysqli_query($mysqli, "SELECT * FROM (SELECT B.OrderID, B.PartNo, A.PName, A.PCompany, A.PImage, B.TPPrice AS PartsCost, B.OrQuantity FROM part AS A JOIN oinventory AS B ON A.PartNo = B.PartNo) AS ordInv JOIN orders AS ords USING (OrderID) WHERE Username = '$username'");
+			$result = mysqli_query($mysqli, "SELECT * FROM (SELECT B.OrderID, B.PartNo, A.PName, A.PCompany, A.PImage, B.TPPrice AS PartsCost, B.OrQuantity FROM part AS A JOIN oinventory AS B ON A.PartNo = B.PartNo) AS ordInv JOIN orders AS ords USING (OrderID) WHERE Username = '$username' ORDER BY OrderID DESC");
 
 			//error_log("SELECT * FROM (SELECT B.OrderID, B.PartNo, A.PName, A.PCompany, A.PImage, (A.Price * B.OrQuantity) AS PartsCost, B.OrQuantity FROM part AS A JOIN oinventory AS B ON A.PartNo = B.PartNo) AS ordInv JOIN orders AS ords USING (OrderID) WHERE Username = '$username'");
 			/*
@@ -34,6 +34,19 @@
 				if ($outp != "") {$outp .= ",";}
 
 				$outp .= '{"OrderID":"' . $rs["OrderID"] . '",';
+
+				$status = '"OrdStatus":"Processing",';
+
+				if($rs['Shipped'] == '1') {
+					$status = '"OrdStatus":"Shipped",';
+				}
+
+				if ($rs['Delivered'] == '1') {
+					$status = '"OrdStatus":"Delivered",';
+				}
+
+				$outp .= $status;
+
 				$outp .= '"PartNo":"' . $rs["PartNo"] . '",';
 			    $outp .= '"PImage":"' . $rs["PImage"] . '",';
 			    $outp .= '"Pname":"' . $rs["PName"] . '",';

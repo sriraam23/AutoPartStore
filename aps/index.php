@@ -81,35 +81,37 @@
 
 	<div class="container">
 		<div>
-			<form name="form1" class="form-inline">
-				<div class="form-group">
-					<label for="carMake">Select Make:</label>
-					<select class="form-control" id="carMake" ng-model="string" ng-change="getCarModel()"> 
-						<option value="">Select Make</option>
-						<option class="ng-cloak" ng-repeat="a in make" value={{a.Make}}>{{a.Make}}</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="carModel">Select Model:</label>
-					<select class="form-control" id="carModel" ng-model="carModel"> 
-						<option value="">Select Model</option>
-						<option class="ng-cloak" ng-repeat="a in model" value={{a.Model}}>{{a.Model}}</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label for="carYear">Enter Year:</label>
-					<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carYear" placeholder="Car Model Year" ng-model="carYear">
-				</div>
-				<div class="form-group">
-					<label for="partName">Keyword:</label>
-					<input type="text" class="form-control" id="partName" placeholder="Keyword" ng-model="partName">
-				</div>
-				<div class="form-group">
-					<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getParts()">Filter</button>
-				</div>
-				<div class="form-group">
-					<button  class="btn btn-primary" id="getPartsInfoClear" ng-model="button" data-ng-click="getPartsClear()">Clear</button>
-				</div>
+			<form id='filter' name="filter" class="form-inline">
+				<fieldset>
+					<div class="form-group">
+						<label for="carMake">Select Make:</label>
+						<select class="form-control" id="carMake" ng-model="string" ng-change="getCarModel()"> 
+							<option value="">Select Make</option>
+							<option class="ng-cloak" ng-repeat="a in make" value={{a.Make}}>{{a.Make}}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="carModel">Select Model:</label>
+						<select class="form-control" id="carModel" ng-model="carModel"> 
+							<option value="">Select Model</option>
+							<option class="ng-cloak" ng-repeat="a in model" value={{a.Model}}>{{a.Model}}</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="carYear">Enter Year:</label>
+						<input type="text" pattern="\d*" class="form-control" id="carYear" placeholder="Car Model Year" ng-model="carYear">
+					</div>
+					<div class="form-group">
+						<label for="partName">Keyword:</label>
+						<input type="text" class="form-control" id="partName" placeholder="Keyword" ng-model="partName">
+					</div>
+					<div class="form-group">
+						<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getParts()">Filter</button>
+					</div>
+					<div class="form-group">
+						<button  class="btn btn-default" id="getPartsInfoClear" ng-model="button" ng-click="getPartsClear()">Clear</button>
+					</div>
+				</fieldset>
 			</form>
 			
 			<br/>
@@ -269,29 +271,9 @@
 			$scope.getParts();
 
 			$scope.getPartsClear = function() {
-				var make = '';
-				var model = '';
-				var year = '';
-				var name = '';
-
-				//console.log(make + "," + model + "," + year);
-
-				$http.get("php/GetPartsFromCarInfo.php",  {
-					params:{"make": make, "model": model, "year": year, "name": name}
-				}).then(function (response) {
-					$scope.names = response.data.records;
-					$scope.string = "";
-					$http.get("php/GetCarModelInfo.php",{params:{"make": ""}}).then(function (response) {$scope.model = response.data.records;});
-					$scope.carYear = "";
-					$scope.partName = "";
-				});		
-
-				setTimeout(function(){
-					$scope.updateCartCount();
-				}, 50);
-			};
-
-			//$scope.getPartsClear();
+				$('#filter')[0].reset();
+				$scope.getParts();
+			}
 
 			$scope.getCarMake();
 

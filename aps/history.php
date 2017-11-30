@@ -87,8 +87,13 @@
 					<th>Inventory</th>
 				</thead>
 				<tbody>
-					<tr class="ng-cloak" ng-repeat="(key, value) in orders | groupBy: '[OrderID]'">
-					    <td>{{key}}</td>
+					<tr class="ng-cloak" ng-repeat="(key, value) in orders | groupBy: '[OrderID,OrdStatus]'">
+					    <td>
+					    	<table class="table table-bordered table-striped table-condensed">
+					    		<tr><td>OrderID:</td><td>{{key.split(',')[0]}}</td></tr>
+					    		<tr><td>Status</td><td>{{key.split(',')[1]}}</td></tr>
+					    	</table>
+					    </td>
 					    <td>
 						    <table class="table table-bordered table-striped table-condensed">
 						    	<thead>
@@ -100,7 +105,6 @@
 						    	</thead>
 						    	<tbody>
 							        <tr class="ng-cloak" ng-repeat="item in value" ng-init="total = 0" ng-init="qty = 0">
-							        	<td id='{{order}}' hidden>$ {{ item.Cost }}</td>
 							            <td align="left" style="vertical-align: middle;">{{ item.PartNo }}</td>
 										<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ item.PImage }}' alt='{{ item.Pname }}' height="100" width="100"></img></td>
 										<td align="left" style="vertical-align: middle;">{{ item.PCompany }} {{ item.PName }}</td>

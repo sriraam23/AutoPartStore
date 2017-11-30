@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 30, 2017 at 02:49 AM
+-- Generation Time: Nov 29, 2017 at 07:04 AM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.1.5
 
@@ -77,8 +77,7 @@ INSERT INTO `carinfo` (`Make`, `Model`, `MinYear`, `MaxYear`, `PartNo`) VALUES
 ('Mercedes', 'Benz', 2002, 2015, 'E-1650'),
 ('Honda', 'Civic', 2000, 2010, 'HD-DLG'),
 ('Toyota', 'Carolla', 2002, 2016, 'HD-DLG'),
-('Toyota', 'Carolla', 2002, 2016, 'SA10720'),
-('Audi', 'A8', 2000, 2017, 'Test');
+('Toyota', 'Carolla', 2002, 2016, 'SA10720');
 
 -- --------------------------------------------------------
 
@@ -136,21 +135,24 @@ INSERT INTO `customer` (`Username`, `Fname`, `Lname`, `Street`, `City`, `State`,
 CREATE TABLE `oinventory` (
   `OrQuantity` int(11) NOT NULL,
   `OrderID` varchar(50) NOT NULL,
-  `PartNo` varchar(10) NOT NULL,
-  `TPPrice` decimal(10,2) NOT NULL
+  `PartNo` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `oinventory`
 --
 
-INSERT INTO `oinventory` (`OrQuantity`, `OrderID`, `PartNo`, `TPPrice`) VALUES
-(4, 'Test1234_1511995405_17890417', '04159', 95.96),
-(3, 'Test1234_1511999707_50660798', '04159', 71.97),
-(3, 'Test1234_1511999707_50660798', '242-5530', 356.97),
-(1, 'Test1234_1511999780_16529272', '04159', 23.99),
-(2, 'Test1234_1512002671_19833722', '01320', 15.98),
-(1, 'Test1234_1512002671_19833722', '04159', 23.99);
+INSERT INTO `oinventory` (`OrQuantity`, `OrderID`, `PartNo`) VALUES
+(1, 'Test1234151141868411545602775a166b3c45f9b8.1500557', '04159'),
+(1, 'Test1234151141868411545602775a166b3c45f9b8.1500557', '06822'),
+(1, 'Test1234151141885018016636715a166be269e350.7353173', '04159'),
+(8, 'Test1234151150353521313855085a17b6afb01148.6410486', '04159'),
+(11, 'Test1234151150355217859319615a17b6c0b24dc5.1902435', '06822'),
+(11, 'Test12341511505047332944455a17bc978882f2.90137946', '10418'),
+(1, 'Test12345151164129513399771845a19d0cf707113.044574', '242-5530'),
+(1, 'Test1234515116764166226546445a1a5a009bef06.0421404', '242-5530'),
+(1, 'Test1234515116765628769766125a1a5a92daf090.4186952', '242-5530'),
+(1, 'Test1234_1511840842_91439645', '04159');
 
 -- --------------------------------------------------------
 
@@ -180,10 +182,15 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`OrderID`, `OrderTime`, `Cost`, `EDDate`, `SDate`, `DDate`, `Shipped`, `Delivered`, `Street`, `City`, `State`, `Zipcode`, `Username`, `StoreID`) VALUES
-('Test1234_1511995405_17890417', '2017-11-29 16:43:25', 95.96, '2017-11-29 00:00:00', '2017-11-29 00:00:00', '2017-11-29 00:00:00', 1, 1, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
-('Test1234_1511999707_50660798', '2017-11-29 17:55:07', 428.94, '2017-11-29 00:00:00', '2017-11-29 00:00:00', '2017-11-29 00:00:00', 1, 1, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
-('Test1234_1511999780_16529272', '2017-11-29 17:56:20', 23.99, '2017-11-29 00:00:00', '2017-11-29 00:00:00', NULL, 1, 0, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
-('Test1234_1512002671_19833722', '2017-11-29 18:44:31', 39.97, '2017-11-29 00:00:00', NULL, NULL, 0, 0, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1);
+('Test1234151141868411545602775a166b3c45f9b8.1500557', '2017-11-23 00:31:24', 32.38, NULL, NULL, NULL, 0, 0, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
+('Test1234151141885018016636715a166be269e350.7353173', '2017-11-23 00:34:10', 23.99, NULL, NULL, NULL, 0, 0, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
+('Test1234151150353521313855085a17b6afb01148.6410486', '2017-11-24 00:05:35', 191.92, NULL, NULL, NULL, 0, 0, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
+('Test1234151150355217859319615a17b6c0b24dc5.1902435', '2017-11-24 00:05:52', 92.29, NULL, NULL, NULL, 0, 0, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
+('Test12341511505047332944455a17bc978882f2.90137946', '2017-11-24 00:30:47', 87.89, NULL, NULL, NULL, 0, 0, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
+('Test12345151164129513399771845a19d0cf707113.044574', '2017-11-25 14:21:35', 118.99, NULL, NULL, NULL, 0, 0, 'Test12345', 'Test12345', 'Texas', 77777, 'Test12345', 1),
+('Test1234515116764166226546445a1a5a009bef06.0421404', '2017-11-26 00:06:56', 118.99, NULL, NULL, NULL, 0, 0, 'Test12345', 'Test12345', 'Texas', 77777, 'Test12345', 1),
+('Test1234515116765628769766125a1a5a92daf090.4186952', '2017-11-26 00:09:22', 118.99, NULL, NULL, NULL, 0, 0, 'Test12345', 'Test12345', 'Texas', 77777, 'Test12345', 1),
+('Test1234_1511840842_91439645', '2017-11-27 21:47:22', 23.99, NULL, NULL, NULL, 0, 0, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1);
 
 -- --------------------------------------------------------
 
@@ -207,7 +214,7 @@ CREATE TABLE `part` (
 --
 
 INSERT INTO `part` (`PartNo`, `Pname`, `PCompany`, `PImage`, `Price`, `SubCatID`, `WarrantyID`, `Deleted`) VALUES
-('01320', 'Max ATF', 'Royal Purple', '01320.jpg', 7.99, 'Transmission Fluid', 7, 0),
+('01320', 'Max ATF', 'Royal Purple', '01320.jpg', 7.99, 'Transmission Fluid', 7, 1),
 ('04159', 'Battery Cable', 'Lynx O.E', '04159.jpg', 23.99, 'Battery Cable', 1, 0),
 ('06822', 'Transmax DEXRON-VI', 'Castrol', '06822.jpg', 8.39, 'Transmission Fluid', 7, 0),
 ('10418', 'Multi-Vechile Automatic Transmission Fluid', 'Lucas', '10418.jpg', 7.99, 'Transmission Fluid', 7, 0),
@@ -236,8 +243,7 @@ INSERT INTO `part` (`PartNo`, `Pname`, `PCompany`, `PImage`, `Price`, `SubCatID`
 ('HD-DLG', 'Gold Battery', 'Duralast', 'hd-dlg.jpg', 179.99, 'Battery', 5, 0),
 ('PBJS32000', 'Emergency 24V Jump Starter', 'POWERALL', 'pbjs32000.jpg', 239.99, 'Battery Booster', 1, 0),
 ('PSJ-1812', 'ProSeries Portable Battery', 'Schumacher', 'psj-1812.jpg', 149.99, 'Battery Booster', 1, 0),
-('SA10720', 'Air Filter', 'STP', 'sa10720.jpg', 24.99, 'Air Filter', 1, 0),
-('Test', 'Test', 'Test', 'default.jpg', 1.00, 'Transmission Fluid', 1, 0);
+('SA10720', 'Air Filter', 'STP', 'sa10720.jpg', 24.99, 'Air Filter', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -274,11 +280,11 @@ CREATE TABLE `sinventory` (
 --
 
 INSERT INTO `sinventory` (`StQuantity`, `StoreID`, `PartNo`) VALUES
-(8, 1, '01320'),
-(5, 1, '04159'),
+(10, 1, '01320'),
+(4, 1, '04159'),
 (0, 1, '06822'),
 (0, 1, '10418'),
-(4, 1, '242-5530'),
+(7, 1, '242-5530'),
 (10, 1, '24454'),
 (10, 1, '258-504'),
 (10, 1, '258-521'),
@@ -303,8 +309,7 @@ INSERT INTO `sinventory` (`StQuantity`, `StoreID`, `PartNo`) VALUES
 (10, 1, 'HD-DLG'),
 (10, 1, 'PBJS32000'),
 (10, 1, 'PSJ-1812'),
-(10, 1, 'SA10720'),
-(1, 1, 'Test');
+(10, 1, 'SA10720');
 
 -- --------------------------------------------------------
 
@@ -448,10 +453,16 @@ INSERT INTO `supplies` (`SupplyDate`, `SpQuantity`, `SupplierID`, `PartNo`) VALU
 CREATE TABLE `usercart` (
   `PartNo` varchar(10) NOT NULL,
   `Username` varchar(30) NOT NULL,
-  `PartQuantity` int(11) NOT NULL DEFAULT '1',
-  `PPrice` decimal(10,2) NOT NULL,
-  `TPPrice` decimal(10,2) NOT NULL
+  `PartQuantity` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `usercart`
+--
+
+INSERT INTO `usercart` (`PartNo`, `Username`, `PartQuantity`) VALUES
+('242-5530', 'Test1234', 1),
+('24454', 'Test1234', 1);
 
 -- --------------------------------------------------------
 
