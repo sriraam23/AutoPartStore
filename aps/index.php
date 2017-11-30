@@ -152,13 +152,50 @@
 						</tr>
 					</tbody>
 				</table>
-				<dir-pagination-controls max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls>
 			</div>
+
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<dir-pagination-controls max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls>
+				</div>
+			</div>
+
 			<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>
 		</div>		
 	</div>
+
+	<div class="modal fade success-popup" id="succcheck" tabindex="-1" role="dialog" aria-labelledby="succCheckLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="succCheckLabel">Add To Cart</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/success.png'/><br/>Add To Cart Successfull!</p>
+            <a href="#" onclick="$('#succcheck').modal('hide');" class="rd_more btn btn-default">Close</a>
+            <a href="usercart.php" class="rd_more btn btn-primary">Checkout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade success-popup" id="failcheck" tabindex="-1" role="dialog" aria-labelledby="failCheckLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="failCheckLabel">Add To Cart</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/fail.png'/><br/>Add To Cart Unsuccessfull! <span id="failstatus"></span></p>
+            <a href="#" onclick="$('#failcheck').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
 	<div class="modal fade success-popup" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel">
       <div class="modal-dialog modal-sm" role="document">
@@ -250,11 +287,14 @@
 					
 					if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
 					{
+						/*
 						$('#' + partNo + '_qresult').attr("src","img/success.png");
 
 						setTimeout(function(){
 							$('#' + partNo + '_qresult').attr("src","img/empty.png");
 						}, 1000);
+						*/
+						$('#succcheck').modal('show');
 
 						setTimeout(function(){
 							$scope.updateCartCount();
@@ -262,11 +302,15 @@
 					}
 					else 
 					{
+						/*
 						$('#' + partNo + '_qresult').attr("src","img/fail.png");
 
 						setTimeout(function(){
 							$('#' + partNo + '_qresult').attr("src","img/empty.png");
 						}, 1000);
+						*/
+
+						$('#failcheck').modal('show');
 
 						setTimeout(function(){
 							$scope.updateCartCount();

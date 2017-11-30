@@ -125,8 +125,14 @@
 						</tr>
 					</tbody>
 				</table>
-				<dir-pagination-controls max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls>
 			</div>
+
+			<div class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<dir-pagination-controls max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls>
+				</div>
+			</div>
+
 			<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>
