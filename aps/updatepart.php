@@ -219,7 +219,7 @@
             <h4 class="modal-title" id="succUpdateLabel">Update Part</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead"><img src='img/success.png'/><br/>Update Part Successfull!</p>
+            <p class="lead"><img src='img/success.png'/><br/>Update Part Successful!</p>
             <button ng-model='button' ng-click="updated()" class="rd_more btn btn-default">Close</a>
           </div>
         </div>

@@ -198,7 +198,7 @@
             <h4 class="modal-title" id="succaddLabel">Add Part</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead"><img src='img/success.png'/><br/>Add Part Successfull!</p>
+            <p class="lead"><img src='img/success.png'/><br/>Add Part Successful!</p>
             <a href="#" onclick="$('#addform')[0].reset();$('#succadd').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>
@@ -212,7 +212,7 @@
             <h4 class="modal-title" id="failaddLabel">Add Part</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead"><img src='img/fail.png'/><br/>Add Part Unsuccessfull! <br/> <span id="failaddstatus"></span></p>
+            <p class="lead"><img src='img/fail.png'/><br/>Add Part Failed! <br/> <span id="failaddstatus"></span></p>
             <a href="#" onclick="$('#failadd').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>
