@@ -172,30 +172,30 @@
 	</div>
 
 	<div class="modal fade success-popup" id="succcheck" tabindex="-1" role="dialog" aria-labelledby="succCheckLabel">
-      <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             <h4 class="modal-title" id="succCheckLabel">Add To Cart</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead"><img src='img/success.png'/><br/>Add To Cart Successfull!</p>
-            <a href="#" onclick="$('#succcheck').modal('hide');" class="rd_more btn btn-default">Close</a>
-            <a href="usercart.php" class="rd_more btn btn-primary">Checkout</a>
+            <p class="lead"><img src='img/success.png'/><br/>Add to Cart Successful!</p>
+            <a href="#" onclick="$('#succcheck').modal('hide');" class="rd_more btn btn-default">Continue Shopping</a>
+            <a href="usercart.php" class="rd_more btn btn-primary">Proceed to Checkout</a>
           </div>
         </div>
       </div>
     </div>
 
     <div class="modal fade success-popup" id="failcheck" tabindex="-1" role="dialog" aria-labelledby="failCheckLabel">
-      <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             <h4 class="modal-title" id="failCheckLabel">Add To Cart</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead"><img src='img/fail.png'/><br/>Add To Cart Unsuccessfull! <span id="failstatus"></span></p>
+            <p class="lead"><img src='img/fail.png'/><br/>Add to Cart Failed! <span id="failstatus"></span></p>
             <a href="#" onclick="$('#failcheck').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>

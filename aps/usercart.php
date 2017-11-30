@@ -154,10 +154,10 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title" id="succCheckLabel">Check Out</h4>
+            <h4 class="modal-title" id="succCheckLabel">Checkout</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead"><img src='img/success.png'/>Checkout successfull!</p>
+            <p class="lead"><img src='img/success.png'/>Checkout Successful!</p>
             <a href="#" onclick="$('#succcheck').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>
@@ -169,10 +169,10 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title" id="failCheckLabel">Check Out</h4>
+            <h4 class="modal-title" id="failCheckLabel">Checkout</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead"><img src='img/fail.png'/>Checkout unsuccessfull! <span id="failstatus"></span></p>
+            <p class="lead"><img src='img/fail.png'/>Checkout Failed! <span id="failstatus"></span></p>
             <a href="#" onclick="$('#failcheck').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>
@@ -187,7 +187,7 @@
             <h4 class="modal-title" id="succUpdateLabel">Update Cart</h4>
           </div>
           <div class="modal-body text-center">
-            <p class="lead"><img src='img/success.png'/>Update Cart Successfull!</p>
+            <p class="lead"><img src='img/success.png'/>Update Cart Successful!</p>
             <a href="#" onclick="$('#succupdate').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>
