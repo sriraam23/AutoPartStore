@@ -97,7 +97,7 @@
 	                </div>
 	                <div class="col-xs-5" style="border:0px solid gray">
 	                    <h2>{{part.PCompany}} {{part.Pname}}</h2>    
-	                    <h5 style="color:#337ab7">Vendor: <a href="#">{{part.PCompany}}</a></h5>
+	                    <!--<h5 style="color:#337ab7">Vendor: <a href="#">{{part.PCompany}}</a></h5>-->
 	        
 	                    <h4 class="title-price"><small>Price</small></h4>
 	                    <h3 style="margin-top:0px;">US ${{part.Price.toFixed(2)}}</h3>
@@ -115,7 +115,9 @@
 	                        	<button type="button" class="btn btn-default btn-minus" disabled="disabled"><span class="glyphicon glyphicon-minus"></span></button>
 	                            <input class="ng-cloak" id='pquantity' name='pquantity' type='number' min='1' style="text-align:center;" value="1" ng-disabled="{{part.Quantity}} == 0" />
 	                            <button type="button" class="btn btn-default btn-plus" ng-disabled="{{part.Quantity}} == 0"><span class="glyphicon glyphicon-plus"></span></button>
-	                            <button class="btn btn-success" id="addcart" ng-click="addToCart(part.PartNo, part.Price)" ng-disabled="{{part.Quantity}} == 0"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Cart</button>
+	                            <button class="btn btn-success" id="addcart" ng-click="addToCart(part.PartNo, part.Price)" ng-disabled="{{part.Quantity}} == 0">
+	                            	<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Cart
+	                            </button>
 	                        </div>
 	                    </div>
 	                </div>

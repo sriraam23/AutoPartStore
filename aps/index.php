@@ -152,7 +152,11 @@
 							<td align="left" style="vertical-align: middle;">{{ x.SubCatID }}</td>
 							<td align="left" style="vertical-align: middle;">{{ x.WarrantyID }}</td>
 							<td align="center" style="vertical-align: middle;">{{ x.Quantity }}</td>
-							<td align="center" style="vertical-align: middle;" ng-if="x.Quantity > 0"><input type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo, x.Price)" class="btn btn-default" value="Add to Cart"><span><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/></span></td>
+							<td align="center" style="vertical-align: middle;" ng-if="x.Quantity > 0">
+								<button type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo, x.Price)" class="btn btn-success">
+									<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Cart
+								</button>
+							</td>
 							<td align="center" style="vertical-align: middle;"ng-if="x.Quantity < 1"><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/sold_out.png' width="100" height="100"/></td>
 						</tr>
 					</tbody>
