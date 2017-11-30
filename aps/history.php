@@ -107,7 +107,8 @@
 							        <tr class="ng-cloak" ng-repeat="item in value" ng-init="total = 0" ng-init="qty = 0">
 							            <td align="left" style="vertical-align: middle;">{{ item.PartNo }}</td>
 										<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ item.PImage }}' alt='{{ item.Pname }}' height="100" width="100"></img></td>
-										<td align="left" style="vertical-align: middle;">{{ item.PCompany }} {{ item.PName }}</td>
+										<td align="left" style="vertical-align: middle;"><a href="part.php?partno={{item.PartNo}}">{{ item.PCompany }} {{ item.Pname }}</a></td>
+										
 										<td align="center" style="vertical-align: middle;" ng-init="$parent.qty = $parent.qty + (item.OrQuantity)">{{ item.OrQuantity }}</td>
 										<td align="left" style="vertical-align: middle;" ng-init="$parent.total = $parent.total + (item.PartsCost)">${{ item.PartsCost.toFixed(2) }}</td>
 							        </tr>
