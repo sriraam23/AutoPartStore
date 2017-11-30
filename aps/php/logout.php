@@ -6,6 +6,12 @@
 	setcookie(session_name(),'',0,'/');
 	session_regenerate_id(true);
 
-	header( 'Location: /aps/login.php' ) ;
+	$url = $_SERVER['REQUEST_URI'];
+	if (strpos($url, 'aps') !== false) {
+ 	    header( 'Location: /aps/login.php' ) ;
+	}
+	else{
+		header( 'Location: /login.php' ) ;
+	}	
 	exit();
 ?>
