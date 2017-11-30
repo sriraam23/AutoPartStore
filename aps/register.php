@@ -59,7 +59,7 @@
                       <label for="username">Username</label>
                       <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" pattern=".{6,}" data-remote="/aps/php/CheckUser.php" data-pattern-error="Username must be minimum of 6 characters!" data-remote-error="Username already taken." required>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" pattern=".{6,}" data-remote="php/CheckUser.php" data-pattern-error="Username must be minimum of 6 characters!" data-remote-error="Username already taken." required>
                       </div>
                       <div class="text-left">
                         <span class="help-block with-errors" />
