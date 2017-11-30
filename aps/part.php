@@ -96,20 +96,20 @@
 	                    <img style="max-width:100%;" ng-src="img/{{part.PImage}}" />
 	                </div>
 	                <div class="col-xs-5" style="border:0px solid gray">
-	                    <h3>{{part.PCompany}} {{part.Pname}}</h3>    
+	                    <h2>{{part.PCompany}} {{part.Pname}}</h2>    
 	                    <h5 style="color:#337ab7">Vendor: <a href="#">{{part.PCompany}}</a></h5>
 	        
-	                    <h6 class="title-price"><small>Price</small></h6>
+	                    <h4 class="title-price"><small>Price</small></h4>
 	                    <h3 style="margin-top:0px;">US ${{part.Price.toFixed(2)}}</h3>
 	        			
-	        			<h6 class="title-price"><small>Sub Category</small></h6>
+	        			<h4 class="title-price"><small>Subcategory</small></h4>
 	                    <h3 style="margin-top:0px;">{{part.SubCatID}}</h3>
 
-	                    <h6 class="title-price"><small>Warranty</small></h6>
+	                    <h4 class="title-price"><small>Warranty</small></h4>
 	                    <h3 style="margin-top:0px;">{{part.WarrantyID}}</h3>
 
 	                    <div class="section" style="padding-bottom:20px;">
-	                        <h6 class="title-attr"><small>Quantity</small></h6>
+	                        <h4 class="title-attr"><small>Quantity</small></h4>
 	                        <input id='qty' name='qty' type='number' ng-model='number' ng-value='{{part.Quantity}}' readonly hidden /> 
 	                        <div>
 	                        	<button type="button" class="btn btn-default btn-minus" disabled="disabled"><span class="glyphicon glyphicon-minus"></span></button>
