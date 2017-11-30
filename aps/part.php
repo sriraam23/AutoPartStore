@@ -224,9 +224,61 @@
 					}
 				}, 0);
 
+				 $(".section > div > input").on("input", function(){
+				 	var maxQty = parseInt($('#qty').val());
+				 	var now = parseInt($(".section > div > input").val());
+				 	//console.log(now);
+				 	
+				 	if($.isNumeric(now)) {
+				 		if(now < 0) {
+				 			$(".section > div > input").val(1);
+			 				$(".btn-minus").attr("disabled", "disabled");
+			 				if(maxQty != 1) {
+			 					$(".btn-plus").removeAttr("disabled");
+			 				}
+			 				else {
+			 					$(".btn-plus").attr("disabled", "disabled");
+			 				}
+			 				$("#addcart").removeAttr("disabled");
+				 		}
+				 		else if(now == 0) {
+				 			$(".btn-minus").attr("disabled", "disabled");
+				 			$(".btn-plus").removeAttr("disabled");
+				 			$("#addcart").attr("disabled", "disabled");
+				 		}
+				 		else if(now == 1) {
+				 			$(".btn-minus").attr("disabled", "disabled");
+				 			$(".btn-plus").removeAttr("disabled");
+				 			$("#addcart").removeAttr("disabled");
+				 		}
+				 		else if(now < maxQty) {
+				 			$(".btn-minus").removeAttr("disabled");
+				 			$(".btn-plus").removeAttr("disabled");
+				 			$("#addcart").removeAttr("disabled");
+			 			}
+			 			else if(now == maxQty) {
+			 				$(".btn-minus").removeAttr("disabled");
+			 				$(".btn-plus").attr("disabled", "disabled");
+			 				$("#addcart").removeAttr("disabled");
+			 			}
+			 			else {
+			 				//$("#addcart").attr("disabled", "disabled");
+			 				$(".section > div > input").val(maxQty);
+			 				$(".btn-plus").attr("disabled", "disabled");
+			 				$(".btn-minus").removeAttr("disabled");
+			 				$("#addcart").removeAttr("disabled");
+			 			}
+			 		}
+			 		else {
+			 			$(".btn-minus").removeAttr("disabled");
+			 			$(".btn-plus").removeAttr("disabled");
+			 			$("#addcart").attr("disabled", "disabled");
+			 		}
+				 });
+
 				$(".btn-minus").on("click",function(){
-					var maxQty = $('#qty').val();
-	                var now = $(".section > div > input").val();
+					var maxQty = parseInt($('#qty').val());
+	                var now = parseInt($(".section > div > input").val());
 
 	                if ($.isNumeric(now)){
 	                    if (parseInt(now) -1 > 0){ now--;}
@@ -241,6 +293,9 @@
 	                    $(".section > div > input").val("1");
 	                }
 
+	                now = parseInt($(".section > div > input").val());
+	                $("#addcart").removeAttr("disabled");
+
     				if(now == maxQty) {
 						$(".btn-plus").attr("disabled", "disabled");
 					}
@@ -254,8 +309,8 @@
 	            }) 
 
 	            $(".btn-plus").on("click",function(){
-	                var maxQty = $('#qty').val();
-	                var now = $(".section > div > input").val();
+	                var maxQty = parseInt($('#qty').val());
+	                var now = parseInt($(".section > div > input").val());
 	                
 	                if ($.isNumeric(now)){
 	                	now = parseInt(now) + 1;
@@ -269,6 +324,9 @@
 	                }else{
 	                    $(".section > div > input").val("1");
 	                }
+
+	                now = parseInt($(".section > div > input").val());
+	                $("#addcart").removeAttr("disabled");
 
 	                if(now == maxQty) {
 						$(".btn-plus").attr("disabled", "disabled");
@@ -291,45 +349,55 @@
 				//console.log(partNo);
 				//console.log(price);
 				var queryResult = "";
-
+				var maxQty = $('#qty').val();
 				var pquantity = $('#pquantity').val();
-				
-				$http.get("php/AddToCart.php",{params:{"partno": partNo, "price": price, "pquantity": pquantity}}).then(function (response) {
-				    queryResult = JSON.stringify(response.data.records);
-					
-					if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
-					{
-						/*
-						$('#' + partNo + '_qresult').attr("src","img/success.png");
-
-						setTimeout(function(){
-							$('#' + partNo + '_qresult').attr("src","img/empty.png");
-						}, 1000);
-						*/
-						$('#succcheck').modal('show');
-
-						setTimeout(function(){
-							$scope.updateCartCount();
-						}, 50);
-					}
-					else 
-					{
-						/*
-						$('#' + partNo + '_qresult').attr("src","img/fail.png");
-
-						setTimeout(function(){
-							$('#' + partNo + '_qresult').attr("src","img/empty.png");
-						}, 1000);
-						*/
+				//console.log(pquantity + "<=" + maxQty);
+				if(parseInt(pquantity) <= parseInt(maxQty)) {
+					$http.get("php/AddToCart.php",{params:{"partno": partNo, "price": price, "pquantity": pquantity}}).then(function (response) {
+					    queryResult = JSON.stringify(response.data.records);
 						
-						$('#failstatus').text(response.data.records[0].Status);
-						$('#failcheck').modal('show');
+						if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
+						{
+							/*
+							$('#' + partNo + '_qresult').attr("src","img/success.png");
 
-						setTimeout(function(){
-							$scope.updateCartCount();
-						}, 50);
-					}
-				});
+							setTimeout(function(){
+								$('#' + partNo + '_qresult').attr("src","img/empty.png");
+							}, 1000);
+							*/
+							$('#succcheck').modal('show');
+
+							setTimeout(function(){
+								$scope.updateCartCount();
+							}, 50);
+						}
+						else 
+						{
+							/*
+							$('#' + partNo + '_qresult').attr("src","img/fail.png");
+
+							setTimeout(function(){
+								$('#' + partNo + '_qresult').attr("src","img/empty.png");
+							}, 1000);
+							*/
+							
+							$('#failstatus').text(response.data.records[0].Status);
+							$('#failcheck').modal('show');
+
+							setTimeout(function(){
+								$scope.updateCartCount();
+							}, 50);
+						}
+					});
+				}
+				else {
+					$('#failstatus').text("Couldn't add to User Cart");
+					$('#failcheck').modal('show');
+
+					setTimeout(function(){
+						$scope.updateCartCount();
+					}, 50);
+		}
 			}
 		});
 	</script>
