@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 30, 2017 at 07:28 AM
+-- Generation Time: Nov 30, 2017 at 07:36 AM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.1.5
 
@@ -144,7 +144,6 @@ CREATE TABLE `oinventory` (
 --
 
 INSERT INTO `oinventory` (`OrQuantity`, `OrderID`, `PartNo`, `TPPrice`) VALUES
-(1, 'Test12345_1512026804_11374545', 'Test', 10.00),
 (4, 'Test1234_1511995405_17890417', '04159', 95.96),
 (3, 'Test1234_1511999707_50660798', '04159', 71.97),
 (3, 'Test1234_1511999707_50660798', '242-5530', 356.97),
@@ -180,7 +179,6 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`OrderID`, `OrderTime`, `Cost`, `EDDate`, `SDate`, `DDate`, `Shipped`, `Delivered`, `Street`, `City`, `State`, `Zipcode`, `Username`, `StoreID`) VALUES
-('Test12345_1512026804_11374545', '2017-11-30 01:26:44', 10.00, NULL, NULL, NULL, 0, 0, 'Test12345', 'Test12345', 'Texas', 77777, 'Test12345', 1),
 ('Test1234_1511995405_17890417', '2017-11-29 16:43:25', 95.96, '2017-11-29 00:00:00', '2017-11-29 00:00:00', '2017-11-29 00:00:00', 1, 1, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
 ('Test1234_1511999707_50660798', '2017-11-29 17:55:07', 428.94, '2017-11-29 00:00:00', '2017-11-29 00:00:00', '2017-11-29 00:00:00', 1, 1, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
 ('Test1234_1511999780_16529272', '2017-11-29 17:56:20', 23.99, '2017-11-29 00:00:00', '2017-11-29 00:00:00', NULL, 1, 0, 'Test1234', 'Test1234', 'Texas', 11111, 'Test1234', 1),
@@ -237,8 +235,7 @@ INSERT INTO `part` (`PartNo`, `Pname`, `PCompany`, `PImage`, `Price`, `SubCatID`
 ('HD-DLG', 'Gold Battery', 'Duralast', 'hd-dlg.jpg', 179.99, 'Battery', 5, 0),
 ('PBJS32000', 'Emergency 24V Jump Starter', 'POWERALL', 'pbjs32000.jpg', 239.99, 'Battery Booster', 1, 0),
 ('PSJ-1812', 'ProSeries Portable Battery', 'Schumacher', 'psj-1812.jpg', 149.99, 'Battery Booster', 1, 0),
-('SA10720', 'Air Filter', 'STP', 'sa10720.jpg', 24.99, 'Air Filter', 1, 0),
-('Test', 'Test', 'Test', 'default.jpg', 10.00, 'Air Filter', 1, 1);
+('SA10720', 'Air Filter', 'STP', 'sa10720.jpg', 24.99, 'Air Filter', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -304,8 +301,7 @@ INSERT INTO `sinventory` (`StQuantity`, `StoreID`, `PartNo`) VALUES
 (10, 1, 'HD-DLG'),
 (10, 1, 'PBJS32000'),
 (10, 1, 'PSJ-1812'),
-(10, 1, 'SA10720'),
-(0, 1, 'Test');
+(10, 1, 'SA10720');
 
 -- --------------------------------------------------------
 
