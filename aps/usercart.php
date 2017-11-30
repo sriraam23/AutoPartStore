@@ -118,8 +118,8 @@
 						<td>Total</td>
 						<td></td>
 						<td></td>
-						<td align="left" style="vertical-align: middle;">${{ total.toFixed(2) }}</td>
-						<td align="left" style="vertical-align: middle;"><input type='text' class="col-xs-2 qty" value='{{ pqty }}' readonly></td>
+						<td class="ng-cloak" align="left" style="vertical-align: middle;">${{ total.toFixed(2) }}</td>
+						<td class="ng-cloak" align="left" style="vertical-align: middle;"><input type='text' class="col-xs-2 qty" value='{{ pqty }}' readonly></td>
 						<td></td>
 						<td></td>
 
@@ -132,9 +132,11 @@
 						<th></th>
 						<th></th>
 						<th></th>
-						<th></th>
 						<th align="right" style="vertical-align: middle; text-align: right;">
-							<input type='button' class="btn btn-primary" id="checkout" ng-click="checkout()" value="Checkout"/>
+							<input type='button' class="btn btn-info cart" id="emptycart" ng-click="emptycart()" value="Empty Cart"/>
+						</th>
+						<th align="right" style="vertical-align: middle; text-align: right;">
+							<input type='button' class="btn btn-primary cart" id="checkout" ng-click="checkout()" value="Checkout"/>
 						</th>
 
 					</tr>
@@ -218,10 +220,10 @@
 					//console.log($scope.cartitems);
 
 					if($scope.cartitems == 0) {
-						$('#checkout').prop("disabled",true);
+						$('.cart').prop("disabled",true);
 					}
 					else {
-						$('#checkout').prop("disabled",false);
+						$('.cart').prop("disabled",false);
 					}
 				});
 			}
@@ -229,6 +231,9 @@
 			$scope.updateCartCount();
 
 			$scope.getCart = function() {
+				$scope.total = 0;
+				$scope.pqty = 0;
+
 				$http.get("php/GetUserCart.php", {params:{}}).then(function (response) {
 					$scope.names = response.data.records;
 				});
@@ -255,9 +260,6 @@
 			});
 
 			$scope.updateCart = function(partNo) {
-				$scope.total = 0;
-				$scope.pqty = 0;
-
 				var qty = $('#' + partNo + '_qty').val();
 				
 				if(qty.length > 0) {
@@ -316,9 +318,6 @@
 			}
 
 			$scope.deleteFromCart = function(partNo) {
-				$scope.total = 0;
-				$scope.pqty = 0;
-
 				var queryResult = "";
 				var qty = 0;
 
@@ -362,10 +361,29 @@
 				});
 			}
 
-			$scope.checkout = function() {
-				$scope.total = 0;
-				$scope.pqty = 0;
+			$scope.emptycart = function() {
+				var queryResult = "";
 				
+				$http.get("php/EmptyCart.php", {params:{}}).then(function (response) {
+					$scope.emptystatus = response.data.records;
+					queryResult = $scope.emptystatus[0].Status;
+
+					if(queryResult.indexOf("SUCCESS") >= 0) {
+						//console.log(queryResult);
+						//$('#successstatus').text(queryResult);
+						//$('#succcheck').modal('show');
+						$scope.getCart();
+					}
+					else {
+						//console.log(queryResult);
+						//$('#failstatus').text($queryResult);
+						//$('#failcheck').modal('show');
+						//console.log(queryResult);
+					}
+				});
+			}
+
+			$scope.checkout = function() {
 				var queryResult = "";
 				
 				$http.get("php/Checkout.php", {params:{}}).then(function (response) {
@@ -377,7 +395,7 @@
 					}
 					else {
 						$scope.failstatus = response.data.records;
-						console.log($scope.failstatus[0].Status);
+						//console.log($scope.failstatus[0].Status);
 						$('#failstatus').text($scope.failstatus[0].Status);
 						$('#failcheck').modal('show');
 						//console.log(queryResult);
