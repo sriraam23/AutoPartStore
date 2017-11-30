@@ -81,7 +81,7 @@
 
 	<div class="container">
 		<div>
-			<form class="form-inline">
+			<form name="form1" class="form-inline">
 				<div class="form-group">
 					<label for="carMake">Select Make:</label>
 					<select class="form-control" id="carMake" ng-model="string" ng-change="getCarModel()"> 
@@ -91,7 +91,7 @@
 				</div>
 				<div class="form-group">
 					<label for="carModel">Select Model:</label>
-					<select class="form-control" id="carModel"> 
+					<select class="form-control" id="carModel" ng-model="carModel"> 
 						<option value="">Select Model</option>
 						<option class="ng-cloak" ng-repeat="a in model" value={{a.Model}}>{{a.Model}}</option>
 					</select>
@@ -108,7 +108,7 @@
 					<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getParts()">Filter</button>
 				</div>
 				<div class="form-group">
-					<button  class="btn btn-primary" id="getPartsInfoClear" ng-model="button" ng-click="getPartsClear()">Clear</button>
+					<button  class="btn btn-primary" id="getPartsInfoClear" ng-model="button" data-ng-click="getPartsClear()">Clear</button>
 				</div>
 			</form>
 			
@@ -273,21 +273,25 @@
 				var model = '';
 				var year = '';
 				var name = '';
-				
+
 				//console.log(make + "," + model + "," + year);
 
 				$http.get("php/GetPartsFromCarInfo.php",  {
 					params:{"make": make, "model": model, "year": year, "name": name}
 				}).then(function (response) {
 					$scope.names = response.data.records;
-				});
+					$scope.string = "";
+					$http.get("php/GetCarModelInfo.php",{params:{"make": ""}}).then(function (response) {$scope.model = response.data.records;});
+					$scope.carYear = "";
+					$scope.partName = "";
+				});		
 
 				setTimeout(function(){
 					$scope.updateCartCount();
 				}, 50);
 			};
 
-			$scope.getPartsClear();
+			//$scope.getPartsClear();
 
 			$scope.getCarMake();
 
