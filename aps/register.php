@@ -251,7 +251,7 @@
       </div>
     </div>
 
-    <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
+    <a id="back-to-top" href="javascript:void(0)" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
       <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
 
@@ -277,7 +277,7 @@
           </div>
           <div class="modal-body text-center">
             <p class="lead"<img src='img/fail.png'/>Registation unsuccessfull!</p>
-            <a href="#" onclick="$('#failreg').modal('hide');" class="rd_more btn btn-default">Close</a>
+            <a href="javascript:void(0)" onclick="$('#failreg').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>
       </div>

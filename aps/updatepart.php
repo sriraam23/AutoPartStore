@@ -28,6 +28,19 @@
 	<script type="text/javascript" src="js/totop.js"></script>
 	<script type="text/javascript" src="js/validator.min.js"></script>
     <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+
+    <style type="text/css">
+    	.dropdown.dropdown-scroll .dropdown-menu {
+		    max-height: 20em;
+		    overflow: auto;
+		}
+		.search-control {
+		    padding: 5px 10px;
+		}
+		.searchtbn {
+			width: 100%;
+		}
+    </style>
 </head>
 
 <body id='uppartCtrl' ng-controller="uppartCtrl">
@@ -77,11 +90,11 @@
 						</a>
 					</li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
+						<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="history.php">Order History</a></li>
 							<li class="divider"></li>
-							<li><a href="#" onclick="$('#logoutModal').modal('show');"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+							<li><a href="javascript:void(0)" onclick="$('#logoutModal').modal('show');"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 		                </ul>
 					</li>
 				</ul>
@@ -90,19 +103,41 @@
 	</nav>
 	<div class="container">
 		<div>
+			<div class="dropdown dropdown-scroll"">
+			    <button class="btn btn-default dropdown-toggle searchtbn" type="button" id="dropdownMenu1" data-toggle="dropdown">
+			    	<span class="pull-left">Select Part</span>
+			    	<span class="glyphicon glyphicon-menu-down pull-right"></span>
+			    </button>
+			    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			        <li role="presentation">
+			            <div class="input-group input-group-sm search-control">
+			            	<span class="input-group-addon">
+			            		<span class="glyphicon glyphicon-search"></span>
+			            	</span>
+			            	<input type="text" class="form-control" placeholder="Keyword Search" ng-model="query"></input>
+			            </div>
+			        </li>
+			        <li role="presentation" class='ng-cloak' ng-repeat='item in names | filter:query'> 
+			        	<a href="javascript:void(0)" ng-click="getAllPartInfo(item.PartNo)"> <img ng-src='img/{{item.PImage}}' alt='{{item.PImage}}' height='50px'/> {{item.PartNo}} {{item.PCompany}} {{item.Pname}} </a>
+			        </li>
+			    </ul>
+			</div>
+			<hr/>
+			<!--
 			<form class="form-inline">
 				<div class="form-group">
-					<label for="part">Select PartNo:</label>
-					<select class="form-control" id="part" ng-model="string" ng-change="getCarModel()"> 
+					<label for="part">Select Part:</label>
+					<select class="form-control ng-cloak" id="part" data-live-search="true"> 
 						<option value="">Select Part</option>
-						<option class="ng-cloak" ng-repeat="a in names" value='{{a.PartNo}}'>{{a.PartNo}}</option>
+						<option class="ng-cloak" ng-repeat="a in names" value='{{a.PartNo}}' data-tokens='{{a.PartNo}} {{a.PCompany}} {{a.Pname}}'>{{a.PartNo}} {{a.PCompany}} {{a.Pname}}</option>
 					</select>
 				</div>
+
 				<div class="form-group">
 					<button  class="btn btn-default" id="getPartsInfo" ng-model="button" ng-click="getAllPartInfo()">Get Part Info</button>
 				</div>
 			</form>
-			
+			-->
 			<div class="ng-cloak" ng-repeat="part in parts" emit-last-repeater-element>
 				<form class="form-horizontal" id="updateform" name="updateform" enctype="multipart/form-data">
 					<div class="form-group">
@@ -206,7 +241,7 @@
 				</form>
 			</div>
 
-			<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
+			<a id="back-to-top" href="javascript:void(0)" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>
 		</div>		
@@ -234,7 +269,7 @@
           </div>
           <div class="modal-body text-center">
             <p class="lead"><img src='img/fail.png'/><br/>Update Part Failed! <br/> <span id="failUpdateStatus"></span></p>
-            <a href="#" onclick="$('#failUpdate').modal('hide');" class="rd_more btn btn-default">Close</a>
+            <a href="javascript:void(0)" onclick="$('#failUpdate').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>
       </div>
@@ -249,7 +284,7 @@
           <div class="modal-body text-center">
             <p class="lead">Are you sure you want to logout?</p>
             <a href="php/logout.php" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-danger">Ok</a>
-            <a href="#" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-success">Cancel</a>
+            <a href="javascript:void(0)" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-success">Cancel</a>
           </div>
         </div>
       </div>
@@ -300,6 +335,29 @@
 
 					setTimeout(function(){
 						$scope.updateCartCount();
+					}, 50);
+
+					setTimeout(function(){
+						$scope.getAllParts();
+					}, 50);
+				});
+
+				//$('#message').css("display", "none");
+			};
+
+			$scope.getAllPartInfo = function(part) {
+				$http.get("./php/GetAllPartFromPartNo.php",{params:{"part": part}}).then(function (response) {
+					$scope.parts = response.data.records;
+					
+					$scope.getPartSubCat();
+					$scope.getPartWarranty();
+
+					setTimeout(function(){
+						$scope.updateCartCount();
+					}, 50);
+
+					setTimeout(function(){
+						$scope.getAllParts();
 					}, 50);
 				});
 
@@ -361,6 +419,10 @@
 					//$scope.getAllParts();
 					angular.element('#getPartsInfo').triggerHandler('click');
 			    }, 0);
+
+			    setTimeout(function(){
+					$scope.getAllParts();
+				}, 50);
 				
 				$('#succUpdate').modal('hide');
 			}
