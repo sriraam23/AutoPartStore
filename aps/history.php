@@ -97,22 +97,23 @@
 					    <td>
 						    <table class="table table-bordered table-striped table-condensed">
 						    	<thead>
-						    		<th>Part Number</th>
-						    		<th>Image</th>
-						    		<th>Part Name</th>
-						    		<th>Quantity</th>
-						    		<th>Price</th>
+						    		<tr class="row">
+						    			<th>Part Number</th>
+						    			<th>Image</th>
+						    			<th>Part Name</th>
+						    			<th>Quantity</th>
+						    			<th>Price</th>
+						    		</tr>
 						    	</thead>
 						    	<tbody>
-							        <tr class="ng-cloak" ng-repeat="item in value" ng-init="total = 0" ng-init="qty = 0">
-							            <td align="left" style="vertical-align: middle;">{{ item.PartNo }}</td>
-										<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ item.PImage }}' alt='{{ item.Pname }}' height="100" width="100"></img></td>
-										<td align="left" style="vertical-align: middle;"><a href="part.php?partno={{item.PartNo}}">{{ item.PCompany }} {{ item.Pname }}</a></td>
-										
-										<td align="center" style="vertical-align: middle;" ng-init="$parent.qty = $parent.qty + (item.OrQuantity)">{{ item.OrQuantity }}</td>
-										<td align="left" style="vertical-align: middle;" ng-init="$parent.total = $parent.total + (item.PartsCost)">${{ item.PartsCost.toFixed(2) }}</td>
+							        <tr class="ng-cloak row" ng-repeat="item in value" ng-init="total = 0" ng-init="qty = 0">
+							            <td class="col-md-2" align="left" style="vertical-align: middle;">{{ item.PartNo }}</td>
+										<td class="col-md-2" align="center" style="vertical-align: middle;"><img class="img-responsive" ng-src='img/{{ item.PImage }}' alt='{{ item.Pname }}' height="100" width="100"></img></td>
+										<td class="col-md-4" align="left" style="vertical-align: middle;"><a href="part.php?partno={{item.PartNo}}">{{ item.PCompany }} {{ item.Pname }}</a></td>
+										<td class="col-md-2" align="center" style="vertical-align: middle;" ng-init="$parent.qty = $parent.qty + (item.OrQuantity)">{{ item.OrQuantity }}</td>
+										<td class="col-md-2" align="left" style="vertical-align: middle;" ng-init="$parent.total = $parent.total + (item.PartsCost)">${{ item.PartsCost.toFixed(2) }}</td>
 							        </tr>
-							        <tr class="info">
+							        <tr class="info row">
       									<td><b>Total</b></td>
       									<td></td>
       									<td></td>

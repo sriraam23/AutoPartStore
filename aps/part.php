@@ -93,7 +93,7 @@
 			<div class="ng-cloak" ng-repeat="part in parts" emit-last-repeater-element>
 	        	<div class="row">
 	               <div class="col-xs-4 item-photo">
-	                    <img style="max-width:100%;" ng-src="img/{{part.PImage}}" />
+	                    <img class="img-responsive" style="max-width:100%;" ng-src="img/{{part.PImage}}" />
 	                </div>
 	                <div class="col-xs-5" style="border:0px solid gray">
 	                    <h2>{{part.PCompany}} {{part.Pname}}</h2>    

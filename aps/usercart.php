@@ -57,7 +57,7 @@
 				</ul>
 				
 				<ul class="nav navbar-nav navbar-right">
-					<li>
+					<li class="active">
 						<a href="usercart.php" class="navbar-brand">
 							<span class="glyphicon glyphicon-shopping-cart"></span> <span class="ng-cloak" id="count"> {{ cartitems }} </span> 
 						</a>
@@ -78,7 +78,7 @@
 		<div>
 			<table class="table table-hover table-condensed">
 				<thead>
-					<tr>
+					<tr class="row">
 						<th>Part Number</th>
 						<th>Part Image</th>
 						<th>Part Name</th>
@@ -89,45 +89,44 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="ng-cloak" ng-repeat="x in names" emit-last-repeater-element ng-init="total = 0" ng-init="pqty = 0">
-						<td align="center" style="vertical-align: middle;">{{ x.PartNo }}</td>
-						<td align="center" style="vertical-align: middle;">
-							<img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img>
+					<tr class="ng-cloak row" ng-repeat="x in names" emit-last-repeater-element ng-init="total = 0" ng-init="pqty = 0">
+						<td class="col-md-1" align="center" style="vertical-align: middle;">{{ x.PartNo }}</td>
+						<td class="col-md-1" align="center" style="vertical-align: middle;">
+							<img class="img-responsive" ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img>
 						</td>
 						
-						<td align="left" style="vertical-align: middle;"><a href="part.php?partno={{x.PartNo}}">{{ x.PCompany }} {{ x.Pname }}</a></td>
+						<td class="col-md-4" align="left" style="vertical-align: middle;"><a href="part.php?partno={{x.PartNo}}">{{ x.PCompany }} {{ x.Pname }}</a></td>
 
-						<td align="left" style="vertical-align: middle;" ng-init="$parent.total = $parent.total + (x.TPPrice)">${{ x.TPPrice.toFixed(2) }}</td>
+						<td class="col-md-1" align="left" style="vertical-align: middle;" ng-init="$parent.total = $parent.total + (x.TPPrice)">${{ x.TPPrice.toFixed(2) }}</td>
 						
-						<td align="left" style="vertical-align: middle; text-align: left;" ng-init="$parent.pqty = $parent.pqty + (x.PartQuantity)">
+						<td class="col-md-3" align="left" style="vertical-align: middle; text-align: left;" ng-init="$parent.pqty = $parent.pqty + (x.PartQuantity)">
 							<input type='text' style="text-align:center;" class="col-xs-3 qty" id='{{ x.PartNo }}_qty' name='{{ x.PartNo }}_qty' value='{{ x.PartQuantity }}'/>
 						</td>
 						
-						<td align="center" style="vertical-align: middle; text-align: center;">
+						<td class="col-md-1" align="right" style="vertical-align: middle; text-align: right;">
 							<input type='button' class="btn btn-default" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" value="Update Cart"/>
-							<span>
-								<img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/empty.png' width="25px" height="25px"/>
-							</span>
 						</td>
-						<td align="right" style="vertical-align: top;">
+						<td class="col-md-1" align="right" style="vertical-align: top;">
 							<a href="javascript:void(0)" ng-click="deleteFromCart(x.PartNo)">
 								<span class="glyphicon glyphicon-remove"></span>
 							</a>
 						</td>
 					</tr>
-					<tr class="info">
-						<td align="center">Total</td>
-						<td></td>
-						<td></td>
-						<td class="ng-cloak" align="left" style="vertical-align: middle;">${{ total.toFixed(2) }}</td>
-						<td class="ng-cloak" align="left" style="vertical-align: middle;"><input type='text' class="col-xs-3 qty" style="text-align:center;border: 0;box-shadow: none;background-color:rgba(0,0,0,0);" value='{{ pqty }}' readonly></td>
-						<td></td>
-						<td></td>
+					<tr class="info row">
+						<th align="left">Total</th>
+						<th></th>
+						<th></th>
+						<th class="ng-cloak" align="left" style="vertical-align: middle;">${{ total.toFixed(2) }}</th>
+						<th class="ng-cloak" align="left" style="vertical-align: middle;">
+							<input type='text' class="col-xs-3 qty" style="text-align:center;border: 0;box-shadow: none;background-color:rgba(0,0,0,0);" value='{{ pqty }}' readonly>
+						</th>
+						<th></th>
+						<th></th>
 
 					</tr>
 				</tbody>
 				<tfoot>
-					<tr>
+					<tr class="row">
 						<th></th>
 						<th></th>
 						<th></th>

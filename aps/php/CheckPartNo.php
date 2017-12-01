@@ -17,7 +17,7 @@
   }
 
   $result = mysqli_query($mysqli, "SELECT PartNo FROM Part WHERE PartNo = '$partno'");
-  error_log("SELECT PartNo FROM Part WHERE PartNo = '$partno'");
+  //error_log("SELECT PartNo FROM Part WHERE PartNo = '$partno'");
   $outp = "";
 
   if (mysqli_num_rows($result)==0) {

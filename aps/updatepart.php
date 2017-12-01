@@ -118,7 +118,18 @@
 			            </div>
 			        </li>
 			        <li role="presentation" class='ng-cloak' ng-repeat='item in names | filter:query'> 
-			        	<a href="javascript:void(0)" ng-click="getAllPartInfo(item.PartNo)"> <img ng-src='img/{{item.PImage}}' alt='{{item.PImage}}' height='50px'/> {{item.PartNo}} {{item.PCompany}} {{item.Pname}} </a>
+			        	<a href="javascript:void(0)" ng-click="getAllPartInfo(item.PartNo)">
+			        		<table class="table table-condensed" style="margin-bottom: 0px;">
+			        			<tr class="row">
+			        				<td class="col-md-1">
+			        					<img class="img-responsive" ng-src='img/{{item.PImage}}' alt='{{item.PImage}}' height='50px' width="50px"/>
+			        				</td>
+			        				<td class="col-md-11">
+			        					{{item.PartNo}} {{item.PCompany}} {{item.Pname}}
+			        				</td>
+			        			</tr>
+			        		</table>
+			        	</a>
 			        </li>
 			    </ul>
 			</div>
@@ -150,7 +161,7 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="cimage">Current Part Image:</label>
 						<div class="col-sm-10">
-							<img ng-src='img/{{part.PImage}}' alt='{{ part.Pname }}' height="100" width="100" id="cimage" name="cimage"></img>
+							<img class="img-responsive" ng-src='img/{{part.PImage}}' alt='{{ part.Pname }}' height="100" width="100" id="cimage" name="cimage"></img>
 						</div>
 					</div>
 

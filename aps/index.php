@@ -124,9 +124,9 @@
 		    </form>
 			-->
 			<div class="table-responsive">
-				<table id="partsList" class="table table-bordered table-striped table-condensed">
+				<table id="partsList" class="table table-striped table-condensed">
 					<thead>
-						<tr>
+						<tr class="row">
 							<th ng-click="sort('PartNo')">Part Number
 								<span class="glyphicon sort-icon" ng-show="sortKey=='PartNo'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
 							<th>Part Image</th>
@@ -138,26 +138,28 @@
 								<span class="glyphicon sort-icon" ng-show="sortKey=='SubCatID'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
 							<th ng-click="sort('WarrantyID')">Warranty
 								<span class="glyphicon sort-icon" ng-show="sortKey=='WarrantyID'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
-							<th ng-click="sort('Quantity')">Quantity
+							<th style="text-align:center;" ng-click="sort('Quantity')">Quantity
 								<span class="glyphicon sort-icon" ng-show="sortKey=='Quantity'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
-							<th>Add to Cart</th>
+							<th style="text-align:center;"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr dir-paginate="x in names|orderBy:sortKey:reverse|itemsPerPage:4" class="ng-cloak" emit-last-repeater-element>
-							<td align="left" style="vertical-align: middle;">{{ x.PartNo}}</td>
-							<td align="center" style="vertical-align: middle;"><img ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
-							<td align="left" style="vertical-align: middle;"><a href="part.php?partno={{x.PartNo}}">{{ x.PCompany }} {{ x.Pname }}</a></td>
-							<td align="left" style="vertical-align: middle;">${{ x.Price.toFixed(2) }}</td>
-							<td align="left" style="vertical-align: middle;">{{ x.SubCatID }}</td>
-							<td align="left" style="vertical-align: middle;">{{ x.WarrantyID }}</td>
-							<td align="center" style="vertical-align: middle;">{{ x.Quantity }}</td>
-							<td align="center" style="vertical-align: middle;" ng-if="x.Quantity > 0">
+						<tr dir-paginate="x in names|orderBy:sortKey:reverse|itemsPerPage:4" class="ng-cloak row" emit-last-repeater-element>
+							<td class="col-md-1" align="left" style="vertical-align: middle;">{{ x.PartNo}}</td>
+							<td class="col-md-1" align="center" style="vertical-align: middle;"><img class="img-responsive" ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
+							<td class="col-md-4" align="left" style="vertical-align: middle;"><a href="part.php?partno={{x.PartNo}}">{{ x.PCompany }} {{ x.Pname }}</a></td>
+							<td class="col-md-1" align="left" style="vertical-align: middle;">${{ x.Price.toFixed(2) }}</td>
+							<td class="col-md-2" align="left" style="vertical-align: middle;">{{ x.SubCatID }}</td>
+							<td class="col-md-1" align="left" style="vertical-align: middle;">{{ x.WarrantyID }}</td>
+							<td class="col-md-1" align="center" style="vertical-align: middle;">{{ x.Quantity }}</td>
+							<td class="col-md-1" align="center" style="vertical-align: middle;" ng-if="x.Quantity > 0">
 								<button type="button" id="{{ x.PartNo }}" ng-click="addToCart(x.PartNo, x.Price)" class="btn btn-success">
 									<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Cart
 								</button>
 							</td>
-							<td align="center" style="vertical-align: middle;"ng-if="x.Quantity < 1"><img id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/sold_out.png' width="100" height="100"/></td>
+							<td class="col-md-1" align="center" style="vertical-align: middle;" ng-if="x.Quantity < 1">
+								<img class="img-responsive" id='{{ x.PartNo }}_qresult' name='{{ x.PartNo }}_qresult' class="qresult" src='img/sold_out.png' height="100" width="100"/>
+							</td>
 						</tr>
 					</tbody>
 				</table>
