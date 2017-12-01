@@ -124,7 +124,10 @@
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="partno">PartNo:</label>
 					<div class="col-sm-10">
-						<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" name="partno" placeholder="Part Number" required>
+						<input type="text" class="form-control" id="partno" name="partno" placeholder="Part Number" data-remote="php/CheckPartNo.php" data-remote-error="Part number already taken." required>
+						<div class="text-left">
+                    		<span class="help-block with-errors" />
+                  		</div>
 					</div>
 				</div>
 
