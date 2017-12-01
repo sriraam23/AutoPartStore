@@ -235,7 +235,8 @@
 					
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<input class="btn btn-primary" id="submit" name="submit" type="submit" value="Update"/>
+							<button class="btn btn-primary" id="submit" name="submit" type="submit">Update</button>
+							<button class="btn btn-default" id="reset" name="reset" type="button" ng-click="ResetUpdate()">Cancel</button>
 						</div>
 					</div>
 				</form>
@@ -425,6 +426,10 @@
 				}, 50);
 				
 				$('#succUpdate').modal('hide');
+			}
+
+			$scope.ResetUpdate = function() {
+				$scope.getAllPartInfo('');
 			}
 		});
 	</script>
