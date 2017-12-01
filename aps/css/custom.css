@@ -12,6 +12,7 @@
 
 .navbar-brand {
 	padding: 0px;
+    padding-top: 2px;
 }
 
 .navbar-brand>img {
