@@ -27,7 +27,7 @@
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/totop.js"></script>
 	<script type="text/javascript" src="js/validator.min.js"></script>
-    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+    <!--<script type="text/javascript" src="js/jquery.mask.min.js"></script>-->
 </head>
 
 <body ng-controller="addpartCtrl">
@@ -86,107 +86,109 @@
 	<div class="container">	
 		<div>
 			<form class="form-horizontal" id="addform" name="addform" enctype="multipart/form-data" data-toggle="validator">
-				<!--
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="carMake">Select Make:</label>
-					<div class="col-sm-10">
-						<select class="form-control" id="carMake" name="carMake" ng-model="formData.carMake" ng-change="getCarModel()" required> 
-							<option value="">Select Make</option>
-							<option class="ng-cloak" ng-repeat="a in make" value={{a.Make}}>{{a.Make}}</option>
-						</select>
+				<fieldset>
+					<!--
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="carMake">Select Make:</label>
+						<div class="col-sm-10">
+							<select class="form-control" id="carMake" name="carMake" ng-model="formData.carMake" ng-change="getCarModel()" required> 
+								<option value="">Select Make</option>
+								<option class="ng-cloak" ng-repeat="a in make" value={{a.Make}}>{{a.Make}}</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="carModel">Select Model:</label>
-					<div class="col-sm-10">
-						<select class="form-control" id="carModel" name="carModel" required> 
-							<option value="">Select Model</option>
-							<option class="ng-cloak" ng-repeat="a in model" value={{a.Model}}>{{a.Model}}</option>
-						</select>
+					
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="carModel">Select Model:</label>
+						<div class="col-sm-10">
+							<select class="form-control" id="carModel" name="carModel" required> 
+								<option value="">Select Model</option>
+								<option class="ng-cloak" ng-repeat="a in model" value={{a.Model}}>{{a.Model}}</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="carMinYear">Enter Min Year:</label>
-					<div class="col-sm-10">
-						<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carMinYear" name="carMinYear" placeholder="Car Model Minimum Year" required>
+					
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="carMinYear">Enter Min Year:</label>
+						<div class="col-sm-10">
+							<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carMinYear" name="carMinYear" placeholder="Car Model Minimum Year" required>
+						</div>
 					</div>
-				</div>
-				
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="carMaxYear">Enter Max Year:</label>
-					<div class="col-sm-10">
-						<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carMaxYear" name="carMaxYear" placeholder="Car Model Maximum Year" required>
+					
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="carMaxYear">Enter Max Year:</label>
+						<div class="col-sm-10">
+							<input type="text" pattern="\d*" minlength="4" maxlength="4" class="form-control" id="carMaxYear" name="carMaxYear" placeholder="Car Model Maximum Year" required>
+						</div>
 					</div>
-				</div>
-				-->
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="partno">PartNo:</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="partno" name="partno" placeholder="Part Number" data-remote="php/CheckPartNo.php" data-remote-error="Part number already taken." required>
-						<div class="text-left">
-                    		<span class="help-block with-errors" />
-                  		</div>
+					-->
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="partno">PartNo:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="partno" name="partno" placeholder="Part Number" data-remote="php/CheckPartNo.php" data-remote-error="Part number already taken." required>
+							<div class="text-left">
+	                    		<span class="help-block with-errors" />
+	                  		</div>
+						</div>
 					</div>
-				</div>
 
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="pimage">Part Image:</label>
-					<div class="col-sm-10">
-						<input accept="image/*" type="file" id="pimage" name="pimage" />
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="pimage">Part Image:</label>
+						<div class="col-sm-10">
+							<input accept="image/*" type="file" id="pimage" name="pimage" />
+						</div>
 					</div>
-				</div>
+					
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="pname">Part Name:</label>
+						<div class="col-sm-10">
+							<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" name="pname" placeholder="Part Name" required>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="pcompany">Part Company:</label>
+						<div class="col-sm-10">
+							<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" name="pcompany" placeholder="Part Company" required>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="pprice">Part Price:</label>
+						<div class="col-sm-10 hide-inputbtns">
+							<div class="input-group"> 
+								<span class="input-group-addon">$</span>
+	        					<input type="number" value="0.00" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pprice" name="pprice" placeholder="Part Price" required/>
+	        				</div>
+						</div>
+					</div>
 				
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="pname">Part Name:</label>
-					<div class="col-sm-10">
-						<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" name="pname" placeholder="Part Name" required>
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="psubcatid">Part Subcategory:</label>
+						<div class="col-sm-10">
+							<select class="form-control" id="psubcatid" name="psubcatid" required>
+								<option value="">Part Subcategory</option>
+								<option class="ng-cloak" ng-repeat="a in cats" value={{a.SubCat}}>{{a.SubCat}}</option>
+							</select>
+						</div>
+					</div> 
+					
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="pwarrantyid">Part Warranty:</label>
+						<div class="col-sm-10">
+							<select class="form-control" id="pwarrantyid" name="pwarrantyid" required> 
+								<option value="">Part Warranty</option>
+								<option class="ng-cloak" ng-repeat="a in warrn" value={{a.WarrantyID}}>{{a.Type}}</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="pcompany">Part Company:</label>
-					<div class="col-sm-10">
-						<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" name="pcompany" placeholder="Part Company" required>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<input class="btn btn-primary" id="submit" name="submit" type="submit" value="Add"/>
+							<input class="btn btn-default" id="reset" name="reset" type="reset" value="Cancel"/>
+						</div>
 					</div>
-				</div>
-				
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="pprice">Part Price:</label>
-					<div class="col-sm-10 hide-inputbtns">
-						<div class="input-group"> 
-							<span class="input-group-addon">$</span>
-        					<input type="number" value="0.00" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pprice" name="pprice" placeholder="Part Price" required/>
-        				</div>
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="psubcatid">Part Subcategory:</label>
-					<div class="col-sm-10">
-						<select class="form-control" id="psubcatid" name="psubcatid" required>
-							<option value="">Part Subcategory</option>
-							<option class="ng-cloak" ng-repeat="a in cats" value={{a.SubCat}}>{{a.SubCat}}</option>
-						</select>
-					</div>
-				</div> 
-				
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="pwarrantyid">Part Warranty:</label>
-					<div class="col-sm-10">
-						<select class="form-control" id="pwarrantyid" name="pwarrantyid" required> 
-							<option value="">Part Warranty</option>
-							<option class="ng-cloak" ng-repeat="a in warrn" value={{a.WarrantyID}}>{{a.Type}}</option>
-						</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<input class="btn btn-primary" id="submit" name="submit" type="submit" value="Add"/>
-						<input class="btn btn-default" id="reset" name="reset" type="reset" value="Cancel"/>
-					</div>
-				</div>
+				</fieldset>
 			</form>
 
 			<a id="back-to-top" href="javascript:void(0)" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
@@ -203,7 +205,7 @@
           </div>
           <div class="modal-body text-center">
             <p class="lead"><img src='img/success.png'/><br/>Add Part Successful!</p>
-            <a href="javascript:void(0)" onclick="$('#addform')[0].reset();$('#succadd').modal('hide');" class="rd_more btn btn-default">Close</a>
+            <a href="javascript:void(0)" onclick='$("#succadd").modal("hide");'' class="rd_more btn btn-default">Close</a>
           </div>
         </div>
       </div>
@@ -240,8 +242,8 @@
 		
 	<script>
 		$(function(){
-        	$("#carMinYear").mask("9999");
-        	$("#carMaxYear").mask("9999");
+        	//$("#carMinYear").mask("9999");
+        	//$("#carMaxYear").mask("9999");
 
         	$("#addform").submit(function(e) {
         		e.preventDefault();
@@ -260,6 +262,7 @@
 						success: function(result){
 							if(result['Status'] == "SUCCESS") {
 								$('#succadd').modal('show');
+								$("#reset").trigger('click');
 							}
 							else {
 								//console.log(result['Status']);
