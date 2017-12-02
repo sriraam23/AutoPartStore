@@ -91,7 +91,14 @@
 					    <td>
 					    	<table class="table table-bordered table-striped table-condensed">
 					    		<tr><td>OrderID:</td><td>{{key.split(',')[0]}}</td></tr>
-					    		<tr><td>Status</td><td>{{key.split(',')[1]}}</td></tr>
+					    		<tr><td>Status:</td><td>{{key.split(',')[1]}}</td></tr>
+					    		<tr><td>Cancel:</td>
+					    			<td>    
+					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" ng-click="cancelOrder(key.split(',')[0])" class="rd_more btn btn-danger">
+											Cancel
+										</button>
+					    			</td>
+					    		</tr>
 					    	</table>
 					    </td>
 					    <td>
@@ -147,6 +154,49 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade success-popup" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="cancelModal">Cancel Order</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead">Are you sure you want to cancel your order?</p>
+            <a ng-click="" onclick="$('#cancelModal').modal('hide');" class="rd_more btn btn-danger">Ok</a>
+            <a href="javascript:void(0)" onclick="$('#cancelModal').modal('hide');" class="rd_more btn btn-success">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <div class="modal fade success-popup" id="failcheck" tabindex="-1" role="dialog" aria-labelledby="failCheckLabel">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="failCheckLabel">Cancel Order</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/fail.png'/><br/>Cancel Order Failed! <br/> <span id="failstatus"></span></p>
+            <a href="javascript:void(0)" onclick="$('#failcheck').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade success-popup" id="cancCheck" tabindex="-1" role="dialog" aria-labelledby="cancCheckLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="cancCheck">Cancel Order</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/success.png'/><br/>Cancel Order Successful!</p>
+            <a href="javascript:void(0)" onclick="$('#cancCheck').modal('hide');" class="rd_more btn btn-default">Ok</a>
+          </div>
+        </div>
+      </div>
+    </div>
 	
 	<script>
 		var app = angular.module('history', ['angular.filter']);
@@ -177,6 +227,32 @@
 			$scope.$on('LastRepeaterElement', function(){
 				//$scope.sort('PartNo');
 			});
+
+			$scope.cancelOrder = function(orderNo) {
+				var queryResult = "";
+				
+				$http.get("php/CancelOrder.php",{params:{"orderNo": orderNo}}).then(function (response) {
+				    queryResult = JSON.stringify(response.data.records);
+					
+					if(queryResult == "[{\"Status\":\"SUCCESS\"}]"){
+						$('#cancCheck').modal('show');
+
+						setTimeout(function(){
+							$scope.updateCartCount();
+						}, 50);
+					}
+					else{
+						$('#failstatus').text(response.data.records[0].Status);
+						$('#failcheck').modal('show');
+
+						setTimeout(function(){
+							$scope.updateCartCount();
+						}, 50);
+					}
+				});
+				$scope.getOrders();
+			}
+			
 		});
 	</script>
 </body>
