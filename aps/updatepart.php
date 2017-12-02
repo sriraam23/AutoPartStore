@@ -118,7 +118,7 @@
 			            </div>
 			        </li>
 			        <li role="presentation" class='ng-cloak' ng-repeat='item in names | filter:query'> 
-			        	<a href="javascript:void(0)" ng-click="getAllPartInfo(item.PartNo)">
+			        	<a id='{{item.PartNo}}' href="javascript:void(0)" ng-click="getAllPartInfo(item.PartNo)">
 			        		<table class="table table-condensed" style="margin-bottom: 0px;">
 			        			<tr class="row">
 			        				<td class="col-md-1">
@@ -267,7 +267,7 @@
           </div>
           <div class="modal-body text-center">
             <p class="lead"><img src='img/success.png'/><br/>Update Part Successful!</p>
-            <button ng-model='button' ng-click="updated()" class="rd_more btn btn-default">Close</a>
+            <a href="javascript:void(0)" onclick="$('#succUpdate').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>
       </div>
@@ -397,6 +397,10 @@
 								if(result['Status'] == "SUCCESS") {
 									//$scope.parts = "";
 									//$scope.getAllParts();
+									setTimeout(function(){
+										$scope.updated($('#partno').val());
+									}, 0);
+
 									$('#succUpdate').modal('show');
 								}
 								else {
@@ -425,18 +429,13 @@
 			
 			$scope.getAllParts();
 
-			$scope.updated = function() {
+			$scope.updated = function(partno) {
 				setTimeout(function(){
-					//console.log("Reset form!");
 					//$scope.getAllParts();
-					angular.element('#getPartsInfo').triggerHandler('click');
-			    }, 0);
-
-			    setTimeout(function(){
 					$scope.getAllParts();
-				}, 50);
-				
-				$('#succUpdate').modal('hide');
+					$("#" + partno).trigger('click');
+					//$("'#" + partno + "'").trigger('click');
+			    }, 0);
 			}
 
 			$scope.ResetUpdate = function() {
