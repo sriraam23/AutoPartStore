@@ -237,22 +237,22 @@
 					if(queryResult == "[{\"Status\":\"SUCCESS\"}]"){
 						$('#cancCheck').modal('show');
 
-						setTimeout(function(){
+						/*setTimeout(function(){
 							$scope.updateCartCount();
-						}, 50);
+						}, 50);*/
 					}
 					else{
 						$('#failstatus').text(response.data.records[0].Status);
 						$('#failcheck').modal('show');
 
-						setTimeout(function(){
+						/*setTimeout(function(){
 							$scope.updateCartCount();
-						}, 50);
+						}, 50);*/
 					}
 				});
 				$scope.getOrders();
 			}
-			
+			$scope.getOrders();
 		});
 	</script>
 </body>
