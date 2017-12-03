@@ -28,7 +28,7 @@
 
 <style type="text/css">
 	.color-red{
-		background-color: #E93A3A;
+		background-color: #D0343E;
 		color: white;
 	}
 	.color-green{
