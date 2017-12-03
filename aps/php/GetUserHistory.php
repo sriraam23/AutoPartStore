@@ -37,12 +37,16 @@
 
 				$status = '"OrdStatus":"Processing",';
 
-				if($rs['Shipped'] == '1') {
+				if($rs['Shipped'] == '1' && $rs['Delivered'] == '0') {
 					$status = '"OrdStatus":"Shipped",';
 				}
 
-				if ($rs['Delivered'] == '1') {
+				if ($rs['Shipped'] == '1' && $rs['Delivered'] == '1') {
 					$status = '"OrdStatus":"Delivered",';
+				}
+
+				if ($rs['Shipped'] == '0' && $rs['Delivered'] == '1') {
+					$status = '"OrdStatus":"Cancelled",';
 				}
 
 				$outp .= $status;

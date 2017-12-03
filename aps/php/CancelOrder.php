@@ -33,7 +33,7 @@
 			//error_log("UPDATE sinventory SET StQuantity = '$total' where PartNo = '$partNo'");
 		}
 
-		$result = mysqli_query($mysqli, "DELETE FROM orders where OrderID = '$orderNo'");
+		$result = mysqli_query($mysqli, "UPDATE orders SET Shipped = '0', Delivered = '1' where OrderID = '$orderNo'");
 
 		if($result === TRUE) {
 			mysqli_close($mysqli);
