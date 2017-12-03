@@ -121,7 +121,12 @@
 							<td class="col-md-2" align="left" style="vertical-align: middle;">{{ x.SubCatID }}</td>
 							<td class="col-md-1" align="left" style="vertical-align: middle;">{{ x.WarrantyID }}</td>
 							<td class="col-md-1" align="center" style="vertical-align: middle;">{{ x.Quantity }}</td>
-							<td class="col-md-1" align="left" style="vertical-align: middle;"><img class="img-responsive" ng-src='img/{{ x.Deleted }}' alt='{{ x.Deleted }}' height="20" width="50"/></td>
+							<td class="col-md-1" align="left" style="vertical-align: middle;">
+								<!--<img class="img-responsive" ng-src='img/{{ x.Deleted }}' alt='{{ x.Deleted }}' height="20" width="50"/>-->
+
+								<span class="label label-danger" ng-if="x.Deleted == 0">Active</span>
+								<span class="label label-success" ng-if="x.Deleted == 1">Deleted</span>
+							</td>
 						</tr>
 					</tbody>
 				</table>

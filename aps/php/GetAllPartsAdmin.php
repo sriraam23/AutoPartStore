@@ -20,19 +20,22 @@ if($_SESSION['admin'] == 1) {
 
   while($rs = mysqli_fetch_array($result)) {
     if ($outp != "") {$outp .= ",";}
-      $outp .= '{"PartNo":"'  . $rs["PartNo"]    . '",';
-      $outp .= '"PImage":"'   . $rs["PImage"]    . '",';
-      $outp .= '"Pname":"'   . $rs["Pname"]    . '",';
-      $outp .= '"PCompany":"'  . $rs["PCompany"]   . '",';
-      $outp .= '"Price":'    . $rs["Price"]     . ',';
-      $outp .= '"SubCatID":"'   . $rs["SubCatID"]    . '",';
-      $outp .= '"WarrantyID":"'   . $rs["WarrantyID"]    . '",';
+      $outp .= '{"PartNo":"' . $rs["PartNo"] . '",';
+      $outp .= '"PImage":"' . $rs["PImage"] . '",';
+      $outp .= '"Pname":"' . $rs["Pname"] . '",';
+      $outp .= '"PCompany":"' . $rs["PCompany"] . '",';
+      $outp .= '"Price":' . $rs["Price"] . ',';
+      $outp .= '"SubCatID":"' . $rs["SubCatID"] . '",';
+      $outp .= '"WarrantyID":"' . $rs["WarrantyID"] . '",';
+      $outp .= '"Deleted":' . $rs["Deleted"] . ',';
+      /*
       if($rs["Deleted"] == '0') {
         $outp .= '"Deleted":"active.png",';
       }
       else {
         $outp .= '"Deleted":"deleted.png",';
       }
+      */
       $outp .= '"Quantity":' . $rs["StQuantity"]  . '}';
     }
 

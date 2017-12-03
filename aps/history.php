@@ -102,13 +102,15 @@
 					    		</tr>
 					    		<tr class="row">
 					    			<td class="col-md-4">Status:</td>
-					    			<td class="col-md-8" ng-class="{'alert alert-info': key.split(',')[1] === 'Processing', 'alert alert-danger': key.split(',')[1] === 'Cancelled', 'alert alert-warning': key.split(',')[1] === 'Shipped', 'alert alert-success': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</td>
+					    			<td class="col-md-8" style="vertical-align: middle;">
+					    				<span ng-class="{'label label-info': key.split(',')[1] === 'Processing', 'label label-danger': key.split(',')[1] === 'Cancelled', 'label label-warning': key.split(',')[1] === 'Shipped', 'label label-success': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</span>
+					    			</td>
 					    		</tr>
 					    			
 					    		<tr class="row" ng-hide="{{key.split(',')[1] != 'Processing'}}">
 					    			<td class="col-md-4" style="vertical-align: middle;">Ordered by mistake?</td>
 					    			<td class="col-md-8" style="vertical-align: middle;">
-					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" onclick="$('#cancelModal').modal('show')" ng-click="setOrder(key.split(',')[0])" class="btn btn-danger">
+					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" onclick="$('#cancelModal').modal('show')" ng-click="setOrder(key.split(',')[0])" class="btn btn-xs btn-danger">
 											Cancel Order
 										</button>
 					    			</td>
