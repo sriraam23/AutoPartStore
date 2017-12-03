@@ -67,7 +67,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li>
 						<a href="usercart.php" class="navbar-brand">
-							<span class="glyphicon glyphicon-shopping-cart"></span> <?php include 'php/GetCartItemCount.php' ?>
+							<span class="glyphicon glyphicon-shopping-cart"></span> <span class="badge badge-notify"><?php include 'php/GetCartItemCount.php' ?></span>
 						</a>
 					</li>
 					<li class="dropdown">

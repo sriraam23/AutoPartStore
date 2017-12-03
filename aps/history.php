@@ -22,8 +22,12 @@
 	<script type="text/javascript" src="js/angular-filter.min.js"></script>
 	<script type="text/javascript" src="js/underscore-min.js"></script>
 	<script type="text/javascript" src="js/totop.js"></script>
-		
+	
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
+
+	<style type="text/css">
+		
+	</style>
 </head>
 
 <body ng-controller="histCtrl">
@@ -63,7 +67,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li>
 						<a href="usercart.php" class="navbar-brand">
-							<span class="glyphicon glyphicon-shopping-cart"></span> <?php include 'php/GetCartItemCount.php' ?>
+							<span class="glyphicon glyphicon-shopping-cart"></span> <span class="badge badge-notify"><?php include 'php/GetCartItemCount.php' ?></span>
 						</a>
 					</li>
 					<li class="dropdown">
@@ -103,7 +107,9 @@
 					    		<tr class="row">
 					    			<td class="col-md-4">Status:</td>
 					    			<td class="col-md-8" style="vertical-align: middle;">
-					    				<span ng-class="{'label label-info': key.split(',')[1] === 'Processing', 'label label-danger': key.split(',')[1] === 'Cancelled', 'label label-warning': key.split(',')[1] === 'Shipped', 'label label-success': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</span>
+					    				<h4>
+					    					<span ng-class="{'label label-info': key.split(',')[1] === 'Processing', 'label label-danger': key.split(',')[1] === 'Cancelled', 'label label-warning': key.split(',')[1] === 'Shipped', 'label label-success': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</span>
+					    				</h4>
 					    			</td>
 					    		</tr>
 					    			

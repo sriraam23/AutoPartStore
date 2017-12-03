@@ -34,3 +34,10 @@ input[type=number] {
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
+
+.badge-notify{
+    background: red;
+    position: relative;
+    top: -12px;
+    left: -12px;
+}
