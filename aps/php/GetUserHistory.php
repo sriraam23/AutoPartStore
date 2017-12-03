@@ -51,6 +51,9 @@
 
 				$outp .= $status;
 
+				$ordDate = explode(' ', $rs["OrderTime"] , 2);
+				$outp .= '"OrdDate":"' . $ordDate[0] . '",';
+
 				$outp .= '"PartNo":"' . $rs["PartNo"] . '",';
 			    $outp .= '"PImage":"' . $rs["PImage"] . '",';
 			    $outp .= '"Pname":"' . $rs["PName"] . '",';
