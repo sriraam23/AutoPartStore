@@ -110,7 +110,7 @@
 					    		<tr class="row" ng-hide="{{key.split(',')[1] != 'Processing'}}">
 					    			<td class="col-md-4" style="vertical-align: middle;">Ordered by mistake?</td>
 					    			<td class="col-md-8" style="vertical-align: middle;">
-					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" onclick="$('#cancelModal').modal('show')" ng-click="setOrder(key.split(',')[0])" class="btn btn-xs btn-danger">
+					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" onclick="$('#cancelModal').modal('show')" ng-click="setOrder(key.split(',')[0])" class="btn btn-danger">
 											Cancel Order
 										</button>
 					    			</td>
