@@ -115,11 +115,17 @@
 	                        	<button type="button" class="btn btn-default btn-minus" disabled="disabled"><span class="glyphicon glyphicon-minus"></span></button>
 	                            <input class="ng-cloak" id='pquantity' name='pquantity' type='number' min='1' style="width:70px; text-align:center;" value="1" ng-disabled="{{part.Quantity}} == 0 || {{part.Deleted == 1}}" />
 	                            <button type="button" class="btn btn-default btn-plus" ng-disabled="{{part.Quantity}} == 0 || {{part.Deleted == 1}}"><span class="glyphicon glyphicon-plus"></span></button>
-	                            <button class="btn btn-success" id="addcart" ng-click="addToCart(part.PartNo, part.Price)" ng-disabled="{{part.Quantity}} == 0 || {{part.Deleted == 1}}">
-	                            	<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Cart
-	                            </button>
 	                        </div>
+	                        <br/>
+	                        <div>
+		                        <button class="btn btn-success" id="addcart" ng-click="addToCart(part.PartNo, part.Price)" ng-disabled="{{part.Quantity}} == 0 || {{part.Deleted == 1}}">
+		                            	<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Cart
+		                        </button>
+		                        <span> <button  class="btn btn-warning" id="return" ng-model="button" onclick="history.go(-1);">Go Back</button> </span>
+	                    	</div>
 	                    </div>
+
+	                    
 	                </div>
 				</div>		
 			</div>
