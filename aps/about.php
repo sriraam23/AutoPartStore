@@ -12,9 +12,25 @@
 	
 	<title>Auto Parts Store - About</title>
 
+	<link rel="stylesheet" type="text/css" href="css/please-wait.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" >
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
+
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/angular-filter.min.js"></script>
+	<script type="text/javascript" src="js/underscore-min.js"></script>
+	<script type="text/javascript" src="js/totop.js"></script>
+
+	<script type="text/javascript" src="js/dirPagination.js"></script>
+
+	<script type="text/javascript" src="js/please-wait.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery.mask.min.js"></script>
+	<script type="text/javascript" src="js/validator.min.js"></script>
 	
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
 </head>
@@ -81,7 +97,7 @@
 		</div>
 		
 		<div>
-			<a id="back-to-top" href="javascript:void(0)" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
+			<a id="back-to-top" href="javascript:void(0)" class="btn btn-primary btn-lg back-to-top" role="button">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>
 		</div>		
@@ -101,9 +117,5 @@
         </div>
       </div>
     </div>
-	
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/totop.js"></script>');
 </body>
 </html>

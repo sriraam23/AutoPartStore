@@ -16,18 +16,27 @@
 	
 	<title>Auto Parts Store - Update Part</title>
 
+	<link rel="stylesheet" type="text/css" href="css/please-wait.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" >
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
-	
-	<link rel="icon" type="image/png" href="img/favicon.ico" />
-	
+
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/angular-filter.min.js"></script>
+	<script type="text/javascript" src="js/underscore-min.js"></script>
 	<script type="text/javascript" src="js/totop.js"></script>
+
+	<script type="text/javascript" src="js/dirPagination.js"></script>
+
+	<script type="text/javascript" src="js/please-wait.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery.mask.min.js"></script>
 	<script type="text/javascript" src="js/validator.min.js"></script>
-    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+	
+	<link rel="icon" type="image/png" href="img/favicon.ico" />
 
     <style type="text/css">
     	.dropdown.dropdown-scroll .dropdown-menu {
@@ -50,6 +59,7 @@
 		header('Location: login.html');
 	}
 	?>
+	<div class="inner" ng-view>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -253,7 +263,7 @@
 				</form>
 			</div>
 
-			<a id="back-to-top" href="javascript:void(0)" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
+			<a id="back-to-top" href="javascript:void(0)" class="btn btn-primary btn-lg back-to-top" role="button">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>
 		</div>		
@@ -303,6 +313,12 @@
     </div>
 
 	<script>
+		window.loading_screen = window.pleaseWait({
+	    	logo: "",
+	    	backgroundColor: '#FFF',
+	    	loadingHtml: "<p class='loading-message'></p><div class='spinner'><div class='rect1'></div><div class='rect2'></div><div class='rect3'></div><div class='rect4'></div><div class='rect5'></div></div>"
+		});
+
 		$(function(){
 			
       	});
@@ -317,12 +333,13 @@
 			};
 		});
 		
-		app.controller('uppartCtrl', function($scope, $http) {
+		app.controller('uppartCtrl', function($scope, $window, $http) {
 			$scope.updateCartCount = function() {
 				$http.get("php/GetCartItemCount.php",{}).then(function (response) {
 				    $scope.cartitems = response.data;
 					//$('#count').html($scope.cartitems);
 					//console.log($scope.cartitems);
+					$window.loading_screen.finish();
 				});
 			}
 
@@ -443,5 +460,6 @@
 			}
 		});
 	</script>
+	</div>
 </body>
 </html>

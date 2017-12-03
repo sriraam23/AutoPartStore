@@ -16,21 +16,31 @@
 	
 	<title>Auto Parts Store - All Parts</title>
 
+	<link rel="stylesheet" type="text/css" href="css/please-wait.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" >
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
 
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/angular-filter.min.js"></script>
+	<script type="text/javascript" src="js/underscore-min.js"></script>
 	<script type="text/javascript" src="js/totop.js"></script>
 
 	<script type="text/javascript" src="js/dirPagination.js"></script>
+
+	<script type="text/javascript" src="js/please-wait.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery.mask.min.js"></script>
+	<script type="text/javascript" src="js/validator.min.js"></script>
 	
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
 </head>
 
 <body ng-controller="allPartsCtrl">
+	<div class="inner" ng-view>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -124,8 +134,8 @@
 							<td class="col-md-1" align="left" style="vertical-align: middle;">
 								<!--<img class="img-responsive" ng-src='img/{{ x.Deleted }}' alt='{{ x.Deleted }}' height="20" width="50"/>-->
 
-								<span style="font-size: 1.2em"><span class="label label-success" ng-if="x.Deleted == 0">Active</span></span>
-								<span style="font-size: 1.2em"><span class="label label-danger" ng-if="x.Deleted == 1">Deleted</span></span>
+								<h3><span><span class="label label-success" ng-if="x.Deleted == 0">Active</span></span></h3>
+								<h3><span><span class="label label-danger" ng-if="x.Deleted == 1">Deleted</span></span></h3>
 							</td>
 						</tr>
 					</tbody>
@@ -138,7 +148,7 @@
 				</div>
 			</div>
 
-			<a id="back-to-top" href="javascript:void(0)" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
+			<a id="back-to-top" href="javascript:void(0)" class="btn btn-primary btn-lg back-to-top" role="button">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>
 		</div>		
@@ -160,6 +170,12 @@
     </div>
 	
 	<script>
+		window.loading_screen = window.pleaseWait({
+        	logo: "",
+        	backgroundColor: '#FFF',
+        	loadingHtml: "<p class='loading-message'></p><div class='spinner'><div class='rect1'></div><div class='rect2'></div><div class='rect3'></div><div class='rect4'></div><div class='rect5'></div></div>"
+		});
+
 		var app = angular.module('allParts', ['angularUtils.directives.dirPagination']);
 
 		app.directive('emitLastRepeaterElement', function() {
@@ -170,7 +186,7 @@
 			};
 		});
 		
-		app.controller('allPartsCtrl', function($scope, $http) {
+		app.controller('allPartsCtrl', function($scope, $window, $http) {
 			$scope.getParts = function() {
 				$http.get("php/GetAllPartsAdmin.php",  {
 					params:{}
@@ -187,8 +203,10 @@
 		    }
 
 			$scope.$on('LastRepeaterElement', function(){
+				$window.loading_screen.finish();
 			});
 		});
 	</script>
+	</div>
 </body>
 </html>

@@ -4,18 +4,27 @@
     <meta name="description" content="Auto Parts Store" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
+    <link rel="stylesheet" type="text/css" href="css/please-wait.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
-
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" >
     <link rel="stylesheet" type="text/css" href="css/custom.css">
-    
-    <link rel="icon" type="image/png" href="img/favicon.ico" />
 
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular-filter.min.js"></script>
+    <script type="text/javascript" src="js/underscore-min.js"></script>
     <script type="text/javascript" src="js/totop.js"></script>
+
+    <script type="text/javascript" src="js/dirPagination.js"></script>
+
+    <script type="text/javascript" src="js/please-wait.min.js"></script>
+
+    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
     <script type="text/javascript" src="js/validator.min.js"></script>
+    
+    <link rel="icon" type="image/png" href="img/favicon.ico" />
 
     <title>Auto Parts Store - Sign In</title>
     <style>
