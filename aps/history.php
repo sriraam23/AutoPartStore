@@ -26,6 +26,21 @@
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
 </head>
 
+<style type="text/css">
+	.color-red{
+		background-color: #E93A3A;
+		color: white;
+	}
+	.color-green{
+		background-color: #33BF61;
+		color: white;
+	}
+	.color-yellow{
+		background-color: orange;
+		color: white;
+	}
+</style>
+
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -91,11 +106,14 @@
 					    <td>
 					    	<table class="table table-bordered table-striped table-condensed">
 					    		<tr><td>OrderID:</td><td>{{key.split(',')[0]}}</td></tr>
-					    		<tr><td>Status:</td><td>{{key.split(',')[1]}}</td></tr>
+					    		<tr><td>Status:</td>
+					    			<td ng-class="{'color-red': key.split(',')[1] === 'Cancelled', 'color-yellow': key.split(',')[1] === 'Shipped', 'color-green': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</td>
+					    		</tr>
+					    			
 					    		<tr ng-hide="{{key.split(',')[1] != 'Processing'}}">
 					    			<td>Ordered by mistake?</td>
-					    			<td>
-					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" ng-click="cancelOrder(key.split(',')[0])" class="rd_more btn btn-danger">
+					    			<td style="vertical-align: middle;">
+					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" ng-click="cancelOrder(key.split(',')[0])" class="rd_more btn color-red">
 											Cancel Order
 										</button>
 					    			</td>
