@@ -120,7 +120,7 @@
 			        <li role="presentation" class='ng-cloak' ng-repeat='item in names | filter:query'> 
 			        	<a id='{{item.PartNo}}' href="javascript:void(0)" ng-click="getAllPartInfo(item.PartNo)">
 			        		<table class="table table-condensed" style="margin-bottom: 0px;">
-			        			<tr class="row">
+			        			<tr class="row" ng-class="{'alert alert-danger': item.Deleted === '1'}">
 			        				<td class="col-md-1">
 			        					<img class="img-responsive" ng-src='img/{{item.PImage}}' alt='{{item.PImage}}' height='50px' width="50px"/>
 			        				</td>
