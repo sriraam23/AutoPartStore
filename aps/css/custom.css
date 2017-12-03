@@ -35,13 +35,6 @@ input[type=number] {
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak { display: none !important; }
 
-.badge-notify{
-    background: red;
-    position: relative;
-    top: -12px;
-    left: -12px;
-}
-
 .spinner {
   margin: 100px auto;
   width: 50px;
@@ -102,3 +95,15 @@ body > .inner {
 body.pg-loaded > .inner {
   display: block;
 }
+
+.badge-notify{
+    background: red;
+    position: relative;
+    top: -26px;
+    left: 10px;
+}
+
+#count {
+  margin-right: -25px;
+}
+
