@@ -124,8 +124,8 @@
 							<td class="col-md-1" align="left" style="vertical-align: middle;">
 								<!--<img class="img-responsive" ng-src='img/{{ x.Deleted }}' alt='{{ x.Deleted }}' height="20" width="50"/>-->
 
-								<span class="label label-danger" ng-if="x.Deleted == 0">Active</span>
-								<span class="label label-success" ng-if="x.Deleted == 1">Deleted</span>
+								<span class="label label-success" ng-if="x.Deleted == 0">Active</span>
+								<span class="label label-danger" ng-if="x.Deleted == 1">Deleted</span>
 							</td>
 						</tr>
 					</tbody>
