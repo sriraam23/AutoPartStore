@@ -26,7 +26,22 @@
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
 
 	<style type="text/css">
-		
+		.color-blue{
+			background-color: #000080;
+			color: white;
+		}
+		.color-red{
+			background-color: #D0343E;
+			color: white;
+		}
+		.color-green{
+			background-color: #33BF61;
+			color: white;
+		}
+		.color-yellow{
+			background-color: orange;
+			color: white;
+		}
 	</style>
 </head>
 
@@ -106,10 +121,7 @@
 					    		</tr>
 					    		<tr class="row">
 					    			<td class="col-md-4" style="vertical-align: middle;">Status:</td>
-					    			<td class="col-md-8" style="vertical-align: middle;">
-					    				<h4>
-					    					<span ng-class="{'label label-info': key.split(',')[1] === 'Processing', 'label label-danger': key.split(',')[1] === 'Cancelled', 'label label-warning': key.split(',')[1] === 'Shipped', 'label label-success': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</span>
-					    				</h4>
+					    			<td class="col-md-8" style="vertical-align: middle;" ng-class="{'color-red': key.split(',')[1] === 'Cancelled', 'color-yellow': key.split(',')[1] === 'Shipped', 'color-green': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}
 					    			</td>
 					    		</tr>
 					    			
@@ -117,7 +129,7 @@
 					    			<td class="col-md-4" style="vertical-align: middle;">Ordered by mistake?</td>
 					    			<td class="col-md-8" style="vertical-align: middle;">
 					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" onclick="$('#cancelModal').modal('show')" ng-click="setOrder(key.split(',')[0])" class="btn btn-danger">
-											Cancel Order
+											<strong>Cancel Order</strong>
 										</button>
 					    			</td>
 					    		</tr>
