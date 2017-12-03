@@ -106,7 +106,7 @@
 					    <td>
 					    	<table class="table table-bordered table-striped table-condensed">
 					    		<tr><td>Order Date:</td><td>{{key.split(',')[2]}}</td></tr>
-					    		<tr><td>OrderID:</td><td>{{key.split(',')[0]}}</td></tr>
+					    		<tr><td>Order ID:</td><td>{{key.split(',')[0]}}</td></tr>
 					    		<tr><td>Status:</td>
 					    			<td ng-class="{'color-red': key.split(',')[1] === 'Cancelled', 'color-yellow': key.split(',')[1] === 'Shipped', 'color-green': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</td>
 					    		</tr>
