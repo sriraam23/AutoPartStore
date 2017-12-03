@@ -87,7 +87,7 @@
 		<div>
 			<form class="form-inline">
 		        <div class="form-group">
-		            <label >Search</label>
+		            <label >Search:</label>
 		            <input type="text" ng-model="search" class="form-control" placeholder="Search">
 		        </div>
 		    </form>
