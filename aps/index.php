@@ -144,7 +144,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr dir-paginate="x in names|orderBy:sortKey:reverse|itemsPerPage:4" class="ng-cloak row" emit-last-repeater-element>
+						<tr dir-paginate="x in names|orderBy:sortKey:reverse|itemsPerPage:5" class="ng-cloak row" emit-last-repeater-element>
 							<td class="col-md-1" align="left" style="vertical-align: middle;">{{ x.PartNo}}</td>
 							<td class="col-md-1" align="center" style="vertical-align: middle;"><img class="img-responsive" ng-src='img/{{ x.PImage}}' alt='{{ x.Pname }}' height="100" width="100"></img></td>
 							<td class="col-md-4" align="left" style="vertical-align: middle;"><a href="part.php?partno={{x.PartNo}}">{{ x.PCompany }} {{ x.Pname }}</a></td>
