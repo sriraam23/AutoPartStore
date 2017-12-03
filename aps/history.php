@@ -26,21 +26,6 @@
 	<link rel="icon" type="image/png" href="img/favicon.ico" />
 </head>
 
-<style type="text/css">
-	.color-red{
-		background-color: #D0343E;
-		color: white;
-	}
-	.color-green{
-		background-color: #33BF61;
-		color: white;
-	}
-	.color-yellow{
-		background-color: orange;
-		color: white;
-	}
-</style>
-
 <body ng-controller="histCtrl">
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
@@ -117,13 +102,13 @@
 					    		</tr>
 					    		<tr class="row">
 					    			<td class="col-md-4">Status:</td>
-					    			<td class="col-md-8" ng-class="{'color-red': key.split(',')[1] === 'Cancelled', 'color-yellow': key.split(',')[1] === 'Shipped', 'color-green': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</td>
+					    			<td class="col-md-8" ng-class="{'alert alert-info': key.split(',')[1] === 'Processing', 'alert alert-danger': key.split(',')[1] === 'Cancelled', 'alert alert-warning': key.split(',')[1] === 'Shipped', 'alert alert-success': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</td>
 					    		</tr>
 					    			
 					    		<tr class="row" ng-hide="{{key.split(',')[1] != 'Processing'}}">
 					    			<td class="col-md-4" style="vertical-align: middle;">Ordered by mistake?</td>
 					    			<td class="col-md-8" style="vertical-align: middle;">
-					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" onclick="$('#cancelModal').modal('show')" ng-click="setOrder(key.split(',')[0])" class="rd_more btn color-red">
+					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" onclick="$('#cancelModal').modal('show')" ng-click="setOrder(key.split(',')[0])" class="btn btn-danger">
 											Cancel Order
 										</button>
 					    			</td>
