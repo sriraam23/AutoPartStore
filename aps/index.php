@@ -109,7 +109,7 @@
 						<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getParts()">Filter</button>
 					</div>
 					<div class="form-group">
-						<button  class="btn btn-default" id="getPartsInfoClear" ng-model="button" ng-click="getPartsClear()">Clear</button>
+						<button  class="btn btn-warning" id="getPartsInfoClear" ng-model="button" ng-click="getPartsClear()">Clear</button>
 					</div>
 				</fieldset>
 			</form>

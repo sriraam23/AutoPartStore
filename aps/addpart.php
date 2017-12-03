@@ -185,7 +185,7 @@
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<input class="btn btn-primary" id="submit" name="submit" type="submit" value="Add"/>
-							<input class="btn btn-default" id="reset" name="reset" type="reset" value="Cancel"/>
+							<input class="btn btn-warning" id="reset" name="reset" type="reset" value="Cancel"/>
 						</div>
 					</div>
 				</fieldset>

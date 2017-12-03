@@ -104,7 +104,7 @@
 						</td>
 						
 						<td class="col-md-1" align="right" style="vertical-align: middle; text-align: right;">
-							<input type='button' class="btn btn-default" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" value="Update Cart"/>
+							<input type='button' class="btn btn-success" id="{{ x.PartNo }}" ng-click="updateCart(x.PartNo)" value="Update Cart"/>
 						</td>
 						<td class="col-md-1" align="right" style="vertical-align: top;">
 							<a href="javascript:void(0)" ng-click="deleteFromCart(x.PartNo)">
@@ -133,7 +133,7 @@
 						<th></th>
 						<th></th>
 						<th align="right" style="vertical-align: middle; text-align: right;">
-							<input type='button' class="btn btn-info cart" id="emptycart" ng-click="emptycart()" value="Empty Cart"/>
+							<input type='button' class="btn btn-warning cart" id="emptycart" ng-click="emptycart()" value="Empty Cart"/>
 						</th>
 						<th align="right" style="vertical-align: middle; text-align: right;">
 							<input type='button' class="btn btn-primary cart" id="checkout" ng-click="checkout()" value="Checkout"/>
