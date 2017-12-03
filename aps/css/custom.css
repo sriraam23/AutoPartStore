@@ -102,7 +102,3 @@ body > .inner {
 body.pg-loaded > .inner {
   display: block;
 }
-
-.dropdown {
-  margin-left: -25px;
-}
