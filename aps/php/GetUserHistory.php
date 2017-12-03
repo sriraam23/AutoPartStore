@@ -37,15 +37,15 @@
 
 				$status = '"OrdStatus":"Processing",';
 
-				if($rs['Shipped'] == '1' && $rs['Delivered'] == '0') {
+				if($rs['Shipped'] == '1') {
 					$status = '"OrdStatus":"Shipped",';
 				}
 
-				if ($rs['Shipped'] == '1' && $rs['Delivered'] == '1') {
+				if ($rs['Delivered'] == '1') {
 					$status = '"OrdStatus":"Delivered",';
 				}
 
-				if ($rs['Shipped'] == '0' && $rs['Delivered'] == '1') {
+				if ($rs['Cancelled'] == '1') {
 					$status = '"OrdStatus":"Cancelled",';
 				}
 
@@ -53,7 +53,6 @@
 
 				$ordDate = explode(' ', $rs["OrderTime"] , 2);
 				$outp .= '"OrdDate":"' . $ordDate[0] . '",';
-
 				$outp .= '"PartNo":"' . $rs["PartNo"] . '",';
 			    $outp .= '"PImage":"' . $rs["PImage"] . '",';
 			    $outp .= '"Pname":"' . $rs["PName"] . '",';

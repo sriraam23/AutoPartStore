@@ -11,13 +11,21 @@
 
 		/* check connection */
 		if (mysqli_connect_errno()) {
-			printf("Connect failed: %s\n", mysqli_connect_error());
+			echo "{\"records\":[{\"Status\":\"Couldn't cancel the Order.\"}]}";
 			exit();
 		}
 
 		$orderNo = $_GET['orderNo'];
 
+		$check = mysqli_query($mysqli, "SELECT * FROM orders WHERE Username = '$username' AND OrderID = '$orderNo' AND Shipped = '0' AND Delivered = '0'");
+
+		if(mysqli_num_rows($check) == 0) {
+			echo "{\"records\":[{\"Status\":\"Couldn't cancel the Order.\"}]}";
+			exit();
+		}
+
 		$r1 = mysqli_query($mysqli, "SELECT * FROM oinventory where OrderID = '$orderNo'");
+
 		while($row = mysqli_fetch_assoc($r1)) {
 			$partNo = $row['PartNo'];
 			$quantity = $row['OrQuantity'];
@@ -33,7 +41,7 @@
 			//error_log("UPDATE sinventory SET StQuantity = '$total' where PartNo = '$partNo'");
 		}
 
-		$result = mysqli_query($mysqli, "UPDATE orders SET Shipped = '0', Delivered = '1' where OrderID = '$orderNo'");
+		$result = mysqli_query($mysqli, "UPDATE orders SET Cancelled = '1', Shipped = '0', Delivered = '0', CDate = now() WHERE OrderID = '$orderNo'");
 
 		if($result === TRUE) {
 			mysqli_close($mysqli);

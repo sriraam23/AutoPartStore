@@ -41,7 +41,7 @@
 	}
 </style>
 
-<body>
+<body ng-controller="histCtrl">
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -95,26 +95,35 @@
 	</nav>
 
 	<div class="container">
-		<div ng-controller="histCtrl">
+		<div>
 			<table class="table table-bordered table-striped table-condensed">
 				<thead>
-					<th>OrderID</th>
-					<th>Inventory</th>
+					<tr>
+						<th>OrderID</th>
+						<th>Inventory</th>
+					</tr>
 				</thead>
 				<tbody>
 					<tr class="ng-cloak" ng-repeat="(key, value) in orders | groupBy: '[OrderID,OrdStatus,OrdDate]'">
 					    <td>
 					    	<table class="table table-bordered table-striped table-condensed">
-					    		<tr><td>Order Date:</td><td>{{key.split(',')[2]}}</td></tr>
-					    		<tr><td>Order ID:</td><td>{{key.split(',')[0]}}</td></tr>
-					    		<tr><td>Status:</td>
-					    			<td ng-class="{'color-red': key.split(',')[1] === 'Cancelled', 'color-yellow': key.split(',')[1] === 'Shipped', 'color-green': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</td>
+					    		<tr class="row">
+					    			<td class="col-md-4">Order ID:</td>
+					    			<td class="col-md-8">{{key.split(',')[0]}}</td>
+					    		</tr>
+					    		<tr class="row">
+					    			<td class="col-md-4">Order Date:</td>
+					    			<td class="col-md-8">{{key.split(',')[2]}}</td>
+					    		</tr>
+					    		<tr class="row">
+					    			<td class="col-md-4">Status:</td>
+					    			<td class="col-md-8" ng-class="{'color-red': key.split(',')[1] === 'Cancelled', 'color-yellow': key.split(',')[1] === 'Shipped', 'color-green': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</td>
 					    		</tr>
 					    			
-					    		<tr ng-hide="{{key.split(',')[1] != 'Processing'}}">
-					    			<td>Ordered by mistake?</td>
-					    			<td style="vertical-align: middle;">
-					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" ng-click="cancelOrder(key.split(',')[0])" class="rd_more btn color-red">
+					    		<tr class="row" ng-hide="{{key.split(',')[1] != 'Processing'}}">
+					    			<td class="col-md-4" style="vertical-align: middle;">Ordered by mistake?</td>
+					    			<td class="col-md-8" style="vertical-align: middle;">
+					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" onclick="$('#cancelModal').modal('show')" ng-click="setOrder(key.split(',')[0])" class="rd_more btn color-red">
 											Cancel Order
 										</button>
 					    			</td>
@@ -183,8 +192,8 @@
           </div>
           <div class="modal-body text-center">
             <p class="lead">Are you sure you want to cancel your order?</p>
-            <a ng-click="" onclick="$('#cancelModal').modal('hide');" class="rd_more btn btn-danger">Ok</a>
-            <a href="javascript:void(0)" onclick="$('#cancelModal').modal('hide');" class="rd_more btn btn-success">Cancel</a>
+            <button type="button" onclick="$('#cancelModal').modal('hide');" ng-click="cancelOrder()" class="rd_more btn btn-danger">Yes</button>
+            <button type="button" onclick="$('#cancelModal').modal('hide');" class="rd_more btn btn-success">No</button>
           </div>
         </div>
       </div>
@@ -212,16 +221,13 @@
           </div>
           <div class="modal-body text-center">
             <p class="lead"><img src='img/success.png'/><br/>Cancel Order Successful!</p>
-            <a href="javascript:void(0)" onclick="$('#cancCheck').modal('hide');" class="rd_more btn btn-default">Ok</a>
+            <a href="javascript:void(0)" onclick="$('#cancCheck').modal('hide');" class="rd_more btn btn-default">Close</a>
           </div>
         </div>
       </div>
     </div>
 	
 	<script>
-		$('#cancCheck').on('hidden.bs.modal', function () {
-		  window.location.reload();
-		});
 		var app = angular.module('history', ['angular.filter']);
 
 		app.directive('emitLastRepeaterElement', function() {
@@ -251,30 +257,34 @@
 				//$scope.sort('PartNo');
 			});
 
+			$scope.setOrder = function(order) {
+				$scope.cancelOrderNo = order;
+			}
+
 			
-			$scope.cancelOrder = function(orderNo) {
+			$scope.cancelOrder = function() {
+				//console.log($scope.cancelOrderNo);
 				var queryResult = "";
 				
-				$http.get("php/CancelOrder.php",{params:{"orderNo": orderNo}}).then(function (response) {
+				$http.get("php/CancelOrder.php",{params:{"orderNo": $scope.cancelOrderNo}}).then(function (response) {
 				    queryResult = JSON.stringify(response.data.records);
 					
 					if(queryResult == "[{\"Status\":\"SUCCESS\"}]"){
 
 						$('#cancCheck').modal('show');
 						
-						/*setTimeout(function(){
-							$scope.updateCartCount();
-						}, 50);*/
+						setTimeout(function(){
+							$scope.getOrders();
+						}, 0);
 					}
 					else{
 						$('#failstatus').text(response.data.records[0].Status);
 						$('#failcheck').modal('show');
-
-						/*setTimeout(function(){
-							$scope.updateCartCount();
-						}, 50);*/
-					}								
+					}			
 				});	
+
+				$scope.cancelOrderNo = ""
+				console.log($scope.cancelOrderNo);
 			}		
 		});
 	</script>
