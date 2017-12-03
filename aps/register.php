@@ -40,10 +40,12 @@
       <div class="row vertical-center-row">
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
-            <div style="text-align: center;">
-              <img style="width:64px;height:64px;" src="img/favicon.ico">
-              <span style="font-size: 30px; vertical-align: middle;"><strong> Auto Parts Store </strong></span>
-            </div>
+            <a href="index.php" style="text-decoration: none;color: #444;">
+              <div style="text-align: center;">
+                <img style="width:64px;height:64px;" src="img/favicon.ico">
+                <span style="font-size: 30px; vertical-align: middle;"><strong> Auto Parts Store </strong></span>
+              </div>
+            </a>
 
             <br/>
 
