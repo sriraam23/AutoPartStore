@@ -92,10 +92,11 @@
 					    	<table class="table table-bordered table-striped table-condensed">
 					    		<tr><td>OrderID:</td><td>{{key.split(',')[0]}}</td></tr>
 					    		<tr><td>Status:</td><td>{{key.split(',')[1]}}</td></tr>
-					    		<tr><td>Cancel:</td>
-					    			<td>    
+					    		<tr ng-hide="{{key.split(',')[1] != 'Processing'}}">
+					    			<td>Ordered by mistake?</td>
+					    			<td>
 					    				<button type="button" id="{{ key.split(',')[0] }}" ng-disabled="{{key.split(',')[1] != 'Processing'}}" ng-click="cancelOrder(key.split(',')[0])" class="rd_more btn btn-danger">
-											Cancel
+											Cancel Order
 										</button>
 					    			</td>
 					    		</tr>
@@ -192,7 +193,7 @@
           </div>
           <div class="modal-body text-center">
             <p class="lead"><img src='img/success.png'/><br/>Cancel Order Successful!</p>
-            <a href="javascript:void(0)" onclick="$('#cancCheck').modal('hide');" class="rd_more btn btn-default">Ok</a>
+            <a href="javascript:void(0)" onclick="window.location.reload();" class="rd_more btn btn-default">Ok</a>
           </div>
         </div>
       </div>
@@ -228,6 +229,7 @@
 				//$scope.sort('PartNo');
 			});
 
+			
 			$scope.cancelOrder = function(orderNo) {
 				var queryResult = "";
 				
@@ -235,8 +237,9 @@
 				    queryResult = JSON.stringify(response.data.records);
 					
 					if(queryResult == "[{\"Status\":\"SUCCESS\"}]"){
-						$('#cancCheck').modal('show');
 
+						$('#cancCheck').modal('show');
+						
 						/*setTimeout(function(){
 							$scope.updateCartCount();
 						}, 50);*/
@@ -248,11 +251,9 @@
 						/*setTimeout(function(){
 							$scope.updateCartCount();
 						}, 50);*/
-					}
-				});
-				$scope.getOrders();
-			}
-			$scope.getOrders();
+					}								
+				});	
+			}		
 		});
 	</script>
 </body>
