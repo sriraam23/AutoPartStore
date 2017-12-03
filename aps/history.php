@@ -193,13 +193,16 @@
           </div>
           <div class="modal-body text-center">
             <p class="lead"><img src='img/success.png'/><br/>Cancel Order Successful!</p>
-            <a href="javascript:void(0)" onclick="window.location.reload();" class="rd_more btn btn-default">Ok</a>
+            <a href="javascript:void(0)" onclick="$('#cancCheck').modal('hide');" class="rd_more btn btn-default">Ok</a>
           </div>
         </div>
       </div>
     </div>
 	
 	<script>
+		$('#cancCheck').on('hidden.bs.modal', function () {
+		  window.location.reload();
+		});
 		var app = angular.module('history', ['angular.filter']);
 
 		app.directive('emitLastRepeaterElement', function() {
