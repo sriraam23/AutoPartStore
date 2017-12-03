@@ -108,7 +108,7 @@
 			    	<span class="pull-left">Select Part</span>
 			    	<span class="glyphicon glyphicon-menu-down pull-right"></span>
 			    </button>
-			    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+			    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="width: 100%">
 			        <li role="presentation">
 			            <div class="input-group input-group-sm search-control">
 			            	<span class="input-group-addon">
