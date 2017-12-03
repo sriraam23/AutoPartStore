@@ -97,15 +97,15 @@
 					    <td>
 					    	<table class="table table-bordered table-striped table-condensed">
 					    		<tr class="row">
-					    			<td class="col-md-4">Order ID:</td>
-					    			<td class="col-md-8">{{key.split(',')[0]}}</td>
+					    			<td class="col-md-4" style="vertical-align: middle;">Order ID:</td>
+					    			<td class="col-md-8" style="vertical-align: middle;">{{key.split(',')[0]}}</td>
 					    		</tr>
 					    		<tr class="row">
-					    			<td class="col-md-4">Order Date:</td>
-					    			<td class="col-md-8">{{key.split(',')[2]}}</td>
+					    			<td class="col-md-4" style="vertical-align: middle;">Order Date:</td>
+					    			<td class="col-md-8" style="vertical-align: middle;">{{key.split(',')[2]}}</td>
 					    		</tr>
 					    		<tr class="row">
-					    			<td class="col-md-4">Status:</td>
+					    			<td class="col-md-4" style="vertical-align: middle;">Status:</td>
 					    			<td class="col-md-8" style="vertical-align: middle;">
 					    				<h4>
 					    					<span ng-class="{'label label-info': key.split(',')[1] === 'Processing', 'label label-danger': key.split(',')[1] === 'Cancelled', 'label label-warning': key.split(',')[1] === 'Shipped', 'label label-success': key.split(',')[1] === 'Delivered'}">{{key.split(',')[1]}}</span>
