@@ -121,7 +121,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="ng-cloak" ng-repeat="(key, value) in orders | groupBy: '[OrderID,OrdStatus,OrdDate]'">
+					<tr class="ng-cloak" ng-repeat="(key, value) in orders | groupBy: '[OrderID,OrdStatus,OrdDate]'" ng-init="total = 0" ng-init="qty = 0">
 					    <td>
 					    	<table class="table table-bordered table-striped table-condensed">
 					    		<tr class="row">
@@ -263,6 +263,9 @@
 		});
 		
 		app.controller('histCtrl', function($scope, $window, $http) {
+			$scope.total = 0;
+			$scope.qty = 0;
+
 			$scope.getOrders = function() {
 				$http.get("php/GetUserHistory.php", {params:{}}).then(function (response) {
 					$scope.orders = response.data.records;
@@ -299,6 +302,7 @@
 						$('#cancCheck').modal('show');
 						
 						setTimeout(function(){
+							$scope.orders = "";
 							$scope.getOrders();
 						}, 0);
 					}

@@ -343,6 +343,7 @@
 								$('#succupdate').modal('show');
 
 								setTimeout(function(){
+									$scope.names = "";
 									$scope.getCart();
 								}, 1000);
 
