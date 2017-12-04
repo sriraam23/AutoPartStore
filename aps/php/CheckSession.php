@@ -4,6 +4,6 @@
 	header("Content-Type: text/html");
 	
 	if(!(isset($_SESSION['sess_username']))){
-		header('Location: /aps/login.php');
+		header('Location: login.php');
 	}
 ?>
