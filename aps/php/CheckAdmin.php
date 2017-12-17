@@ -1,9 +1,14 @@
 <?php
-	$mysqli = mysqli_connect('localhost', 'root', 'root', 'autopartstore');
+	session_start();
+
+	include 'dbconfig.php';
+	// echo "$dbuser";
+	$mysqli = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 	
+	/* check connection */
 	if (mysqli_connect_errno()) {
-	 printf("Connect failed: %s\n", mysqli_connect_error());
-	 exit();
+		printf("Connect failed: %s\n", mysqli_connect_error());
+		exit();
 	}
 
 	$username = $_SESSION['sess_username'];
@@ -12,4 +17,6 @@
 	$row = mysqli_fetch_assoc($r);
 	$admin = $row['Admin'];
 	$_SESSION['admin'] = $admin;
+
+	header("Content-Type: text/html");
 ?>

@@ -1,8 +1,9 @@
 <?php
 	include 'php/CheckSession.php';
 	include 'php/CheckAdmin.php';
-		if ($_SESSION['admin'] != 1){
-		header('Location: index.php');
+	
+	if ($_SESSION['admin'] != 1){
+		header('Location: unauthorized.php');
 	}
 ?>
 <html ng-app="uppart" lang="en">
@@ -13,27 +14,52 @@
 	<meta http-equiv="content-language" content="en" />
 	<meta name="google" content="notranslate" />
 	
-	<title>Auto Part Store</title>
+	<title>Auto Parts Store - Update Part</title>
 
+	<link rel="stylesheet" type="text/css" href="css/please-wait.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" >
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
-	
-	<link rel="icon" type="image/png" href="img/favicon.ico" />
-	
+
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/angular-filter.min.js"></script>
+	<script type="text/javascript" src="js/underscore-min.js"></script>
 	<script type="text/javascript" src="js/totop.js"></script>
+
+	<script type="text/javascript" src="js/dirPagination.js"></script>
+
+	<script type="text/javascript" src="js/please-wait.min.js"></script>
+
+	<script type="text/javascript" src="js/jquery.mask.min.js"></script>
+	<script type="text/javascript" src="js/validator.min.js"></script>
+	
+	<link rel="icon" type="image/png" href="img/favicon.ico" />
+
+    <style type="text/css">
+    	.dropdown.dropdown-scroll .dropdown-menu {
+		    max-height: 20em;
+		    overflow: auto;
+		}
+		.search-control {
+		    padding: 5px 10px;
+		}
+		.searchtbn {
+			width: 100%;
+		}
+    </style>
 </head>
 
-<body>
+<body id='uppartCtrl' ng-controller="uppartCtrl">
 	<?php
 	session_start();
 	if(!(isset($_SESSION['sess_username']))){
 		header('Location: login.html');
 	}
 	?>
+	<div class="inner" ng-view>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -46,150 +72,371 @@
 				<a class="navbar-brand" href="index.php">
 					<span style="padding-right: 10px">
 						<img alt="Brand" src="./img/favicon.ico">
-						Auto Part Store  
+						Auto Parts Store  
 					</span>
 				</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="index.php">Get Parts</a></li>
+					<li><a href="index.php">Buy Parts</a></li>
+
+					<?php if($_SESSION['admin'] == 1) : ?>
+
+					<li><a href="allparts.php">All Parts</a></li>
 					<li><a href="addpart.php">Add Part</a></li>
 					<li class="active"><a href="updatepart.php">Update Part</a></li>
-					<li><a href="deletepart.php">Delete Part</a></li>
+					<!--<li><a href="deletepart.php">Delete Part</a></li>-->
+
+					<?php endif; ?>
+					
 					<li><a href="about.php">About</a></li>
-					<li><a href="usercart.php">Cart</a></li>
+					<!--<li><a href="usercart.php">Cart</a></li>-->
 				</ul>
+
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="logout.php" class="navbar-brand" onclick="return confirm('Are you sure you want to logout?');">
-							<span style="padding-right: 10px">
-								<img alt="Brand" src="./img/logout.ico">
-								<strong>Logout</strong>
+					<li>
+						<a href="usercart.php" class="navbar-brand">
+							<span class="glyphicon glyphicon-shopping-cart"></span>
+							<span class="ng-cloak" id="count">
+								<span class="badge badge-notify">{{ cartitems }}</span>
 							</span>
 						</a>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, <?php echo $_SESSION['sess_username'] ?> <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="history.php">Order History</a></li>
+							<li class="divider"></li>
+							<li><a href="javascript:void(0)" onclick="$('#logoutModal').modal('show');"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+		                </ul>
 					</li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>
 	<div class="container">
-		<div ng-controller="uppartCtrl">
+		<div>
+			<div class="dropdown dropdown-scroll"">
+			    <button class="btn btn-default dropdown-toggle searchtbn" type="button" id="dropdownMenu1" data-toggle="dropdown">
+			    	<span class="pull-left">Select Part</span>
+			    	<span class="glyphicon glyphicon-menu-down pull-right"></span>
+			    </button>
+			    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="width: 100%">
+			        <li role="presentation">
+			            <div class="input-group input-group-sm search-control">
+			            	<span class="input-group-addon">
+			            		<span class="glyphicon glyphicon-search"></span>
+			            	</span>
+			            	<input type="text" class="form-control" placeholder="Keyword Search" ng-model="query"></input>
+			            </div>
+			        </li>
+			        <li role="presentation" class='ng-cloak' ng-repeat='item in names | filter:query'> 
+			        	<a id='{{item.PartNo}}' href="javascript:void(0)" ng-click="getAllPartInfo(item.PartNo)">
+			        		<table class="table table-condensed" style="margin-bottom: 0px;">
+			        			<tr class="row" ng-class="{'alert alert-danger': item.Deleted === '1'}">
+			        				<td class="col-md-1">
+			        					<img class="img-responsive" ng-src='img/{{item.PImage}}' alt='{{item.PImage}}' height='50px' width="50px"/>
+			        				</td>
+			        				<td class="col-md-11">
+			        					{{item.PartNo}} {{item.PCompany}} {{item.Pname}}
+			        				</td>
+			        			</tr>
+			        		</table>
+			        	</a>
+			        </li>
+			    </ul>
+			</div>
+			<hr/>
+			<!--
 			<form class="form-inline">
 				<div class="form-group">
-					<label for="part">Select PartNo:</label>
-					<select class="form-control" id="part" ng-model="string" ng-change="getCarModel()"> 
+					<label for="part">Select Part:</label>
+					<select class="form-control ng-cloak" id="part" data-live-search="true"> 
 						<option value="">Select Part</option>
-						<option ng-repeat="a in names" value={{a.PartNo}}>{{a.PartNo}}</option>
+						<option class="ng-cloak" ng-repeat="a in names" value='{{a.PartNo}}' data-tokens='{{a.PartNo}} {{a.PCompany}} {{a.Pname}}'>{{a.PartNo}} {{a.PCompany}} {{a.Pname}}</option>
 					</select>
 				</div>
+
 				<div class="form-group">
-					<button  class="btn btn-primary" id="getPartsInfo" ng-model="button" ng-click="getAllPartInfo()">Submit</button>
+					<button  class="btn btn-default" id="getPartsInfo" ng-model="button" ng-click="getAllPartInfo()">Get Part Info</button>
 				</div>
 			</form>
-			
-			<div ng-repeat="part in parts">
-				<form class="form-horizontal" role="form">
+			-->
+			<div class="ng-cloak" ng-repeat="part in parts" emit-last-repeater-element>
+				<form class="form-horizontal" id="updateform" name="updateform" enctype="multipart/form-data">
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="partno">Part Number:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" placeholder="Part Number" value={{part.PartNo}} disabled>
+							<input minlength="1" maxlength="10" type="text" class="form-control" id="partno" name="partno" placeholder="Part Number" value="{{part.PartNo}}" readonly required />
 						</div>
 					</div>
-					
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="cimage">Current Part Image:</label>
+						<div class="col-sm-10">
+							<img class="img-responsive" ng-src='img/{{part.PImage}}' alt='{{ part.Pname }}' height="100" width="100" id="cimage" name="cimage"></img>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="file">Part Image:</label>
+						<div class="col-sm-10">
+							<input accept="image/*" type="file" id="pimage" name="pimage" />
+						</div>
+					</div>
+						
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pname">Part Name:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" placeholder="Part Name" value={{part.Pname}}>
+							<input minlength="1" maxlength="50" type="text" class="form-control" id="pname" name="pname" placeholder="Part Name" value={{part.Pname}} required />
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pcompany">Part Company:</label>
 						<div class="col-sm-10">
-							<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" placeholder="Part Company" value={{part.PCompany}}>
+							<input minlength="1" maxlength="50" type="text" class="form-control" id="pcompany" name="pcompany" placeholder="Part Company" value={{part.PCompany}} required />
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="pprice">Part Price:</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="pprice" placeholder="Part Price" value={{part.Price}}>
+						<div class="col-sm-10 hide-inputbtns">
+							<div class="input-group"> 
+								<span class="input-group-addon">$</span>
+								<input type="number" ng-model='number' min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id="pprice" name="pprice" placeholder="Part Price" ng-value="{{part.Price.toFixed(2) || 0.00}}" required />
+	        				</div>
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="psubcat">Part Sub Category:</label>
+						<label class="control-label col-sm-2" for="psubcat">Current Subcategory:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="psubcat" placeholder="Part Sub Category" value={{part.SubCatID}} disabled>
+							<input type="text" class="form-control" id="psubcat" name="psubcat" placeholder="Part Sub Category" value={{part.SubCatID}} readonly />
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="psubcatid">Subcategory:</label>
+						<label class="control-label col-sm-2" for="psubcatid">Part Subcategory:</label>
 						<div class="col-sm-10">
-							<select class="form-control" id="psubcatid">
-								<option value="">Sub Category</option>
-								<option ng-repeat="a in cats" value={{a.SubCat}}>{{a.SubCat}}</option>
+							<select class="form-control" id="psubcatid" name="psubcatid">
+								<option value="">Part Subcategory</option>
+								<option class="ng-cloak" ng-repeat="a in cats" value={{a.SubCat}}>{{a.SubCat}}</option>
 							</select>
 						</div>
 					</div> 
 					
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="pwarranty">Part Warranty:</label>
+						<label class="control-label col-sm-2" for="pwarranty">Current Warranty:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="pwarranty" placeholder="Part Warranty" value={{part.WarrantyID}} disabled>
+							<input type="text" class="form-control" id="pwarranty" name="pwarranty" placeholder="Part Warranty" value={{part.WarrantyID}} readonly />
 						</div>
 					</div>
 					
 					<div class="form-group">
-						<label class="control-label col-sm-2" for="pwarrantyid">Warranty:</label>
+						<label class="control-label col-sm-2" for="pwarrantyid">Part Warranty:</label>
 						<div class="col-sm-10">
-							<select class="form-control" id="pwarrantyid"> 
-								<option value="">Warranty</option>
-								<option value="">No Warranty</option>
-								<option ng-repeat="a in warrn" value={{a.WarrantyID}}>{{a.Type}}</option>
+							<select class="form-control" id="pwarrantyid" name="pwarrantyid"> 
+								<option value="">Part Warranty</option>
+								<option class="ng-cloak" ng-repeat="a in warrn" value={{a.WarrantyID}}>{{a.Type}}</option>
 							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="quantity">Quantity:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" id="quantity" name="quantity" placeholder="Quantity" value='{{part.Quantity}}' required />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="delete">Delete:</label>
+						<div class="col-sm-10 text-left">
+							<input style="margin-top: 12px;" type="checkbox" class="" id="delete" name="delete" ng-checked="{{part.Deleted}} == 1" />
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
-							<button class="btn btn-primary" ng-model="button" ng-click="updatePart()">Update</button>
-						</div>
-					</div>
-					<div class="form-group">
-						<div ng-class="resultclass">
-							<p ng-repeat="a in result"><strong>>{{a.Status}}</strong></p>
+							<button class="btn btn-primary" id="submit" name="submit" type="submit">Update</button>
+							<button class="btn btn-warning" id="reset" name="reset" type="button" ng-click="ResetUpdate()">Cancel</button>
 						</div>
 					</div>
 				</form>
 			</div>
-			
-			<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left">
+
+			<a id="back-to-top" href="javascript:void(0)" class="btn btn-primary btn-lg back-to-top" role="button">
 				<span class="glyphicon glyphicon-chevron-up"></span>
 			</a>
 		</div>		
 	</div>
-		<script>
+
+	<div class="modal fade success-popup" id="succUpdate" tabindex="-1" role="dialog" aria-labelledby="succUpdateLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="succUpdateLabel">Update Part</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/success.png'/><br/>Update Part Successful!</p>
+            <a href="javascript:void(0)" onclick="$('#succUpdate').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade success-popup" id="failUpdate" tabindex="-1" role="dialog" aria-labelledby="failUpdateLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="failUpdateLabel">Update Part</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead"><img src='img/fail.png'/><br/>Update Part Failed! <br/> <span id="failUpdateStatus"></span></p>
+            <a href="javascript:void(0)" onclick="$('#failUpdate').modal('hide');" class="rd_more btn btn-default">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	<div class="modal fade success-popup" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="logoutModalLabel">Logout</h4>
+          </div>
+          <div class="modal-body text-center">
+            <p class="lead">Are you sure you want to logout?</p>
+            <a href="php/logout.php" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-danger">Ok</a>
+            <a href="javascript:void(0)" onclick="$('#logoutModal').modal('hide');" class="rd_more btn btn-success">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+	<script>
+		window.loading_screen = window.pleaseWait({
+	    	logo: "",
+	    	backgroundColor: '#FFF',
+	    	loadingHtml: "<p class='loading-message'></p><div class='spinner'><div class='rect1'></div><div class='rect2'></div><div class='rect3'></div><div class='rect4'></div><div class='rect5'></div></div>"
+		});
+
+		$(function(){
+			
+      	});
+
 		var app = angular.module('uppart', []);
+
+		app.directive('emitLastRepeaterElement', function() {
+			return function(scope) {
+				if (scope.$last){
+					scope.$emit('LastRepeaterElement');
+				}
+			};
+		});
 		
-		app.controller('uppartCtrl', function($scope, $http) {
+		app.controller('uppartCtrl', function($scope, $window, $http) {
+			$scope.updateCartCount = function() {
+				$http.get("php/GetCartItemCount.php",{}).then(function (response) {
+				    $scope.cartitems = response.data;
+					//$('#count').html($scope.cartitems);
+					//console.log($scope.cartitems);
+					$window.loading_screen.finish();
+				});
+			}
+
 			$scope.getAllParts = function() {
-				$http.get("./php/GetAllParts.php").then(function (response) {$scope.names = response.data.records;});
+				$http.get("./php/GetAllParts.php").then(function (response) {
+					$scope.names = response.data.records;
+
+					setTimeout(function(){
+						$scope.updateCartCount();
+					}, 50);
+				});
 			};
 			
 			$scope.getAllPartInfo = function() {
-				$scope.resultclass = "alert";
-				$scope.result = "";
-				
 				var part = $("#part").val();
+
 				$http.get("./php/GetAllPartFromPartNo.php",{params:{"part": part}}).then(function (response) {
 					$scope.parts = response.data.records;
 					
 					$scope.getPartSubCat();
 					$scope.getPartWarranty();
+
+					setTimeout(function(){
+						$scope.updateCartCount();
+					}, 50);
+
+					setTimeout(function(){
+						$scope.getAllParts();
+					}, 50);
 				});
+
+				//$('#message').css("display", "none");
 			};
-			
+
+			$scope.getAllPartInfo = function(part) {
+				$http.get("./php/GetAllPartFromPartNo.php",{params:{"part": part}}).then(function (response) {
+					$scope.parts = response.data.records;
+					
+					$scope.getPartSubCat();
+					$scope.getPartWarranty();
+
+					setTimeout(function(){
+						$scope.updateCartCount();
+					}, 50);
+
+					setTimeout(function(){
+						$scope.getAllParts();
+					}, 50);
+				});
+
+				//$('#message').css("display", "none");
+			};
+
+			$scope.$on('LastRepeaterElement', function(){
+				$("#updateform").submit(function(e) {
+	        		e.preventDefault();
+	    			e.stopPropagation();
+
+	        		if(!$('#submit').hasClass('disabled')) {
+	        			//console.log("Updating...");
+
+						var img = $('#pimage').val();
+						var forms = ($(this).serialize());
+
+						$.ajax({
+							type:"POST",          
+							url: "php/UpdatePart.php",
+							data: new FormData( this ),
+							processData: false,
+						    contentType: false,
+							success: function(result){
+								if(result['Status'] == "SUCCESS") {
+									//$scope.parts = "";
+									//$scope.getAllParts();
+									setTimeout(function(){
+										$scope.updated($('#partno').val());
+									}, 0);
+
+									$('#succUpdate').modal('show');
+								}
+								else {
+									//console.log(result['Status']);
+									$('#failUpdateStatus').text(result['Status']);
+									$('#failUpdate').modal('show');
+								}
+							} 
+						});
+					}
+				});
+				setTimeout(function(){
+					$scope.updateCartCount();
+				}, 50);
+			});
+
 			$scope.getPartSubCat = function() {
 				//console.log("Getting Sub Categories...");
 				$http.get("./php/GetPartSubCat.php").then(function (response) {$scope.cats = response.data.records;});
@@ -200,35 +447,22 @@
 				$http.get("./php/GetPartWarranty.php").then(function (response) {$scope.warrn = response.data.records;});
 			};
 			
-			$scope.updatePart = function() {
-				var partno = $('#partno').val();
-				var pname = $('#pname').val();
-				var pcompany = $('#pcompany').val();
-				var pprice = $('#pprice').val();
-				var psubcatid = $('#psubcatid').val();
-				var pwarrantyid = $('#pwarrantyid').val();
-									
-			    var queryResult = "";
-				
-				$http.get("./php/UpdatePart.php",{params:{"partno": partno, "pname": pname, "pcompany": pcompany, "pprice": pprice, "psubcatid": psubcatid, "pwarrantyid": pwarrantyid}}).then(function (response) {
-				    queryResult = JSON.stringify(response.data.records);
-					
-					if(queryResult == "[{\"Status\":\"SUCCESS\"}]")
-					{
-						//console.log(queryResult);
-						$scope.resultclass = "alert alert-success";
-					}
-					else 
-					{
-						//console.log("FAIL: " + queryResult);
-						$scope.resultclass = "alert alert-danger";
-					}
-					$scope.result = response.data.records;
-				});
-			}
-			
 			$scope.getAllParts();
+
+			$scope.updated = function(partno) {
+				setTimeout(function(){
+					//$scope.getAllParts();
+					$scope.getAllParts();
+					$("#" + partno).trigger('click');
+					//$("'#" + partno + "'").trigger('click');
+			    }, 0);
+			}
+
+			$scope.ResetUpdate = function() {
+				$scope.getAllPartInfo('');
+			}
 		});
-		</script>
+	</script>
+	</div>
 </body>
 </html>
